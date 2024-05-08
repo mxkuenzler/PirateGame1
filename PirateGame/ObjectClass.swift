@@ -22,14 +22,47 @@ class Object {
     
     func spawnObject(rContent: RealityViewContent?, lighting:EnvironmentResource? ,position:SIMD3<Float>) {
         
-//        initiatePhysicsBody(rContent)
-//        initiateLighting(lighting)
+        initiatePhysicsBody()
+        initiateLighting(IBL: lighting!)
         
     }
     
+    func initiatePhysicsBody() {
+        
+        guard let model = Model else { return }
+        
+        model.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+            shapes: [ShapeResource.generateBox(size: SIMD3<Float>(x: 1, y: 1, z: 1))],
+            mass: 1.0,
+            mode: .static
+        ))
+        
+        
+        model.components[PhysicsMotionComponent.self] = .init()
+        
+        
+    }
     
+    func initiateLighting(IBL: EnvironmentResource) {
+        
+        let iblComponent = ImageBasedLightComponent(source: .single(IBL), intensityExponent: 0.25)
+        guard let model = Model else { return }
+            model.components.set(iblComponent)
+            model.components.set(ImageBasedLightReceiverComponent(imageBasedLight: model))
+        
+        
+    }
     
+    static func ==(lhs: Object, rhs: Object) -> Bool {
+        if lhs.getModel() == rhs.getModel(){
+            return true
+        }
+        return false
+    }
     
+    func getModel() -> ModelEntity? {
+        return Model
+    }
     
     
     
