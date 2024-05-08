@@ -27,11 +27,7 @@ struct ImmersiveView: View {
             content.subscribe(
                        to: CollisionEvents.Began.self
                    ) { event in
-                       print("collision started")
-                       let firstEntity = event.entityA
-                       let secondEntity = event.entityB
-                       //firstEntity.removeFromParent()
-                       //secondEntity.removeFromParent()
+                       //call manager handler
                    }
             
             // Add the initial RealityKit content

@@ -16,6 +16,7 @@
 		0EB6A9572BEBA9B90027443F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB6A9562BEBA9B90027443F /* Preview Assets.xcassets */; };
 		0EB6A9622BEBA9B90027443F /* PirateGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */; };
 		3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */; };
+		3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		0EB6A95D2BEBA9B90027443F /* PirateGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PirateGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameTests.swift; sourceTree = "<group>"; };
 		3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectClass.swift; sourceTree = "<group>"; };
+		3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		0EB6A9462BEBA9B70027443F /* PirateGame */ = {
 			isa = PBXGroup;
 			children = (
+				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
@@ -228,6 +231,7 @@
 				3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
+				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
