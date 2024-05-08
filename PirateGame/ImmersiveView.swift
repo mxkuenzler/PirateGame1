@@ -8,17 +8,40 @@
 import SwiftUI
 import RealityKit
 import RealityKitContent
+import Combine
+
+
+var rContent: RealityViewContent?
+var lighting: EnvironmentResource?
+
 
 struct ImmersiveView: View {
+    
+    @State var collisionSubscription:Cancellable?
+    
     var body: some View {
         RealityView { content in
+            
+            rContent = content
+            
+            content.subscribe(
+                       to: CollisionEvents.Began.self
+                   ) { event in
+                       print("collision started")
+                       let firstEntity = event.entityA
+                       let secondEntity = event.entityB
+                       //firstEntity.removeFromParent()
+                       //secondEntity.removeFromParent()
+                   }
+            
             // Add the initial RealityKit content
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                 content.add(immersiveContentEntity)
 
                 // Add an ImageBasedLight for the immersive content
-                guard let resource = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
-                let iblComponent = ImageBasedLightComponent(source: .single(resource), intensityExponent: 0.25)
+                guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
+                lighting = ImageBasedLight
+                let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
                 immersiveContentEntity.components.set(iblComponent)
                 immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
 
