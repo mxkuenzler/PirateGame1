@@ -63,7 +63,7 @@ class Block: Object {
         
         for i in count {
             
-            if Float((pos! - objArr[i].getModel()!.position).scalarCount.magnitude) < minDistance {
+            if distanceBetween(a: pos!, b: objArr[i].getModel()!.position) < minDistance {
                 if self == objArr[i] {
                     
                 }
