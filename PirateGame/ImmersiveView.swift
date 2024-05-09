@@ -13,7 +13,7 @@ import Combine
 
 var rContent: RealityViewContent?
 var lighting: EnvironmentResource?
-
+var manager:GameManager?
 
 struct ImmersiveView: View {
     
@@ -25,12 +25,6 @@ struct ImmersiveView: View {
             //added a comment in Immersive View
             
             rContent = content
-            
-            content.subscribe(
-                       to: CollisionEvents.Began.self
-                   ) { event in
-                       //call manager handler
-                   }
             
             // Add the initial RealityKit content
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
@@ -46,9 +40,63 @@ struct ImmersiveView: View {
                 // Put skybox here.  See example in World project available at
                 // https://developer.apple.com/
             }
-        }
+            
+            manager = GameManager(rContent: rContent, lighting: lighting)
+
+            content.subscribe(to: CollisionEvents.Began.self) { event in
+                print("COLL")
+                manager?.handleCollision(event: event)
+            }
+            
+            
+            
+            for i in 0...1 {
+                
+                var block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
+                manager?.registerObject(object:block)
+                block.setPosition(pos: SIMD3<Float>(x:0,y:Float(i+2),z:0))
+                
+                var cannonBall = Cannonball()
+                manager?.registerObject(object: cannonBall)
+                cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:1,z:0))
+                
+            }
+            
+            
+        }.gesture(gestureA)
+        
+        
+    }
+    
+    var gestureA : some Gesture {
+        DragGesture()
+            .targetedToAnyEntity()
+            .onChanged { value in
+                print("e")
+                var entity = manager?.findObject(model: value.entity as! ModelEntity)
+                if let _ = entity {
+                    entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
+                    entity?.getModel()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    print("Found but doesnt work")
+                } else {
+                    print("didnt find object")
+                }
+                
+            }
+            .onEnded { value in
+                print("a")
+                
+                value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                
+                //var entity = manager?.findObject(model: value.entity as! ModelEntity)
+                //if let _ = entity {
+                    //entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .static
+                //}
+            }
     }
 }
+
+
 
 #Preview(immersionStyle: .full) {
     ImmersiveView()

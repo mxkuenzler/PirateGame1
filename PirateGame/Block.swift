@@ -23,4 +23,11 @@ class Block: Object {
         super.init(Model: BlockModel, ID: ID.SIMPLE_BLOCK)
     }
     
+    func hit(obj: Object) {
+        HP = HP - 1
+        if HP <= 0 {
+            manager?.unregisterObject(object: self)
+        }
+    }
+    
 }

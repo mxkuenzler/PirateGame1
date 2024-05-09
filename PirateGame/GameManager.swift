@@ -28,12 +28,15 @@ class GameManager {
     
     
     func registerObject(object: Object) {
+        rContent?.add(object.getModel()!)
+        object.initiateLighting(IBL: lighting!)
+        object.initiatePhysicsBody()
         objectList.append(object)
     }
     
     func unregisterObject(object: Object) {
         
-        var count = 0...objectList.count
+        var count = 0...objectList.count-1
         
         for i in count {
             if(objectList[i] == object) {
@@ -49,7 +52,7 @@ class GameManager {
     }
     
     func findObject(model: ModelEntity) -> Object? {
-        var count = 0...objectList.count
+        var count = 0...objectList.count-1
         var obj:Object?
         for i in count {
             if(objectList[i].getModel() == model) {

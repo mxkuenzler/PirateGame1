@@ -19,4 +19,38 @@ class Cannonball: Object {
         super.init(Model: CannonballModel, ID: ID.CANNON_BALL)
         
     }
+    
+    override func handleCollision(event: CollisionEvents.Began) {
+        
+        var obj:Object? = manager?.findObject(model:event.entityB as! ModelEntity)
+        
+        if(obj?.getID() == ID.SIMPLE_BLOCK) {
+            damageBlock(obj:obj!)
+        }
+        
+    }
+    
+    func shootBall(b:SIMD3<Float>, c:Float) {
+
+            //a.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
+            
+            let distance:SIMD3<Float> = b - getModel()!.position
+
+            let vX = distance.x/c
+            let vY = distance.y/c
+            let vZ = distance.z/c
+
+            print("\(vX) \(vY) \(vZ)")
+
+            //a.components[PhysicsBodyComponent.self]?.mode = .dynamic
+
+            getModel()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:4.9*c, z:vZ)
+    }
+    
+    func damageBlock(obj: Object) {
+        var block:Block = obj as! Block
+        block.hit(obj: self)
+        manager?.unregisterObject(object: self)
+    }
+    
 }
