@@ -17,6 +17,10 @@
 		0EB6A9622BEBA9B90027443F /* PirateGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */; };
 		3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */; };
 		3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */; };
+		3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B84F2BED050B00895BD0 /* Cannonball.swift */; };
+		3F77B8532BED050B00895BD0 /* Floor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8502BED050B00895BD0 /* Floor.swift */; };
+		3F77B8542BED050B00895BD0 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8512BED050B00895BD0 /* Block.swift */; };
+		3F77B8562BED05E400895BD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8552BED05E400895BD0 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,10 @@
 		0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameTests.swift; sourceTree = "<group>"; };
 		3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectClass.swift; sourceTree = "<group>"; };
 		3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		3F77B84F2BED050B00895BD0 /* Cannonball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cannonball.swift; sourceTree = "<group>"; };
+		3F77B8502BED050B00895BD0 /* Floor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floor.swift; sourceTree = "<group>"; };
+		3F77B8512BED050B00895BD0 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		3F77B8552BED05E400895BD0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +95,9 @@
 			isa = PBXGroup;
 			children = (
 				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
+				3F77B8512BED050B00895BD0 /* Block.swift */,
+				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
+				3F77B8502BED050B00895BD0 /* Floor.swift */,
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
@@ -95,6 +106,7 @@
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
 				0EB6A9582BEBA9B90027443F /* Info.plist */,
 				0EB6A9552BEBA9B90027443F /* Preview Content */,
+				3F77B8552BED05E400895BD0 /* Helper.swift */,
 			);
 			path = PirateGame;
 			sourceTree = "<group>";
@@ -228,7 +240,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */,
+				3F77B8542BED050B00895BD0 /* Block.swift in Sources */,
+				3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */,
 				3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */,
+				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,
+				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
 				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,

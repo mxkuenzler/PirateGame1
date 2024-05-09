@@ -15,10 +15,8 @@ class Floor: Object{
     init(){
         
         let FloorModel = ModelEntity(mesh: .generatePlane(width: 20, depth: 20), materials: [OcclusionMaterial()])
-        
-        let FloorId = 0
-        
-        super.init(Model: FloorModel, ID: FloorId)
+                
+        super.init(Model: FloorModel, ID: ID.FLOOR)
         
         self.getModel()?.setPosition(SIMD3<Float>(x: 0, y: -0.001, z: 0), relativeTo: self.getModel())
     }

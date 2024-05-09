@@ -36,9 +36,9 @@ class GameManager {
         var count = 0...objectList.count
         
         for i in count {
-            if(/*objectList[i] == object*/ true) {              //CHANGE THIS
+            if(objectList[i] == object) {
                 
-                //objectList[i].getEntity().removeFromParent()      //CHANGE THIS
+                objectList[i].getModel()?.removeFromParent()
                 objectList.remove(at: i)
                 return
                 
@@ -48,6 +48,20 @@ class GameManager {
         
     }
     
+    func findObject(model: ModelEntity) -> Object? {
+        var count = 0...objectList.count
+        var obj:Object?
+        for i in count {
+            if(objectList[i].getModel() == model) {
+                
+                obj = objectList[i]
+                
+            }
+        }
+        
+        return obj
+    }
+    
     func getObjects() -> Array<Object> {
         return objectList
     }
@@ -55,6 +69,12 @@ class GameManager {
     func handleCollision(event: CollisionEvents.Began) {
         
         //HANDLE COLLISION
+        
+        var obj:Object? = findObject(model:event.entityA as! ModelEntity)
+        
+        if obj?.getID() == ID.CANNON_BALL {
+            obj?.handleCollision(event:event)
+        }
         
     }
     

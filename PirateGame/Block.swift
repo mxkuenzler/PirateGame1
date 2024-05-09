@@ -20,7 +20,7 @@ class Block: Object {
         
         let BlockModel = ModelEntity(mesh: .generateBox(size: 0.25), materials: Material)
         
-        super.init(Model: BlockModel, ID: 0)
+        super.init(Model: BlockModel, ID: ID.SIMPLE_BLOCK)
     }
     
 }

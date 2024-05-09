@@ -16,7 +16,7 @@ class Cannonball: Object {
         
         let CannonballModel = ModelEntity(mesh: .generateSphere(radius: 0.25), materials: [SimpleMaterial(color: .black, roughness: 0.8, isMetallic: false)])
         
-        super.init(Model: CannonballModel, ID: 0)
+        super.init(Model: CannonballModel, ID: ID.CANNON_BALL)
         
     }
 }

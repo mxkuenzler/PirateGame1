@@ -13,9 +13,9 @@ import _RealityKit_SwiftUI
 class Object {
     
     private var Model:ModelEntity?
-    private var ID:Int?
+    private var ID:ID?
     
-    init(Model: ModelEntity, ID: Int) {
+    init(Model: ModelEntity, ID: ID) {
         self.Model = Model
         self.ID = ID
     }
@@ -64,6 +64,12 @@ class Object {
         return Model
     }
     
+    func getID() -> ID? {
+        return ID
+    }
     
+    func handleCollision(event: CollisionEvents.Began) {
+        //override in classes
+    }
     
 }
