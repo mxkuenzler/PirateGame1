@@ -50,7 +50,7 @@ struct ImmersiveView: View {
             
             
             
-            for i in 0...1 {
+            for i in 0...3 {
                 
                 var block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
                 manager?.registerObject(object:block)
@@ -86,12 +86,16 @@ struct ImmersiveView: View {
             .onEnded { value in
                 print("a")
                 
-                value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                value.entity.components[PhysicsBodyComponent.self]?.mode = .static
                 
-                //var entity = manager?.findObject(model: value.entity as! ModelEntity)
-                //if let _ = entity {
-                    //entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .static
-                //}
+                var entity = manager?.findObject(model: value.entity as! ModelEntity)
+                if let _ = entity {
+                    entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .static
+                    if entity?.getID() == ID.SIMPLE_BLOCK {
+                        print("started snap")
+                        (entity! as! Block).checkSnap(manager: manager!)
+                    }
+                }
             }
     }
 }
