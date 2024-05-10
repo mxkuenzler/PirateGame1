@@ -18,11 +18,13 @@ class Cannonball: Object {
         
         super.init(Model: CannonballModel, ID: ID.CANNON_BALL)
         
+        self.getModel()?.components.set(InputTargetComponent())
+
     }
     
     override func handleCollision(event: CollisionEvents.Began) {
         
-        var obj:Object? = manager?.findObject(model:event.entityB as! ModelEntity)
+        let obj:Object? = manager?.findObject(model:event.entityB as! ModelEntity)
         
         if(obj?.getID() == ID.SIMPLE_BLOCK) {
             damageBlock(obj:obj!)
@@ -48,7 +50,7 @@ class Cannonball: Object {
     }
     
     func damageBlock(obj: Object) {
-        var block:Block = obj as! Block
+        let block:Block = obj as! Block
         block.hit(obj: self)
         manager?.unregisterObject(object: self)
     }

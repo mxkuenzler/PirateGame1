@@ -18,6 +18,8 @@ class Floor: Object{
                 
         super.init(Model: FloorModel, ID: ID.FLOOR)
         
+        FloorModel.components[InputTargetComponent.self]?.isEnabled = false
+        
         self.getModel()?.setPosition(SIMD3<Float>(x: 0, y: -0.001, z: 0), relativeTo: self.getModel())
     }
 }

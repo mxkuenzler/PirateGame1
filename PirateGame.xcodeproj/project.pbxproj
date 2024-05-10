@@ -102,11 +102,11 @@
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
+				3F77B8552BED05E400895BD0 /* Helper.swift */,
 				0EB6A9512BEBA9B70027443F /* ImageBasedLighting.skybox */,
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
 				0EB6A9582BEBA9B90027443F /* Info.plist */,
 				0EB6A9552BEBA9B90027443F /* Preview Content */,
-				3F77B8552BED05E400895BD0 /* Helper.swift */,
 			);
 			path = PirateGame;
 			sourceTree = "<group>";

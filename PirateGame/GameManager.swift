@@ -36,7 +36,7 @@ class GameManager {
     
     func unregisterObject(object: Object) {
         
-        var count = 0...objectList.count-1
+        let count = 0...objectList.count-1
         
         for i in count {
             if(objectList[i] == object) {
@@ -52,7 +52,7 @@ class GameManager {
     }
     
     func findObject(model: ModelEntity) -> Object? {
-        var count = 0...objectList.count-1
+        let count = 0...objectList.count-1
         var obj:Object?
         for i in count {
             if(objectList[i].getModel() == model) {
@@ -73,7 +73,7 @@ class GameManager {
         
         //HANDLE COLLISION
         
-        var obj:Object? = findObject(model:event.entityA as! ModelEntity)
+        let obj:Object? = findObject(model:event.entityA as! ModelEntity)
         
         if obj?.getID() == ID.CANNON_BALL {
             obj?.handleCollision(event:event)
