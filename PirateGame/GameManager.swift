@@ -29,7 +29,7 @@ class GameManager {
     
     
     func registerObject(object: Object) {
-        rContent?.add(object.getModel()!)
+        rContent?.add(object.getEntity()!)
         object.initiateLighting(IBL: lighting!)
         object.initiatePhysicsBody()
         objectList.append(object)
@@ -42,7 +42,7 @@ class GameManager {
         for i in count {
             if(objectList[i] == object) {
                 
-                objectList[i].getModel()?.removeFromParent()
+                objectList[i].getEntity()?.removeFromParent()
                 objectList.remove(at: i)
                 return
                 
@@ -52,11 +52,11 @@ class GameManager {
         
     }
     
-    func findObject(model: ModelEntity) -> Object? {
+    func findObject(model: Entity) -> Object? {
         let count = 0...objectList.count-1
         var obj:Object?
         for i in count {
-            if(objectList[i].getModel() == model) {
+            if(objectList[i].getEntity() == model) {
                 
                 obj = objectList[i]
                 
@@ -74,7 +74,7 @@ class GameManager {
         
         //HANDLE COLLISION
         
-        let obj:Object? = findObject(model:event.entityA as! ModelEntity)
+        let obj:Object? = findObject(model:event.entityA)
         
         if obj?.getID() == ID.CANNON_BALL {
             obj?.handleCollision(event:event)

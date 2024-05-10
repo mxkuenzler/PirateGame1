@@ -20,9 +20,9 @@ class Block: Object {
         
         let BlockModel = ModelEntity(mesh: .generateBox(size: 0.25), materials: Material)
         
-        super.init(Model: BlockModel, ID: ID.SIMPLE_BLOCK)
+        super.init(Entity: BlockModel, ID: ID.SIMPLE_BLOCK)
         
-        self.getModel()?.components.set(InputTargetComponent())
+        self.getEntity()?.components.set(InputTargetComponent())
     }
     
     func hit(obj: Object) {
@@ -37,8 +37,8 @@ class Block: Object {
         let objArr = manager.getObjects()
         
         let closest = getClosestBlock(objArr:objArr)
-        let posA = getModel()!.position
-        let posB = closest?.getModel()!.position
+        let posA = getEntity()!.position
+        let posB = closest?.getEntity()!.position
         let d = distanceBetween(a:posA, b:posB!)
         let distance = Float(d)
         
@@ -53,20 +53,20 @@ class Block: Object {
         if objArr.count < 2 {
             return nil
         }
-        let pos = getModel()?.position
+        let pos = getEntity()?.position
         let count = 0...objArr.count-1
         var minDistance:Float = MAXFLOAT
         var index = 0
         
         for i in count {
             
-            if distanceBetween(a: pos!, b: objArr[i].getModel()!.position) < minDistance {
+            if distanceBetween(a: pos!, b: objArr[i].getEntity()!.position) < minDistance {
                 if self == objArr[i] {
                     
                 }
                 else {
                     if isABlock(obj:objArr[i]) {
-                        minDistance = distanceBetween(a: pos!, b: objArr[i].getModel()!.position)
+                        minDistance = distanceBetween(a: pos!, b: objArr[i].getEntity()!.position)
                         index = i
                     }
                 }
@@ -78,11 +78,11 @@ class Block: Object {
     }
     
     override func handleCollision(event: CollisionEvents.Began) {
-        if manager?.findObject(model:event.entityB as! ModelEntity)?.getID() == ID.SIMPLE_BLOCK {
+        if manager?.findObject(model:event.entityB)?.getID() == ID.SIMPLE_BLOCK {
             checkSnap(manager: manager!)
         }
-        if manager?.findObject(model: event.entityB as! ModelEntity)?.getID() == ID.ISLAND_FLOOR {
-            getModel()?.components[PhysicsBodyComponent.self]?.mode = .static
+        if manager?.findObject(model: event.entityB)?.getID() == ID.ISLAND_FLOOR {
+            getEntity()?.components[PhysicsBodyComponent.self]?.mode = .static
         }
     }
 }

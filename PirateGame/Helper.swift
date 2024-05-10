@@ -24,8 +24,8 @@ func isABlock(obj:Object) -> Bool {
 
 func connectBlocks(a: Object, b: Object) {
     
-    let posA = a.getModel()!.position
-    let posB = b.getModel()!.position
+    let posA = a.getEntity()!.position
+    let posB = b.getEntity()!.position
     
     let dVector = posB - posA
     
@@ -41,19 +41,19 @@ func connectBlocks(a: Object, b: Object) {
     }
     
     if max == 0 {
-        a.getModel()!.position = posB + SIMD3<Float>(((dVector.x > 0) ? -1*blockSize/2 : 1*blockSize/2),0,0)
+        a.getEntity()!.position = posB + SIMD3<Float>(((dVector.x > 0) ? -1*blockSize/2 : 1*blockSize/2),0,0)
     }
     if max == 1 {
-        a.getModel()!.position = posB + SIMD3<Float>(0,((dVector.y > 0) ? -1*blockSize/2 : 1*blockSize/2),0)
+        a.getEntity()!.position = posB + SIMD3<Float>(0,((dVector.y > 0) ? -1*blockSize/2 : 1*blockSize/2),0)
     }
     if max == 2 {
-        a.getModel()!.position = posB + SIMD3<Float>(0,0,((dVector.z > 0) ? -1*blockSize/2 : 1*blockSize/2))
+        a.getEntity()!.position = posB + SIMD3<Float>(0,0,((dVector.z > 0) ? -1*blockSize/2 : 1*blockSize/2))
     }
     
-    a.getModel()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
-    b.getModel()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+    a.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+    b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
 
-    a.getModel()!.components[PhysicsBodyComponent.self]?.mode = .static
+    a.getEntity()!.components[PhysicsBodyComponent.self]?.mode = .static
 }
 
 func distanceBetween(a: SIMD3<Float>, b: SIMD3<Float>) -> Float {

@@ -12,11 +12,11 @@ import _RealityKit_SwiftUI
 
 class Object {
     
-    private var Model:ModelEntity?
+    private var Entity:Entity?
     private var ID:ID?
     
-    init(Model: ModelEntity, ID: ID) {
-        self.Model = Model
+    init(Entity: Entity, ID: ID) {
+        self.Entity = Entity
         self.ID = ID
     }
     
@@ -29,10 +29,10 @@ class Object {
     
     func initiatePhysicsBody() {
         
-        guard let model = Model else { return }
+        guard let entity = Entity else { return }
         
         
-        model.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+        entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
             shapes: [ShapeResource.generateBox(size: SIMD3<Float>(x: 1, y: 1, z: 1))],
             mass: 1.0,
             material: .generate(staticFriction: 0.8, dynamicFriction: 0.8, restitution: 0.05),
@@ -46,13 +46,13 @@ class Object {
             mode: .static
         ))*/
         
-        model.components[PhysicsMotionComponent.self] = .init()
+        entity.components[PhysicsMotionComponent.self] = .init()
         
-        model.components[PhysicsBodyComponent.self]?.mode = .static
+        entity.components[PhysicsBodyComponent.self]?.mode = .static
         
-        model.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
+        entity.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
         
-        model.generateCollisionShapes(recursive: false)
+        entity.generateCollisionShapes(recursive: false)
         
 //        model.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.5 )]))
         
@@ -61,22 +61,22 @@ class Object {
     func initiateLighting(IBL: EnvironmentResource) {
         
         let iblComponent = ImageBasedLightComponent(source: .single(IBL), intensityExponent: 0.25)
-        guard let model = Model else { return }
-            model.components.set(iblComponent)
-            model.components.set(ImageBasedLightReceiverComponent(imageBasedLight: model))
+        guard let entity = Entity else { return }
+            entity.components.set(iblComponent)
+            entity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: entity))
         
         
     }
     
     static func ==(lhs: Object, rhs: Object) -> Bool {
-        if lhs.getModel() == rhs.getModel(){
+        if lhs.getEntity() == rhs.getEntity(){
             return true
         }
         return false
     }
     
-    func getModel() -> ModelEntity? {
-        return Model
+    func getEntity() -> Entity? {
+        return Entity
     }
     
     func getID() -> ID? {
@@ -88,7 +88,7 @@ class Object {
     }
     
     func setPosition(pos:SIMD3<Float>) {
-        Model?.position = pos
+        Entity?.position = pos
     }
     
 }

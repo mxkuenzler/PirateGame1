@@ -16,15 +16,15 @@ class Cannonball: Object {
         
         let CannonballModel = ModelEntity(mesh: .generateSphere(radius: 0.25), materials: [SimpleMaterial(color: .black, roughness: 0.8, isMetallic: false)])
         
-        super.init(Model: CannonballModel, ID: ID.CANNON_BALL)
+        super.init(Entity: CannonballModel, ID: ID.CANNON_BALL)
         
-        self.getModel()?.components.set(InputTargetComponent())
+        self.getEntity()?.components.set(InputTargetComponent())
 
     }
     
     override func handleCollision(event: CollisionEvents.Began) {
         
-        let obj:Object? = manager?.findObject(model:event.entityB as! ModelEntity)
+        let obj:Object? = manager?.findObject(model:event.entityB)
         
         if(obj?.getID() == ID.SIMPLE_BLOCK) {
             damageBlock(obj:obj!)
@@ -36,7 +36,7 @@ class Cannonball: Object {
 
             //a.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
             
-            let distance:SIMD3<Float> = b - getModel()!.position
+            let distance:SIMD3<Float> = b - getEntity()!.position
 
             let vX = distance.x/c
             let vY = distance.y/c
@@ -45,7 +45,7 @@ class Cannonball: Object {
 
             //a.components[PhysicsBodyComponent.self]?.mode = .dynamic
 
-            getModel()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:4.9*c, z:vZ)
+            getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:4.9*c, z:vZ)
     }
     
     func damageBlock(obj: Object) {

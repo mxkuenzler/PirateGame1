@@ -64,6 +64,8 @@ struct ImmersiveView: View {
                 
             }
            */
+        
+            
         }.gesture(gestureA)
         
     }
@@ -72,10 +74,10 @@ struct ImmersiveView: View {
         DragGesture()
             .targetedToAnyEntity()
             .onChanged { value in
-                let entity = manager?.findObject(model: value.entity as! ModelEntity)
+                let entity = manager?.findObject(model: value.entity)
                 if let _ = entity {
-                    entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
-                    entity?.getModel()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
+                    entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
                 } else {
                 }
                 
@@ -84,9 +86,9 @@ struct ImmersiveView: View {
                 
                 value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
                 
-                let entity = manager?.findObject(model: value.entity as! ModelEntity)
+                let entity = manager?.findObject(model: value.entity)
                 if let _ = entity {
-                    entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                    entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
                     if entity?.getID() == ID.SIMPLE_BLOCK {
                         (entity! as! Block).checkSnap(manager: manager!)
                     }

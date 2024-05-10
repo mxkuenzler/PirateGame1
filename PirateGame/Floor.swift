@@ -15,7 +15,7 @@ class Floor: Object{
     init(Model: ModelEntity, id: ID){
         
                 
-        super.init(Model: Model, ID: id)
+        super.init(Entity: Model, ID: id)
         
         Model.components[InputTargetComponent.self]?.isEnabled = false
         
@@ -27,7 +27,7 @@ class OceanFloor: Floor {
         let FloorModel = ModelEntity(mesh: .generatePlane(width: 50, depth: 50), materials: [OcclusionMaterial()])
         
         super.init(Model: FloorModel, id: ID.OCEAN_FLOOR)
-        self.getModel()?.setPosition(SIMD3<Float>(x: 0, y: -1, z: 0), relativeTo: self.getModel())
+        self.getEntity()?.setPosition(SIMD3<Float>(x: 0, y: -1, z: 0), relativeTo: self.getEntity())
 
     }
 }
