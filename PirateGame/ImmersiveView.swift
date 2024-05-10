@@ -13,7 +13,7 @@ import Combine
 
 var rContent: RealityViewContent?
 var lighting: EnvironmentResource?
-var manager:GameManager?
+var manager: GameManager?
 
 struct ImmersiveView: View {
     
@@ -41,15 +41,16 @@ struct ImmersiveView: View {
                 // https://developer.apple.com/
             }
             
-            manager = GameManager(rContent: rContent, lighting: lighting)
-
+            setManager(a:GameManager(rContent: rContent, lighting: lighting))
+            manager = getManager()
+            
             content.subscribe(to: CollisionEvents.Began.self) { event in
                 print("COLL")
                 manager?.handleCollision(event: event)
             }
             
             manager?.registerObject(object: Floor())
-            
+            /*
             for i in 0...3 {
                 
                 let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
@@ -60,11 +61,9 @@ struct ImmersiveView: View {
                 manager?.registerObject(object: cannonBall)
                 cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:1,z:0))
                 
-            }
-            
-            
+            }*/
+           
         }.gesture(gestureA)
-        
         
     }
     

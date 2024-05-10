@@ -7,15 +7,32 @@
 
 import SwiftUI
 
+var Manager:GameManager?
+
+
 @main
+
+
 struct PirateGameApp: App {
+
+    
     var body: some Scene {
+        
+        ImmersiveSpace(id: "ImmersiveSpace") {
+            ImmersiveView()
+        }.immersionStyle(selection: .constant(.full), in: .full)
+        
         WindowGroup {
             ContentView()
         }.windowStyle(.volumetric)
 
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
-        }.immersionStyle(selection: .constant(.full), in: .full)
     }
+}
+
+func getManager() -> GameManager? {
+    return Manager
+}
+
+func setManager(a:GameManager) {
+    Manager = a
 }

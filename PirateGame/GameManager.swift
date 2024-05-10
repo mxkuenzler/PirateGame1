@@ -32,6 +32,7 @@ class GameManager {
         object.initiateLighting(IBL: lighting!)
         object.initiatePhysicsBody()
         objectList.append(object)
+        print("Registered")
     }
     
     func unregisterObject(object: Object) {

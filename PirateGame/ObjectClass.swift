@@ -42,7 +42,7 @@ class Object {
         
         model.components[PhysicsMotionComponent.self] = .init()
         
-        model.components[PhysicsBodyComponent.self]?.mode = .kinematic
+        model.components[PhysicsBodyComponent.self]?.mode = .static
         
         model.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
         
