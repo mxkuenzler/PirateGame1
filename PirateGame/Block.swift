@@ -37,17 +37,12 @@ class Block: Object {
         let objArr = manager.getObjects()
         
         let closest = getClosestBlock(objArr:objArr)
-        print("found closest)")
-        print(getModel()!.position)
-        print(closest?.getModel()!.position)
         let posA = getModel()!.position
         let posB = closest?.getModel()!.position
         let d = distanceBetween(a:posA, b:posB!)
-        print(d)
         let distance = Float(d)
         
         if distance < blockSize {
-            print("close enough")
             connectBlocks(a:self, b:closest!)
         }
         
@@ -80,6 +75,12 @@ class Block: Object {
         }
         
         return objArr[index]
+    }
+    
+    override func handleCollision(event: CollisionEvents.Began) {
+        if manager?.findObject(model:event.entityB as! ModelEntity)?.getID() == ID.SIMPLE_BLOCK {
+            checkSnap(manager: manager!)
+        }
     }
 }
 

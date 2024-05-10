@@ -41,22 +41,18 @@ func connectBlocks(a: Object, b: Object) {
     }
     
     if max == 0 {
-        print("x")
         a.getModel()!.position = posB + SIMD3<Float>(((dVector.x > 0) ? -1*blockSize/2 : 1*blockSize/2),0,0)
         a.getModel()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
     }
     if max == 1 {
-        print("y")
         a.getModel()!.position = posB + SIMD3<Float>(0,((dVector.y > 0) ? -1*blockSize/2 : 1*blockSize/2),0)
         a.getModel()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
     }
     if max == 2 {
-        print("z")
         a.getModel()!.position = posB + SIMD3<Float>(0,0,((dVector.z > 0) ? -1*blockSize/2 : 1*blockSize/2))
         a.getModel()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
     }
     a.getModel()!.components[PhysicsBodyComponent.self]?.mode = .static
-    print("snapped")
 }
 
 func distanceBetween(a: SIMD3<Float>, b: SIMD3<Float>) -> Float {

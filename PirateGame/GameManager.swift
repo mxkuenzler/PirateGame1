@@ -16,6 +16,7 @@ class GameManager {
     private var rContent:RealityViewContent?
     private var lighting:EnvironmentResource?
     private var objectList:[Object]
+    private var coins:Int
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?) {
         
@@ -23,7 +24,7 @@ class GameManager {
         self.rContent = rContent
         self.lighting = lighting
         self.objectList = Array<Object>()
-        
+        coins = 0
     }
     
     
@@ -32,7 +33,6 @@ class GameManager {
         object.initiateLighting(IBL: lighting!)
         object.initiatePhysicsBody()
         objectList.append(object)
-        print("Registered")
     }
     
     func unregisterObject(object: Object) {
@@ -79,11 +79,20 @@ class GameManager {
         if obj?.getID() == ID.CANNON_BALL {
             obj?.handleCollision(event:event)
         }
+        if obj?.getID() == ID.SIMPLE_BLOCK {
+            obj?.handleCollision(event: event)
+        }
         
     }
     
     
+    func getCoins() -> Int {
+        return coins
+    }
     
+    func setCoins(a:Int) {
+        coins = a
+    }
     
     
     

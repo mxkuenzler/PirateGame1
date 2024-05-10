@@ -29,7 +29,6 @@ class Object {
     
     func initiatePhysicsBody() {
         
-        print("physics body")
         guard let model = Model else { return }
         
         model.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(

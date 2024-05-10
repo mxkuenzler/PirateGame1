@@ -45,15 +45,15 @@ struct ImmersiveView: View {
             manager = getManager()
             
             content.subscribe(to: CollisionEvents.Began.self) { event in
-                print("COLL")
                 manager?.handleCollision(event: event)
             }
             
             manager?.registerObject(object: Floor())
+            
             /*
-            for i in 0...3 {
+            for i in 0...0 {
                 
-                let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
+                let block = Block(Material: [SimpleMaterial(color:.green, isMetallic: false)], Health: 2)
                 manager?.registerObject(object:block)
                 block.setPosition(pos: SIMD3<Float>(x:0,y:Float(i+2),z:0))
                 
@@ -61,8 +61,8 @@ struct ImmersiveView: View {
                 manager?.registerObject(object: cannonBall)
                 cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:1,z:0))
                 
-            }*/
-           
+            }
+           */
         }.gesture(gestureA)
         
     }
@@ -71,19 +71,15 @@ struct ImmersiveView: View {
         DragGesture()
             .targetedToAnyEntity()
             .onChanged { value in
-                print("e")
                 let entity = manager?.findObject(model: value.entity as! ModelEntity)
                 if let _ = entity {
                     entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
                     entity?.getModel()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
-                    print("Found but doesnt work")
                 } else {
-                    print("didnt find object")
                 }
                 
             }
             .onEnded { value in
-                print("a")
                 
                 value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
                 
@@ -91,7 +87,6 @@ struct ImmersiveView: View {
                 if let _ = entity {
                     entity?.getModel()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
                     if entity?.getID() == ID.SIMPLE_BLOCK {
-                        print("started snap")
                         (entity! as! Block).checkSnap(manager: manager!)
                     }
                 }

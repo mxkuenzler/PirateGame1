@@ -21,11 +21,25 @@ struct ContentView: View {
 
     var body: some View {
         
+        VStack {
+            
+            Text("Coins: \(getManager()?.getCoins())").font(.largeTitle).foregroundStyle(.white).scaledToFit().bold().accentColor(.red)
+            Button("Add Coins") {
+                getManager()?.setCoins(a: getManager()!.getCoins() + 100)
+            }
+        }.glassBackgroundEffect(in: RoundedRectangle(
+            cornerRadius: 32,
+            style: .continuous
+        )).frame(width: 100,height: 100)
+        
         Button("Add Block") {
-            let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
-            let buttonPos = 
-            block.setPosition(pos:  )
-            getManager()?.registerObject(object: block)
+            if getManager()!.getCoins() >= 100 {
+                let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
+                let buttonPos =
+                block.setPosition(pos:  )
+                getManager()?.setCoins(a: getManager()!.getCoins()-100)
+                getManager()?.registerObject(object: block)
+            }
         }.font(.custom("billy", size: 400))
         
         RealityView { content in

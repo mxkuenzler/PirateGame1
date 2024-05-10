@@ -42,7 +42,6 @@ class Cannonball: Object {
             let vY = distance.y/c
             let vZ = distance.z/c
 
-            print("\(vX) \(vY) \(vZ)")
 
             //a.components[PhysicsBodyComponent.self]?.mode = .dynamic
 
