@@ -35,8 +35,7 @@ struct ContentView: View {
         Button("Add Block") {
             if getManager()!.getCoins() >= 100 {
                 let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
-                let buttonPos =
-                block.setPosition(pos:  )
+                block.setPosition(pos: SIMD3<Float>(0,1.5,0))
                 getManager()?.setCoins(a: getManager()!.getCoins()-100)
                 getManager()?.registerObject(object: block)
             }

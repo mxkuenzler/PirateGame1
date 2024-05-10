@@ -12,14 +12,30 @@ import _RealityKit_SwiftUI
 
 class Floor: Object{
     
-    init(){
+    init(Model: ModelEntity, id: ID){
         
-        let FloorModel = ModelEntity(mesh: .generatePlane(width: 20, depth: 20), materials: [OcclusionMaterial()])
                 
-        super.init(Model: FloorModel, ID: ID.FLOOR)
+        super.init(Model: Model, ID: id)
         
-        FloorModel.components[InputTargetComponent.self]?.isEnabled = false
+        Model.components[InputTargetComponent.self]?.isEnabled = false
         
-        self.getModel()?.setPosition(SIMD3<Float>(x: 0, y: -0.001, z: 0), relativeTo: self.getModel())
+    }
+}
+
+class OceanFloor: Floor {
+    init(){
+        let FloorModel = ModelEntity(mesh: .generatePlane(width: 50, depth: 50), materials: [OcclusionMaterial()])
+        
+        super.init(Model: FloorModel, id: ID.OCEAN_FLOOR)
+        self.getModel()?.setPosition(SIMD3<Float>(x: 0, y: -1, z: 0), relativeTo: self.getModel())
+
+    }
+}
+
+class IslandFloor: Floor {
+    init(){
+        let FloorModel = ModelEntity(mesh: .generateCylinder(height: 0.199, radius: 7.999), materials: [OcclusionMaterial()])
+        
+        super.init(Model: FloorModel, id: ID.ISLAND_FLOOR)
     }
 }

@@ -81,6 +81,9 @@ class Block: Object {
         if manager?.findObject(model:event.entityB as! ModelEntity)?.getID() == ID.SIMPLE_BLOCK {
             checkSnap(manager: manager!)
         }
+        if manager?.findObject(model: event.entityB as! ModelEntity)?.getID() == ID.ISLAND_FLOOR {
+            getModel()?.components[PhysicsBodyComponent.self]?.mode = .static
+        }
     }
 }
 

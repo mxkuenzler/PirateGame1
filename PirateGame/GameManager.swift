@@ -24,7 +24,7 @@ class GameManager {
         self.rContent = rContent
         self.lighting = lighting
         self.objectList = Array<Object>()
-        coins = 0
+        coins = 10000
     }
     
     

@@ -31,6 +31,7 @@ class Object {
         
         guard let model = Model else { return }
         
+        
         model.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
             shapes: [ShapeResource.generateBox(size: SIMD3<Float>(x: 1, y: 1, z: 1))],
             mass: 1.0,
@@ -38,6 +39,12 @@ class Object {
             mode: .static
         ))
         
+        
+        /*model.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+            massProperties: .default,
+            material: .generate(staticFriction: 0.8, dynamicFriction: 0.8, restitution: 0.05),
+            mode: .static
+        ))*/
         
         model.components[PhysicsMotionComponent.self] = .init()
         

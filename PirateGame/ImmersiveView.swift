@@ -48,7 +48,8 @@ struct ImmersiveView: View {
                 manager?.handleCollision(event: event)
             }
             
-            manager?.registerObject(object: Floor())
+            manager?.registerObject(object: OceanFloor())
+            manager?.registerObject(object: IslandFloor())
             
             /*
             for i in 0...0 {
