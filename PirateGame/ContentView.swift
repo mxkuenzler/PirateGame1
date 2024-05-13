@@ -30,7 +30,7 @@ struct ContentView: View {
         }.glassBackgroundEffect(in: RoundedRectangle(
             cornerRadius: 32,
             style: .continuous
-        )).frame(width: 100,height: 100)
+        )).frame(width: 200,height: 150)
         
         Button("Add Block") {
             if getManager()!.getCoins() >= 100 {

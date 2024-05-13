@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F14A22BEE99BF009A64D8 /* Flag.swift */; };
 		0EB6A94A2BEBA9B70027443F /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 0EB6A9492BEBA9B70027443F /* RealityKitContent */; };
 		0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */; };
 		0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94D2BEBA9B70027443F /* ContentView.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E3F14A22BEE99BF009A64D8 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		0EB6A9442BEBA9B70027443F /* PirateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PirateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB6A9482BEBA9B70027443F /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RealityKitContent; sourceTree = "<group>"; };
 		0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameApp.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
+				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
 				3F77B8552BED05E400895BD0 /* Helper.swift */,
 				0EB6A9512BEBA9B70027443F /* ImageBasedLighting.skybox */,
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
@@ -246,6 +249,7 @@
 				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,
 				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
+				0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
 				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,
 			);

@@ -26,8 +26,12 @@ class Cannonball: Object {
         
         let obj:Object? = manager?.findObject(model:event.entityB)
         
-        if(obj?.getID() == ID.SIMPLE_BLOCK) {
-            damageBlock(obj:obj!)
+        if obj?.getID() == ID.SIMPLE_BLOCK {
+            damageBlock(obj: obj!)
+        }
+        if obj?.getID() == ID.FLAG {
+            
+            damageFlag(obj: obj!)
         }
         
     }
@@ -54,4 +58,10 @@ class Cannonball: Object {
         manager?.unregisterObject(object: self)
     }
     
+    func damageFlag(obj: Object) {
+        print("Flag collided")
+        let flag:Flag = obj as! Flag
+        flag.hit(obj: self)
+        manager?.unregisterObject(object: self)
+    }
 }

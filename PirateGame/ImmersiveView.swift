@@ -51,8 +51,12 @@ struct ImmersiveView: View {
             manager?.registerObject(object: OceanFloor())
             manager?.registerObject(object: IslandFloor())
             
-            /*
-            for i in 0...0 {
+            let flaG = await Flag()
+            manager?.registerObject(object: flaG)
+            flaG.fixCollisionShapes()
+            
+            
+            for i in 0...3 {
                 
                 let block = Block(Material: [SimpleMaterial(color:.green, isMetallic: false)], Health: 2)
                 manager?.registerObject(object:block)
@@ -60,10 +64,10 @@ struct ImmersiveView: View {
                 
                 let cannonBall = Cannonball()
                 manager?.registerObject(object: cannonBall)
-                cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:1,z:0))
+                cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
                 
             }
-           */
+           
         
             
         }.gesture(gestureA)
