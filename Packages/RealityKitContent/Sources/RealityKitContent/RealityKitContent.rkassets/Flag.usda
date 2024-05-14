@@ -10,35 +10,49 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cylinder", "Cone", "_53DD4B4B_41C7_45B6_9665_6BA4E11AFA06"]
-    def Xform "Group" (
+    reorder nameChildren = ["Group", "Cylinder", "Cone"]
+    def Cylinder "Cylinder" (
         active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        def Cylinder "Cylinder" (
-            active = true
-            prepend apiSchemas = ["MaterialBindingAPI"]
-        )
+        reorder nameChildren = ["DefaultMaterial", "Collider", "Cone"]
+        uniform token axis = "Y"
+        double height = 2
+        rel material:binding = </Root/Cylinder/DefaultMaterial>
+        double radius = 0.05
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "DefaultMaterial"
         {
-            uniform token axis = "Y"
-            double height = 2
-            rel material:binding = </Root/Group/Cylinder/DefaultMaterial>
-            double radius = 0.05
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            float3 xformOp:translate = (0, 0, 0)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            token outputs:surface.connect = </Root/Cylinder/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
 
-            def Material "DefaultMaterial"
+            def Shader "DefaultSurfaceShader"
             {
-                prepend token outputs:surface.connect = </Root/Group/Cylinder/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+        }
 
-                def Shader "DefaultSurfaceShader"
+        def RealityKitComponent "Collider"
+        {
+            uint group = 4294967295
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.1, 2, 0.1)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
                 {
-                    uniform token info:id = "UsdPreviewSurface"
-                    color3f inputs:diffuseColor = (1, 1, 1)
-                    float inputs:roughness = 0.75
-                    token outputs:surface
                 }
             }
         }
@@ -53,10 +67,10 @@ def Xform "Root"
         {
             uniform token axis = "Y"
             double height = 0.75
-            rel material:binding = </Root/Group/Cone/DefaultMaterial>
+            rel material:binding = </Root/Cylinder/Cone/DefaultMaterial>
             double radius = 0.2
-            quatf xformOp:orient = (0.70710677, 0.7071067, 0, 0)
-            float3 xformOp:scale = (0.09999998, 0.9999998, 0.9999998)
+            quatf xformOp:orient = (0.7071067, 0.7071068, 0, 0)
+            float3 xformOp:scale = (0.09999996, 0.99999964, 0.99999964)
             float3 xformOp:translate = (0, 0.8, 0.375)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
@@ -64,7 +78,7 @@ def Xform "Root"
             {
                 token outputs:mtlx:surface
                 token outputs:realitykit:vertex
-                prepend token outputs:surface.connect = </Root/Group/Cone/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+                token outputs:surface.connect = </Root/Cylinder/Cone/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
 
                 def Shader "DefaultSurfaceShader"
                 {

@@ -51,9 +51,7 @@ struct ImmersiveView: View {
             await manager?.registerObject(object: OceanFloor())
             await manager?.registerObject(object: IslandFloor())
             
-            let flaG = await Flag()
-            manager?.registerObject(object: flaG)
-            flaG.fixCollisionShapes()
+            await manager?.registerObject(object: Flag())
             
             
             

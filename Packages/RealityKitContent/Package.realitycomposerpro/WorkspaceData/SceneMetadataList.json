@@ -32,6 +32,27 @@
       }
     ]
   },
+  "1C6BA7D4-6591-470D-A11B-84D62B8BAB83" : {
+    "objectMetadataList" : [
+      [
+        "1C6BA7D4-6591-470D-A11B-84D62B8BAB83",
+        "Root",
+        "Cylinder"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "1C6BA7D4-6591-470D-A11B-84D62B8BAB83",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "1D572CEB-057A-41C3-B575-04C37501A3C0" : {
     "objectMetadataList" : [
       [
@@ -115,6 +136,16 @@
       {
         "isExpanded" : true,
         "isLocked" : false
+      },
+      [
+        "116B7C75-A1DC-4D07-B729-623814ACBF34",
+        "Root",
+        "Ocean",
+        "Material"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
       }
     ]
   },
@@ -131,7 +162,7 @@
       [
         "8257AE41-1F5C-4011-AAE1-5B551C81993A",
         "Root",
-        "Group"
+        "Cylinder"
       ],
       {
         "isExpanded" : true,

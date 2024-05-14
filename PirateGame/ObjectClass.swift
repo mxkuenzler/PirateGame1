@@ -17,8 +17,6 @@ class Object {
     
     init(Entity: Entity, ID: ID) {
         self.Entity =  Entity.children.first?.children.first
-        print(Entity.children.first?.name)
-        print(self.Entity?.name)
         self.ID = ID
     }
     
@@ -36,18 +34,9 @@ class Object {
         
         entity.generateCollisionShapes(recursive: true)
         
-        if let collisionComponent = entity.components[CollisionComponent.self] {
-            print(entity.name)
-            entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
-                shapes: collisionComponent.shapes,
-                mass: 1,
-                material: .generate(staticFriction: 0.8, dynamicFriction: 0.8, restitution: 0.05),
-                mode: .dynamic
-            ))
-        }
-        
-        
-//        entity.components[PhysicsBodyComponent(shapes: entity.components[CollisionComponent.self]?.shapes, mass: 1)]
+        entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+            massProperties: .default,
+            mode: .static))
         
         entity.components[PhysicsMotionComponent.self] = .init()
         
@@ -74,6 +63,10 @@ class Object {
     
     func getEntity() -> Entity? {
         return Entity
+    }
+    
+    func setEntity(entity: ModelEntity) {
+        Entity = entity
     }
     
     func getID() -> ID? {

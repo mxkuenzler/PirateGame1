@@ -19,11 +19,7 @@ class Flag: Object {
                 
         super.init(Entity: FlagModel!, ID: ID.FLAG)
         
-        await FlagModel?.setPosition(SIMD3(0, 1, 0), relativeTo: FlagModel)
-    }
-    
-    func fixCollisionShapes(){
-        self.getEntity()?.components[CollisionComponent.self] = CollisionComponent(shapes: [ShapeResource.generateBox(width: 0.1, height: 2, depth: 0.1)])
+        self.setPosition(pos: SIMD3<Float>(0, 1, 0))
     }
     
     func hit(obj: Object) {

@@ -44,7 +44,26 @@ def Xform "Root"
                 token outputs:out
                 float2 ui:nodegraph:node:pos = (74.25, 99.5)
                 float2 ui:nodegraph:node:size = (148.5, 199)
-                int ui:nodegraph:node:stackingOrder = 1
+                int ui:nodegraph:node:stackingOrder = 2
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:diffuseColor"]
+            }
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 4294967295
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (100, 0, 100)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                }
             }
         }
     }
