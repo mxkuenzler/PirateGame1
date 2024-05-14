@@ -48,21 +48,23 @@ struct ImmersiveView: View {
                 manager?.handleCollision(event: event)
             }
             
-            manager?.registerObject(object: OceanFloor())
-            manager?.registerObject(object: IslandFloor())
+            await manager?.registerObject(object: OceanFloor())
+            await manager?.registerObject(object: IslandFloor())
             
             let flaG = await Flag()
             manager?.registerObject(object: flaG)
             flaG.fixCollisionShapes()
             
             
+            
+            
             for i in 0...3 {
                 
-                let block = Block(Material: [SimpleMaterial(color:.green, isMetallic: false)], Health: 2)
+                let block = await cardboardBlock()
                 manager?.registerObject(object:block)
                 block.setPosition(pos: SIMD3<Float>(x:0,y:Float(i+2),z:0))
                 
-                let cannonBall = Cannonball()
+                let cannonBall = await Cannonball()
                 manager?.registerObject(object: cannonBall)
                 cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
                 

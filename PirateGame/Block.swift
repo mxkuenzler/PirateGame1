@@ -14,15 +14,21 @@ class Block: Object {
     
     var HP: Int
     
-    init(Material: [any Material], Health: Int){
+    var price: Int
+    
+    init(Entity: Entity, Health: Int, cost: Int){
         
         HP = Health
         
-        let BlockModel = ModelEntity(mesh: .generateBox(size: 0.25), materials: Material)
+        price = cost
         
-        super.init(Entity: BlockModel, ID: ID.SIMPLE_BLOCK)
+        super.init(Entity: Entity, ID: ID.SIMPLE_BLOCK)
         
         self.getEntity()?.components.set(InputTargetComponent())
+    }
+    
+    func getPrice() -> Int{
+        return price
     }
     
     func hit(obj: Object) {

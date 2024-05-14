@@ -16,7 +16,9 @@ class Object {
     private var ID:ID?
     
     init(Entity: Entity, ID: ID) {
-        self.Entity = Entity
+        self.Entity =  Entity.children.first?.children.first
+        print(Entity.children.first?.name)
+        print(self.Entity?.name)
         self.ID = ID
     }
     
@@ -32,20 +34,25 @@ class Object {
         guard let entity = Entity else { print("didnt work"); return }
 
         
-        entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
-            massProperties: .default,
-            material: .generate(staticFriction: 0.8, dynamicFriction: 0.8, restitution: 0.05),
-            mode: .static
-        ))
+        entity.generateCollisionShapes(recursive: true)
+        
+        if let collisionComponent = entity.components[CollisionComponent.self] {
+            print(entity.name)
+            entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+                shapes: collisionComponent.shapes,
+                mass: 1,
+                material: .generate(staticFriction: 0.8, dynamicFriction: 0.8, restitution: 0.05),
+                mode: .dynamic
+            ))
+        }
+        
+        
+//        entity.components[PhysicsBodyComponent(shapes: entity.components[CollisionComponent.self]?.shapes, mass: 1)]
         
         entity.components[PhysicsMotionComponent.self] = .init()
         
-        entity.components[PhysicsBodyComponent.self]?.mode = .static
-        
         entity.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
-
-        entity.generateCollisionShapes(recursive: true)
-                
+        
     }
     
     func initiateLighting(IBL: EnvironmentResource) {

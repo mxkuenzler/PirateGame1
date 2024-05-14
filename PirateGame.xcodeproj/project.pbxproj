@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F14A22BEE99BF009A64D8 /* Flag.swift */; };
+		0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */; };
 		0EB6A94A2BEBA9B70027443F /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 0EB6A9492BEBA9B70027443F /* RealityKitContent */; };
 		0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */; };
 		0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94D2BEBA9B70027443F /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		0E3F14A22BEE99BF009A64D8 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
+		0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTypes.swift; sourceTree = "<group>"; };
 		0EB6A9442BEBA9B70027443F /* PirateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PirateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB6A9482BEBA9B70027443F /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RealityKitContent; sourceTree = "<group>"; };
 		0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameApp.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
 				3F77B8512BED050B00895BD0 /* Block.swift */,
+				0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */,
 				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
 				3F77B8502BED050B00895BD0 /* Floor.swift */,
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
@@ -249,6 +252,7 @@
 				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,
 				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
+				0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */,
 				0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
 				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,

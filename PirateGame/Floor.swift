@@ -12,30 +12,30 @@ import _RealityKit_SwiftUI
 
 class Floor: Object{
     
-    init(Model: ModelEntity, id: ID){
+    init(Model: Entity, id: ID){
         
                 
         super.init(Entity: Model, ID: id)
         
-        Model.components[InputTargetComponent.self]?.isEnabled = false
+        //self.getEntity()?.components.set(InputTargetComponent())
+
+        //Model.components[InputTargetComponent.self]?.isEnabled = false
         
     }
 }
 
 class OceanFloor: Floor {
-    init(){
-        let FloorModel = ModelEntity(mesh: .generatePlane(width: 50, depth: 50), materials: [OcclusionMaterial()])
+    init() async {
+        let FloorModel = try? await Entity(named: "Ocean", in: realityKitContentBundle)
         
-        super.init(Model: FloorModel, id: ID.OCEAN_FLOOR)
-        self.getEntity()?.setPosition(SIMD3<Float>(x: 0, y: -1, z: 0), relativeTo: self.getEntity())
-
+        super.init(Model: FloorModel!, id: ID.OCEAN_FLOOR)
     }
 }
 
 class IslandFloor: Floor {
-    init(){
-        let FloorModel = ModelEntity(mesh: .generateCylinder(height: 0.199, radius: 7.999), materials: [OcclusionMaterial()])
+    init() async {
+        let FloorModel = try? await Entity(named: "Island", in: realityKitContentBundle)
         
-        super.init(Model: FloorModel, id: ID.ISLAND_FLOOR)
+        super.init(Model: FloorModel!, id: ID.ISLAND_FLOOR)
     }
 }

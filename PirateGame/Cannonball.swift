@@ -12,13 +12,13 @@ import _RealityKit_SwiftUI
 
 class Cannonball: Object {
     
-    init(){
+    init() async {
         
-        let CannonballModel = ModelEntity(mesh: .generateSphere(radius: 0.25), materials: [SimpleMaterial(color: .black, roughness: 0.8, isMetallic: false)])
+        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
         
-        super.init(Entity: CannonballModel, ID: ID.CANNON_BALL)
+        super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
         
-        self.getEntity()?.components.set(InputTargetComponent())
+        await self.getEntity()?.components.set(InputTargetComponent())
 
     }
     

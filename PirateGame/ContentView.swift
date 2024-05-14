@@ -9,6 +9,51 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
+class blockStorage {
+    
+    var CB: cardboardBlock
+    var WB: woodBlock
+    var SB: stoneBlock
+    
+    init() async {
+        CB = await cardboardBlock()
+        WB = await woodBlock()
+        SB = await stoneBlock()
+    }
+    
+    func getCardboardBlock() -> cardboardBlock{
+        return CB
+    }
+    
+    func takeCardboardBlock() async -> cardboardBlock {
+        let holdBlock = CB
+        CB = await cardboardBlock()
+        return holdBlock
+    }
+    
+    func getWoodBlock() -> woodBlock {
+        return WB
+    }
+    
+    func takeWoodBlock() async -> woodBlock {
+        let holdBlock = WB
+        WB = await woodBlock()
+        return holdBlock
+    }
+    
+    func getStoneBlock() -> stoneBlock {
+        return SB
+    }
+    
+    func takeStoneBlock() async -> stoneBlock {
+        let holdBlock = SB
+        SB = await stoneBlock()
+        return holdBlock
+    }
+}
+
+var storage: blockStorage?
+
 struct ContentView: View {
 
     @State private var enlarge = false
@@ -21,6 +66,16 @@ struct ContentView: View {
 
     var body: some View {
         
+        RealityView { content in
+            
+        }
+        
+        .task {
+            storage = await blockStorage()
+            await openImmersiveSpace(id: "ImmersiveSpace")
+        }
+
+        
         VStack {
             
             Text("Coins: \(getManager()?.getCoins())").font(.largeTitle).foregroundStyle(.white).scaledToFit().bold().accentColor(.red)
@@ -32,21 +87,43 @@ struct ContentView: View {
             style: .continuous
         )).frame(width: 200,height: 150)
         
-        Button("Add Block") {
-            if getManager()!.getCoins() >= 100 {
-                let block = Block(Material: [SimpleMaterial(color:.red, isMetallic: false)], Health: 2)
-                block.setPosition(pos: SIMD3<Float>(0,1.5,0))
-                getManager()?.setCoins(a: getManager()!.getCoins()-100)
-                getManager()?.registerObject(object: block)
-            }
-        }.font(.custom("billy", size: 400))
         
-        RealityView { content in
+        HStack{
+            Button("Cardboard") {
+                Task{
+                    var block =  storage?.getCardboardBlock()
+                    if getManager()!.getCoins() >= block!.getPrice() {
+                        block = await storage?.takeCardboardBlock()
+                        block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                        getManager()?.setCoins(a: getManager()!.getCoins()-block!.getPrice())
+                        getManager()?.registerObject(object: block!)
+                    }
+                }
+            }.font(.custom("billy", size: 400))
             
-        }
-        
-        .task {
-            await openImmersiveSpace(id: "ImmersiveSpace")
+            Button("Wood") {
+                Task{
+                    var block =  storage?.getWoodBlock()
+                    if getManager()!.getCoins() >= block!.getPrice() {
+                        block = await storage?.takeWoodBlock()
+                        block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                        getManager()?.setCoins(a: getManager()!.getCoins()-block!.getPrice())
+                        getManager()?.registerObject(object: block!)
+                    }
+                }
+            }.font(.custom("billy", size: 400))
+            
+            Button("Stone") {
+                Task{
+                    var block =  storage?.getStoneBlock()
+                    if getManager()!.getCoins() >= block!.getPrice() {
+                        block = await storage?.takeStoneBlock()
+                        block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                        getManager()?.setCoins(a: getManager()!.getCoins()-block!.getPrice())
+                        getManager()?.registerObject(object: block!)
+                    }
+                }
+            }.font(.custom("billy", size: 400))
         }
     }
 }

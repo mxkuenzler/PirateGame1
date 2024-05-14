@@ -18,6 +18,8 @@ class Flag: Object {
         let FlagModel = try? await Entity(named: "Flag", in: realityKitContentBundle)
                 
         super.init(Entity: FlagModel!, ID: ID.FLAG)
+        
+        await FlagModel?.setPosition(SIMD3(0, 1, 0), relativeTo: FlagModel)
     }
     
     func fixCollisionShapes(){
