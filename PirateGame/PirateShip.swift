@@ -47,7 +47,7 @@ class PirateShip: Object {
                 print("ball")
                 
                 print("pos")
-                var newPos = SIMD3<Float>(0 + Float.random(in: 0...0),1 + Float.random(in: 0...0),0 + Float.random(in: 0...0))
+                var newPos = SIMD3<Float>(0 + Float.random(in: -1.5...1.5),1 + Float.random(in: -1.5...1.5),0 + Float.random(in: -1.5...1.5))
                 print("shooting")
                 await self.moveBall(ent: ball.getEntity()!, newPos: newPos, time: time)
             }

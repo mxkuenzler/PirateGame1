@@ -4,7 +4,7 @@
 //
 //  Created by Student on 5/8/24.
 //
-
+import SwiftUI
 import Foundation
 import RealityKit
 import RealityKitContent
@@ -16,7 +16,7 @@ class GameManager {
     private var rContent:RealityViewContent?
     private var lighting:EnvironmentResource?
     private var objectList:[Object]
-    private var coins:Int
+    @State private var coins:Int
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?) {
         

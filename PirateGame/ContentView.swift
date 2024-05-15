@@ -54,18 +54,19 @@ class blockStorage {
 
 var storage: blockStorage?
 
+
 struct ContentView: View {
 
     @State private var enlarge = false
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
-    @State private var coins = getManager()?.getCoins()
+    @State private var coins:Int = 10000
     
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
+    
     var body: some View {
-        
+                
         RealityView { content in
             
         }
@@ -74,11 +75,10 @@ struct ContentView: View {
             storage = await blockStorage()
             await openImmersiveSpace(id: "ImmersiveSpace")
         }
-
         
         VStack {
             
-            Text("Coins: \(String(describing: coins))").font(.largeTitle).foregroundStyle(.white).bold().accentColor(.red)
+        Text("Coins: \(String(describing: coins))").font(.largeTitle).foregroundStyle(.white).bold().accentColor(.red)
             /*Button("Add Coins") {
                 getManager()?.setCoins(a: getManager()!.getCoins() + 100)
             }*/
@@ -106,10 +106,10 @@ struct ContentView: View {
                 Button("Cardboard") {
                     Task{
                         var block =  storage?.getCardboardBlock()
-                        if getManager()!.getCoins() >= block!.getPrice() {
+                        if coins >= block!.getPrice() {
                             block = await storage?.takeCardboardBlock()
                             block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
-                            getManager()?.giveCoins(a: 0-block!.getPrice())
+                            coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }
@@ -131,10 +131,10 @@ struct ContentView: View {
                 Button("Wood") {
                     Task{
                         var block =  storage?.getWoodBlock()
-                        if getManager()!.getCoins() >= block!.getPrice() {
+                        if coins >= block!.getPrice() {
                             block = await storage?.takeWoodBlock()
                             block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
-                            getManager()?.giveCoins(a: 0-block!.getPrice())
+                            coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }
@@ -156,10 +156,10 @@ struct ContentView: View {
                 Button("Stone") {
                     Task{
                         var block =  storage?.getStoneBlock()
-                        if getManager()!.getCoins() >= block!.getPrice() {
+                        if coins >= block!.getPrice() {
                             block = await storage?.takeStoneBlock()
                             block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
-                            getManager()?.giveCoins(a: 0-block!.getPrice())
+                            coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }

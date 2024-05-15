@@ -62,13 +62,12 @@ struct ImmersiveView: View {
             ship.getEntity()?.components[PhysicsBodyComponent.self] = motionComp
             ship.getEntity()?.components[PhysicsMotionComponent.self]?.angularVelocity = SIMD3<Float>(0,0.5,0)
             //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+           
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
                 Task.init {
-                    await ship.shootCannonBalls(amount: 60, time: 100)
-                 }
+                    await ship.shootCannonBalls(amount:20,time:50)
+                }
             }
-            
-             
             
             
             /*for i in 0...3 {

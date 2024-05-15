@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "E5BF47D1-FCE8-40EC-855D-73EE23465F48"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "718BF441-4880-4299-8AE0-874550ECF4A3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PirateGame/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "718BF441-4880-4299-8AE0-874550ECF4A3 - 6ffe434ae1807ec2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PirateGame.ContentView.body.getter : some"
+                  moduleName = "PirateGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/PirateGame1/PirateGame/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74">
+               </Location>
+               <Location
+                  uuid = "718BF441-4880-4299-8AE0-874550ECF4A3 - 9f4e26c7e7629e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 @Sendable () async -&gt; () in PirateGame.ContentView.body.getter : some"
+                  moduleName = "PirateGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/PirateGame1/PirateGame/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74">
+               </Location>
+               <Location
+                  uuid = "718BF441-4880-4299-8AE0-874550ECF4A3 - f2abb696cb2bcd5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable () async -&gt; () in PirateGame.ContentView.body.getter : some"
+                  moduleName = "PirateGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/PirateGame1/PirateGame/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
