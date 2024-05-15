@@ -12,7 +12,7 @@ import _RealityKit_SwiftUI
 
 class Flag: Object {
     
-    var HP = 2
+    var HP = 200
     
     init() async{
         let FlagModel = try? await Entity(named: "Flag", in: realityKitContentBundle)

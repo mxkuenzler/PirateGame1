@@ -29,22 +29,22 @@ class Object {
     
     func initiatePhysicsBody() {
         
-        guard let entity = Entity else { print("didnt work"); return }
-
         
-        entity.generateCollisionShapes(recursive: true)
         
-        entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+        Entity?.generateCollisionShapes(recursive: true)
+        
+        Entity?.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
             massProperties: .default,
-            //material: .generate(staticFriction: 5, dynamicFriction: 0, restitution: 0.1),
+            //material: .generate(staticFriction: 0, dynamicFriction: 0, restitution: 0),
             mode: .static))
+
+        Entity?.components[PhysicsMotionComponent.self] = .init()
         
-        entity.components[PhysicsMotionComponent.self] = .init()
-        
-        entity.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
+        Entity?.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
         
     }
     
+
     func initiateLighting(IBL: EnvironmentResource) {
         
         let iblComponent = ImageBasedLightComponent(source: .single(IBL), intensityExponent: 0.25)
@@ -80,6 +80,10 @@ class Object {
     
     func setPosition(pos:SIMD3<Float>) {
         Entity?.position = pos
+    }
+    
+    func setPosition(pos:SIMD3<Float>, relativeTo: Entity) {
+        Entity?.setPosition(pos, relativeTo: relativeTo)
     }
     
 }

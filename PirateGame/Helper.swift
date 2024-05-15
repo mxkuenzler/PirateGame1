@@ -59,3 +59,24 @@ func connectBlocks(a: Object, b: Object) {
 func distanceBetween(a: SIMD3<Float>, b: SIMD3<Float>) -> Float {
     return sqrt(pow(a.x-b.x,2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2))
 }
+
+func getTimes(intervals : Int, time:Float) async -> Array<Float> {
+    var arr = Array<Float>(repeating: 0, count: intervals)
+    var currentTime = time
+    while(currentTime > 0) {
+        
+        var Rand = Float.random(in: 0...0.5)
+        if currentTime > Rand {
+            arr[Int.random(in: 0...intervals-1)] += Rand
+            currentTime = currentTime - Rand
+        } else {
+            arr[Int.random(in: 0...intervals-1)] += currentTime
+            currentTime = 0
+        }
+        
+    }
+    
+    print(arr)
+    
+    return arr
+}

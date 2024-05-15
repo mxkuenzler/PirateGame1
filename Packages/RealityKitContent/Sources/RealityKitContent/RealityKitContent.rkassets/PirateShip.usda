@@ -9,7 +9,7 @@ reorder rootPrims = ["Root", "GridMaterial"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Pirate_Ship", "Sphere", "RigidBody"]
+    reorder nameChildren = ["Sphere", "RigidBody", "woodBlock"]
     rel material:binding = None (
         bindMaterialAs = "weakerThanDescendants"
     )
@@ -19,11 +19,11 @@ def Xform "Root"
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        reorder nameChildren = ["DefaultMaterial", "Collider", "RigidBody", "Pirate_Ship"]
+        reorder nameChildren = ["Pirate_Ship", "DefaultMaterial", "Collider", "RigidBody"]
         rel material:binding = </Root/Sphere/Pirate_Ship/Materials/material> (
             bindMaterialAs = "weakerThanDescendants"
         )
-        double radius = 1
+        double radius = 0
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
         float3 xformOp:translate = (0, 0, 0)

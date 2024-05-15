@@ -29,11 +29,16 @@ class GameManager {
     
     
     func registerObject(object: Object) {
-        rContent?.add(object.getEntity()!)
         object.initiateLighting(IBL: lighting!)
         object.initiatePhysicsBody()
-        objectList.append(object)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task.init {
+                self.rContent?.add(object.getEntity()!)
+                self.objectList.append(object)
+            }
+        }
     }
+    
     
     func unregisterObject(object: Object) {
         

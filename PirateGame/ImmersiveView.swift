@@ -47,32 +47,28 @@ struct ImmersiveView: View {
             content.subscribe(to: CollisionEvents.Began.self) { event in
                 manager?.handleCollision(event: event)
             }
-            /*
+            
             await manager?.registerObject(object: OceanFloor())
             await manager?.registerObject(object: IslandFloor())
-            await manager?.registerObject(object: Flag())*/
+            await manager?.registerObject(object: Flag())
             let ship = await PirateShip()
             manager?.registerObject(object: ship)
-            ship.setPosition(pos: SIMD3<Float>(0,4,0))
+            ship.setPosition(pos: SIMD3<Float>(0,1,0))
             ship.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
             ship.getEntity()?.components[PhysicsBodyComponent.self]?.isAffectedByGravity = false
             var motionComp = ship.getEntity()?.components[PhysicsBodyComponent.self]
             motionComp?.angularDamping = 0
             motionComp?.linearDamping = 0
+            ship.getEntity()?.components[PhysicsBodyComponent.self] = motionComp
             ship.getEntity()?.components[PhysicsMotionComponent.self]?.angularVelocity = SIMD3<Float>(0,1,0)
             //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
-
-            
-            async {
-                for i in 0...30 {
-                    let seconds = 0.5*Double(i)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                        // Put your code which should be executed with a delay here
-                        print(motionComp?.angularDamping)
-                        print(ship.getEntity()?.components[PhysicsMotionComponent.self]?.angularVelocity)
-                    }
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                Task.init {
+                await ship.shootCannonBalls(amount: 6, time: 15)
+                 }
             }
+            
+             
             
             
             /*for i in 0...3 {

@@ -18,8 +18,19 @@ class Cannonball: Object {
         
         super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
         
-        await self.getEntity()?.components.set(InputTargetComponent())
-
+    }
+    
+    init(pos: SIMD3<Float>, relativeTo: Entity) async {
+        
+        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
+        
+        super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
+        
+        setPosition(pos: pos, relativeTo: relativeTo)
+        
+        await manager?.registerObject(object: self)
+        
+        setDynamic()
     }
     
     override func handleCollision(event: CollisionEvents.Began) {
@@ -39,6 +50,10 @@ class Cannonball: Object {
         
     }
     
+    func setDynamic() {
+        getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
+    }
+    
     func shootBall(b:SIMD3<Float>, c:Float) {
 
             //a.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
@@ -52,7 +67,7 @@ class Cannonball: Object {
 
             //a.components[PhysicsBodyComponent.self]?.mode = .dynamic
 
-            getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:4.9*c, z:vZ)
+            getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:vY + 4.9*c, z:vZ)
     }
     
     func damageBlock(obj: Object) {
