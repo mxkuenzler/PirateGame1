@@ -24,13 +24,11 @@ class Cannonball: Object {
         
         let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
         
-        super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
+        await super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
         
         setPosition(pos: pos, relativeTo: relativeTo)
         
-        await manager?.registerObject(object: self)
         
-        setDynamic()
     }
     
     override func handleCollision(event: CollisionEvents.Began) {

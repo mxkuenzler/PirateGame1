@@ -33,15 +33,14 @@ class Object {
         
         Entity?.generateCollisionShapes(recursive: true)
         
-        Entity?.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
+        Entity?.components[PhysicsMotionComponent.self] = .init()
+
+        Entity?.components.set((PhysicsBodyComponent(
             massProperties: .default,
             //material: .generate(staticFriction: 0, dynamicFriction: 0, restitution: 0),
-            mode: .static))
-
-        Entity?.components[PhysicsMotionComponent.self] = .init()
-        
+            mode: .static)))
+        print(Entity!)
         Entity?.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
-        
     }
     
 

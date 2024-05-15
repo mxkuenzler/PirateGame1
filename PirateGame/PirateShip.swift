@@ -40,28 +40,34 @@ class PirateShip: Object {
     func shootCannonBall(time: Float) async {
         
         let ball = await Cannonball(pos: ship!.position, relativeTo: getEntity()!)
-
-        print("ball")
-        
-        print("pos")
-        await print(ship!.position)
-        var newPos = SIMD3<Float>(0 + Float.random(in: 0...0),1 + Float.random(in: 0...0),0 + Float.random(in: 0...0))
-        print("shooting")
-        moveBall(ent: ball.getEntity()!, newPos: newPos, time: time)
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+            Task.init {
+                manager?.registerObject(object: ball)
+                ball.setDynamic()
+                print("ball")
+                
+                print("pos")
+                var newPos = SIMD3<Float>(0 + Float.random(in: 0...0),1 + Float.random(in: 0...0),0 + Float.random(in: 0...0))
+                print("shooting")
+                await self.moveBall(ent: ball.getEntity()!, newPos: newPos, time: time)
+            }
+        }
     }
     
-    func moveBall(ent : Entity, newPos: SIMD3<Float>, time:Float) {
+    func moveBall(ent : Entity, newPos: SIMD3<Float>, time:Float) async {
         
-        var currentPos =  ent.position
+        var currentPos = await ent.position
         var diff = newPos - currentPos
         var vX = diff.x/time
         var vY = diff.y/time + 4.9*time
         var vZ = diff.z/time
-        
-        ent.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(vX,vY,vZ)
-        print("velocity")
-        print(ent.components[PhysicsBodyComponent.self]?.mode)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task.init {
+                ent.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(vX,vY,vZ)
+                print("velocity")
+                print(ent.components[PhysicsBodyComponent.self]?.mode)
+            }
+        }
     }
     
     
