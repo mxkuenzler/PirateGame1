@@ -95,8 +95,8 @@ class GameManager {
         return coins
     }
     
-    func setCoins(a:Int) {
-        coins = a
+    func giveCoins(a:Int) {
+        coins += a
     }
     
     
