@@ -36,6 +36,7 @@ class Object {
         
         entity.components[PhysicsBodyComponent.self] = .init(PhysicsBodyComponent(
             massProperties: .default,
+            //material: .generate(staticFriction: 5, dynamicFriction: 0, restitution: 0.1),
             mode: .static))
         
         entity.components[PhysicsMotionComponent.self] = .init()

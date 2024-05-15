@@ -23,6 +23,7 @@
 		3F77B8532BED050B00895BD0 /* Floor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8502BED050B00895BD0 /* Floor.swift */; };
 		3F77B8542BED050B00895BD0 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8512BED050B00895BD0 /* Block.swift */; };
 		3F77B8562BED05E400895BD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8552BED05E400895BD0 /* Helper.swift */; };
+		3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8612BF3A3C400895BD0 /* PirateShip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3F77B8502BED050B00895BD0 /* Floor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floor.swift; sourceTree = "<group>"; };
 		3F77B8512BED050B00895BD0 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		3F77B8552BED05E400895BD0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		3F77B8612BF3A3C400895BD0 /* PirateShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateShip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
+				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
 				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
 				3F77B8552BED05E400895BD0 /* Helper.swift */,
 				0EB6A9512BEBA9B70027443F /* ImageBasedLighting.skybox */,
@@ -253,6 +256,7 @@
 				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
 				0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */,
+				3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */,
 				0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
 				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,

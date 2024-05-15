@@ -33,6 +33,9 @@ class Cannonball: Object {
             
             damageFlag(obj: obj!)
         }
+        if obj?.getID() == ID.OCEAN_FLOOR {
+            manager?.unregisterObject(object: self)
+        }
         
     }
     
