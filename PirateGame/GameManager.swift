@@ -107,7 +107,7 @@ class GameManager {
     
     func startNextLevel(level:Level) async {
         IsLevelActive = true
-        var levelDuration = level.getDuration()
+        let levelDuration = level.getDuration()
         
         if level.isSpecialLevel {
             await handleSpecialLevel(level:level)
@@ -125,8 +125,8 @@ class GameManager {
     
     func handleSpecialLevel(level: Level) async {
         
-        var ballArr = level.getBallArray()
-        var delayArr = level.getBallDelayArray()
+        let ballArr = level.getBallArray()
+        let delayArr = level.getBallDelayArray()
         var totalTime:Float = 0.0
         
         for i in 0...delayArr!.count-1 {

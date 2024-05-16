@@ -79,21 +79,14 @@ struct ContentView: View {
         
         VStack {
             
-        Text("Coins: \(String(describing: coins))").font(.largeTitle).foregroundStyle(.white).bold().accentColor(.red)
-            /*Button("Add Coins") {
-                getManager()?.setCoins(a: getManager()!.getCoins() + 100)
-            }*/
-        }.glassBackgroundEffect(in: RoundedRectangle(
+        Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
             cornerRadius: 32,
             style: .continuous
         )).frame(width: 500,height: 250)
-        
-        Button("Cannonball"){
-            Task{
-                let c = await Cannonball()
-                c.setPosition(pos: SIMD3(0, 3, 0))
-                getManager()?.registerObject(object: c)
-            }
+            .font(.custom("billy", size: 100))
+            /*Button("Add Coins") {
+                getManager()?.setCoins(a: getManager()!.getCoins() + 100)
+            }*/
         }
         
         VStack {
@@ -101,17 +94,16 @@ struct ContentView: View {
                  Button("Start Next Level") {
                     Task.init {
                         isLevelActive = true
-                        var level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
+                        let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
                         await getManager()?.startNextLevel(level:level)
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                             isLevelActive = false
                             coins += level.reward
                         }
                     }
-                }.glassBackgroundEffect(in: RoundedRectangle(
-                    cornerRadius: 32,
-                    style: .continuous
-                )).frame(width: 500,height: 250)
+                }.frame(width: 500,height: 250)
+                    .font(.custom("billy", size: 100))
+
             }
         }
         

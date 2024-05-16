@@ -39,21 +39,42 @@ func connectBlocks(a: Object, b: Object) {
         max = 2
         maxValue = dVector.z.magnitude
     }
+   
+    var newPos = SIMD3<Float>(0,0,0)
     
     if max == 0 {
-        a.getEntity()!.position = posB + SIMD3<Float>(((dVector.x > 0) ? -1*blockSize/2 : 1*blockSize/2),0,0)
+        newPos = posB + SIMD3<Float>(((dVector.x > 0) ? -1*blockSize/2 : 1*blockSize/2),0,0)
     }
     if max == 1 {
-        a.getEntity()!.position = posB + SIMD3<Float>(0,((dVector.y > 0) ? -1*blockSize/2 : 1*blockSize/2),0)
+        newPos = posB + SIMD3<Float>(0,((dVector.y > 0) ? -1*blockSize/2 : 1*blockSize/2),0)
     }
     if max == 2 {
-        a.getEntity()!.position = posB + SIMD3<Float>(0,0,((dVector.z > 0) ? -1*blockSize/2 : 1*blockSize/2))
+        newPos = posB + SIMD3<Float>(0,0,((dVector.z > 0) ? -1*blockSize/2 : 1*blockSize/2))
     }
     
-    a.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
-    b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
-
+    if isEmptySpace(pos:newPos, ignore:a.getEntity()!) {
+        
+        a.getEntity()?.position = newPos
+        a.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+        b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+        
+    } else {
+        a.goToSpawn()
+    }
+    
     a.getEntity()!.components[PhysicsBodyComponent.self]?.mode = .static
+}
+
+func isEmptySpace(pos:SIMD3<Float>, ignore: Entity) -> Bool {
+    
+    let objList = manager!.getObjects()
+    
+    for i in 0...objList.count-1 {
+        if objList[i].getEntity() != ignore && objList[i].getEntity()!.position == pos {
+            return false
+        }
+    }
+    return true
 }
 
 func distanceBetween(a: SIMD3<Float>, b: SIMD3<Float>) -> Float {
@@ -65,7 +86,7 @@ func getTimes(intervals : Int, time:Float) async -> Array<Float> {
     var currentTime = time
     while(currentTime > 0) {
         
-        var Rand = Float.random(in: 0...0.5)
+        let Rand = Float.random(in: 0...0.5)
         if currentTime > Rand {
             arr[Int.random(in: 0...intervals-1)] += Rand
             currentTime = currentTime - Rand

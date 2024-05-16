@@ -85,4 +85,8 @@ class Object {
         Entity?.setPosition(pos, relativeTo: relativeTo)
     }
     
+    func goToSpawn() {
+        //override in classes
+    }
+    
 }

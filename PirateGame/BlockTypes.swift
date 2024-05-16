@@ -16,6 +16,10 @@ class cardboardBlock: Block {
         
         super.init(Entity: blockModel!, Health: 1, cost: 10)
     }
+    
+    override func goToSpawn() {
+        getEntity()?.position = cardboardSpawn
+    }
 }
 
 class woodBlock: Block {
@@ -23,6 +27,9 @@ class woodBlock: Block {
         let blockModel = try? await Entity(named: "woodBlock", in: realityKitContentBundle)
             
         super.init(Entity: blockModel!, Health: 2, cost: 25)
+    }
+    override func goToSpawn() {
+        getEntity()?.position = woodSpawn
     }
 }
 
@@ -32,6 +39,9 @@ class stoneBlock: Block {
             
         super.init(Entity: blockModel!, Health: 5, cost: 100)
     }
+    override func goToSpawn() {
+        getEntity()?.position = stoneSpawn
+    }
 }
 
 class sandBlock: Block {
@@ -39,6 +49,7 @@ class sandBlock: Block {
         let blockModel = try? await Entity(named: "sandBlock", in: realityKitContentBundle)
             
         super.init(Entity: blockModel!, Health: 2, cost: 0)
+        
     }
     
     override func hit(obj: Object) {
