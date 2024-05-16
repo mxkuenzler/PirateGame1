@@ -71,7 +71,6 @@ class Cannonball: Object {
     func damageBlock(obj: Object) {
         let block:Block = obj as! Block
         block.hit(obj: self)
-        manager?.giveCoins(a: 5)
         manager?.unregisterObject(object: self)
     }
     

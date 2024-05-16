@@ -61,6 +61,7 @@ struct ContentView: View {
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
     @State private var coins:Int = 10000
+    @State private var isLevelActive = false
     
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
@@ -95,6 +96,23 @@ struct ContentView: View {
             }
         }
         
+        VStack {
+            if !isLevelActive {
+                 Button("Start Next Level") {
+                    Task.init {
+                        isLevelActive = true
+                        var level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
+                        await getManager()?.startNextLevel(level:level)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
+                            isLevelActive = false
+                        }
+                    }
+                }.glassBackgroundEffect(in: RoundedRectangle(
+                    cornerRadius: 32,
+                    style: .continuous
+                )).frame(width: 500,height: 250)
+            }
+        }
         
         HStack{
             

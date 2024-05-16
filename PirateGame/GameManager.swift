@@ -16,7 +16,10 @@ class GameManager {
     private var rContent:RealityViewContent?
     private var lighting:EnvironmentResource?
     private var objectList:[Object]
-    @State private var coins:Int
+    private var IsLevelActive = false
+    private var pirateShip:PirateShip?
+    private var currentLevel = 0
+    
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?) {
         
@@ -24,7 +27,6 @@ class GameManager {
         self.rContent = rContent
         self.lighting = lighting
         self.objectList = Array<Object>()
-        coins = 10000
     }
     
     
@@ -89,14 +91,53 @@ class GameManager {
         }
         
     }
+ 
     
-    
-    func getCoins() -> Int {
-        return coins
+    func setPirateShip(obj:PirateShip?) {
+        pirateShip = obj
     }
     
-    func giveCoins(a:Int) {
-        coins += a
+    func isLevelActive() -> Bool {
+        return IsLevelActive
+    }
+    
+    func getCurrentLevel() -> Int {
+        return currentLevel
+    }
+    
+    func startNextLevel(level:Level) async {
+        IsLevelActive = true
+        var levelDuration = level.getDuration()
+        
+        if level.isSpecialLevel {
+            await handleSpecialLevel(level:level)
+        }
+        else {
+            await pirateShip?.shootCannonBalls(amount: level.getBallAmount(), time: level.getDuration())
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(levelDuration) + Double(5)) {
+            self.IsLevelActive = false
+        }
+        
+        currentLevel += 1
+    }
+    
+    func handleSpecialLevel(level: Level) async {
+        
+        var ballArr = level.getBallArray()
+        var delayArr = level.getBallDelayArray()
+        var totalTime:Float = 0.0
+        
+        for i in 0...delayArr!.count-1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(totalTime + delayArr![i])) {
+                Task.init {
+                    await self.pirateShip?.shootCannonBall(time: self.pirateShip!.getRandomTime(), type: ballArr![i])
+                }
+            }
+            totalTime += delayArr![i]
+        }
+    
     }
     
     

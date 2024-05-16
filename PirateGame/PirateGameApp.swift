@@ -8,7 +8,7 @@
 import SwiftUI
 
 var Manager:GameManager?
-
+var levelManager:LevelManager?
 
 @main
 
@@ -35,4 +35,12 @@ func getManager() -> GameManager? {
 
 func setManager(a:GameManager) {
     Manager = a
+}
+
+func getLevelManager() -> LevelManager? {
+    return levelManager
+}
+
+func setLevelManager(a:LevelManager) {
+    levelManager = a
 }
