@@ -105,6 +105,7 @@ struct ContentView: View {
                         await getManager()?.startNextLevel(level:level)
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                             isLevelActive = false
+                            coins += level.reward
                         }
                     }
                 }.glassBackgroundEffect(in: RoundedRectangle(

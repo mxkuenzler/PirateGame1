@@ -18,7 +18,7 @@ class GameManager {
     private var objectList:[Object]
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
-    private var currentLevel = 0
+    private var currentLevel = 1
     
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?) {

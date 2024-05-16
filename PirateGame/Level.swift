@@ -15,12 +15,14 @@ class Level {
     var cannonBallArray:Array<String>?
     var cannonBallDelayArray:Array<Float>?
     var levelNum:Int
+    var reward: Int
     
-    init(levelNum:Int, duration:Float, amount:Int) {
+    init(levelNum:Int, duration:Float, amount:Int, reward: Int) {
         isSpecialLevel = false
         self.levelNum = levelNum
         self.duration = duration
         self.cannonBallAmount = amount
+        self.reward = reward
     }
     
     init(levelNum:Int, ballArray:Array<String>, ballDelayArray:Array<Float>) {
@@ -28,6 +30,7 @@ class Level {
         self.levelNum = levelNum
         self.duration = -1
         self.cannonBallAmount = -1
+        self.reward = -1
         cannonBallArray = ballArray
         cannonBallDelayArray = ballDelayArray
     }
