@@ -22,7 +22,7 @@ def Xform "Root"
         rel material:binding = </Root/Cube/CorrugatedCardboard> (
             bindMaterialAs = "weakerThanDescendants"
         )
-        double size = 0.25
+        double size = 0.5
 
         def "CorrugatedCardboard" (
             active = true

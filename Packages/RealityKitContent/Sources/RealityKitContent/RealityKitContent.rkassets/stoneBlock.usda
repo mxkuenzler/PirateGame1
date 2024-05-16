@@ -21,7 +21,7 @@ def Xform "Root"
         rel material:binding = </Root/Cube/Smooth_Concrete> (
             bindMaterialAs = "weakerThanDescendants"
         )
-        double size = 0.25
+        double size = 0.5
 
         def "Smooth_Concrete" (
             active = true

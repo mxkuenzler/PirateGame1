@@ -65,6 +65,7 @@ struct ImmersiveView: View {
             ship.getEntity()?.components[PhysicsMotionComponent.self]?.angularVelocity = SIMD3<Float>(0,0.5,0)
             //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
             
+            await sandRing()
             
             /*for i in 0...3 {
                 
@@ -108,6 +109,28 @@ struct ImmersiveView: View {
                     }
                 }
             }
+    }
+}
+
+func sandRing() async {
+    for i in -2...2 {
+        let sand = await sandBlock()
+        sand.setPosition(pos: SIMD3<Float>(Float(i)/2, 0, 1))
+        manager?.registerObject(object: sand)
+        
+        let sand2 = await sandBlock()
+        sand2.setPosition(pos: SIMD3(Float(i)/2, 0, -1))
+        manager?.registerObject(object: sand2)
+    }
+    
+    for i in -1...1 {
+        let sand = await sandBlock()
+        sand.setPosition(pos: SIMD3<Float>(-1, 0, Float(i)/2))
+        manager?.registerObject(object: sand)
+        
+        let sand2 = await sandBlock()
+        sand2.setPosition(pos: SIMD3<Float>(1, 0, Float(i)/2))
+        manager?.registerObject(object: sand2)
     }
 }
 

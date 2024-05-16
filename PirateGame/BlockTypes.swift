@@ -33,3 +33,15 @@ class stoneBlock: Block {
         super.init(Entity: blockModel!, Health: 5, cost: 100)
     }
 }
+
+class sandBlock: Block {
+    init() async {
+        let blockModel = try? await Entity(named: "sandBlock", in: realityKitContentBundle)
+            
+        super.init(Entity: blockModel!, Health: 2, cost: 0)
+    }
+    
+    override func hit(obj: Object) {
+        return
+    }
+}

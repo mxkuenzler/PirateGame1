@@ -105,6 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
+				3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */,
+				3F1B85A92BF6318D006CE7A6 /* Level.swift */,
 				3F77B8512BED050B00895BD0 /* Block.swift */,
 				0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */,
 				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
@@ -120,8 +122,6 @@
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
 				0EB6A9582BEBA9B90027443F /* Info.plist */,
 				0EB6A9552BEBA9B90027443F /* Preview Content */,
-				3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */,
-				3F1B85A92BF6318D006CE7A6 /* Level.swift */,
 			);
 			path = PirateGame;
 			sourceTree = "<group>";

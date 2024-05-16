@@ -118,21 +118,23 @@ struct ContentView: View {
             
             VStack{
                 Model3D(named: "basicBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.6)
+                    .scaleEffect(0.4)
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                    .frame(depth: 300)
+
                 
                 Button("Cardboard") {
                     Task{
                         var block =  storage?.getCardboardBlock()
                         if coins >= block!.getPrice() {
                             block = await storage?.takeCardboardBlock()
-                            block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                            block!.setPosition(pos: cardboardSpawn)
                             coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }
                 }.font(.custom("billy", size: 100))
-                    .frame(depth: 350)
+                    .frame(depth: 300)
             }
             .padding(10)
             .glassBackgroundEffect(in: RoundedRectangle(
@@ -143,21 +145,23 @@ struct ContentView: View {
             
             VStack{
                 Model3D(named: "woodBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.6)
+                    .scaleEffect(0.4)
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                    .frame(depth: 300)
+
                 
                 Button("Wood") {
                     Task{
                         var block =  storage?.getWoodBlock()
                         if coins >= block!.getPrice() {
                             block = await storage?.takeWoodBlock()
-                            block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                            block!.setPosition(pos: woodSpawn)
                             coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }
                 }.font(.custom("billy", size: 100))
-                    .frame(depth: 350)
+                    .frame(depth: 300)
             }
             .padding(10)
             .glassBackgroundEffect(in: RoundedRectangle(
@@ -168,21 +172,23 @@ struct ContentView: View {
             
             VStack{
                 Model3D(named: "stoneBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.6)
+                    .scaleEffect(0.4)
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                    .frame(depth: 300)
+
                 
                 Button("Stone") {
                     Task{
                         var block =  storage?.getStoneBlock()
                         if coins >= block!.getPrice() {
                             block = await storage?.takeStoneBlock()
-                            block!.setPosition(pos: SIMD3<Float>(0,1.5,0))
+                            block!.setPosition(pos: stoneSpawn)
                             coins-=block!.getPrice()
                             getManager()?.registerObject(object: block!)
                         }
                     }
                 }.font(.custom("billy", size: 100))
-                    .frame(depth: 350)
+                    .frame(depth: 300)
             }
             .padding(10)
             .glassBackgroundEffect(in: RoundedRectangle(

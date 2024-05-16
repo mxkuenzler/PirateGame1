@@ -10,6 +10,11 @@ import SwiftUI
 var Manager:GameManager?
 var levelManager:LevelManager?
 
+let cardboardSpawn = SIMD3<Float>(-1, 3, -1)
+let woodSpawn = SIMD3<Float>(0, 3, -1)
+let stoneSpawn = SIMD3<Float>(1, 3, -1)
+
+
 @main
 
 
