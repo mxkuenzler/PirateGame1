@@ -39,6 +39,8 @@ class sandBlock: Block {
         let blockModel = try? await Entity(named: "sandBlock", in: realityKitContentBundle)
             
         super.init(Entity: blockModel!, Health: 2, cost: 0)
+        
+        await self.getEntity()?.components.remove(InputTargetComponent.self)
     }
     
     override func hit(obj: Object) {
