@@ -54,6 +54,7 @@ class blockStorage {
 
 var storage: blockStorage?
 
+let deltaT = 0.1
 
 struct ContentView: View {
 
@@ -62,7 +63,9 @@ struct ContentView: View {
     @State private var immersiveSpaceIsShown = false
     @State private var coins:Int = 10000
     @State private var isLevelActive = false
-    @State private var levelEndedMessage = false
+    @State private var progressTime = 0.0
+    @State private var totalProgressTime = 0
+    let timer = Timer.publish(every: deltaT, on: .main, in: .common).autoconnect()
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     var body: some View {
@@ -89,7 +92,7 @@ struct ContentView: View {
         
         VStack {
             if !isLevelActive {
-                 Button("Start Next Level") {
+                Button("Start Next Level") {
                     Task.init {
                         isLevelActive = true
                         let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
@@ -97,22 +100,24 @@ struct ContentView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                             isLevelActive = false
                             coins += level.reward
-                            levelEndedMessage = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                levelEndedMessage = false
-                            }
                         }
                     }
                 }.frame(width: 500,height: 250)
                     .font(.custom("billy", size: 100))
-
+                
+            } else {
+                ProgressView(value: progressTime, total: 1).padding()
+                    .onAppear {
+                        progressTime = 0
+                    }
+                    .onReceive(timer) {_ in
+                        if progressTime < 1 {
+                            progressTime += deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
+                        }
+                    }
             }
             
-            if levelEndedMessage {
-                Text("Level Ended!")
-                    .font(.custom("billy", size: 1000)).frame(width: 500,height:250)
-            }
-        }.frame(width: 500,height: 250)
+        }
         
         
         HStack{

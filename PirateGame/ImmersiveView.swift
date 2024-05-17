@@ -18,6 +18,9 @@ var manager: GameManager?
 struct ImmersiveView: View {
     
     @State var collisionSubscription:Cancellable?
+    @State var timeTotal:Float?
+    @State var timeProgress:Float?
+    
     
     var body: some View {
         RealityView { content in
@@ -78,8 +81,6 @@ struct ImmersiveView: View {
                 cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
                 
             }*/
-           
-        
             
         }.gesture(gestureA)
         
