@@ -62,12 +62,10 @@ struct ContentView: View {
     @State private var immersiveSpaceIsShown = false
     @State private var coins:Int = 10000
     @State private var isLevelActive = false
-    
+    @State private var levelEndedMessage = false
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-    
     var body: some View {
-                
         RealityView { content in
             
         }
@@ -99,13 +97,23 @@ struct ContentView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                             isLevelActive = false
                             coins += level.reward
+                            levelEndedMessage = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                levelEndedMessage = false
+                            }
                         }
                     }
                 }.frame(width: 500,height: 250)
                     .font(.custom("billy", size: 100))
 
             }
-        }
+            
+            if levelEndedMessage {
+                Text("Level Ended!")
+                    .font(.custom("billy", size: 1000)).frame(width: 500,height:250)
+            }
+        }.frame(width: 500,height: 250)
+        
         
         HStack{
             
@@ -115,7 +123,7 @@ struct ContentView: View {
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
                     .frame(depth: 300)
 
-                
+
                 Button("Cardboard") {
                     Task{
                         var block =  storage?.getCardboardBlock()

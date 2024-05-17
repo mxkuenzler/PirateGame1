@@ -52,22 +52,6 @@ class Cannonball: Object {
         getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
     }
     
-    func shootBall(b:SIMD3<Float>, c:Float) {
-
-            //a.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
-            
-            let distance:SIMD3<Float> = b - getEntity()!.position
-
-            let vX = distance.x/c
-            let vY = distance.y/c
-            let vZ = distance.z/c
-
-
-            //a.components[PhysicsBodyComponent.self]?.mode = .dynamic
-
-            getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(x:vX, y:vY + 4.9*c, z:vZ)
-    }
-    
     func damageBlock(obj: Object) {
         let block:Block = obj as! Block
         block.hit(obj: self)

@@ -123,6 +123,13 @@ class GameManager {
         currentLevel += 1
     }
     
+    func endLevel(body: some View) {
+        
+        
+        
+        
+    }
+    
     func handleSpecialLevel(level: Level) async {
         
         let ballArr = level.getBallArray()
