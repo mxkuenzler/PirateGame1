@@ -25,7 +25,6 @@ struct ImmersiveView: View {
     var body: some View {
         RealityView { content in
             
-            //added a comment in Immersive View
             
             rContent = content
             
@@ -106,7 +105,7 @@ struct ImmersiveView: View {
                 if let _ = entity {
                     entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
                     if entity?.getID() == ID.SIMPLE_BLOCK {
-                        (entity! as! Block).checkSnap(manager: manager!)
+                        (entity! as! Block).checkSnap(manager: manager!) 
                     }
                 }
             }

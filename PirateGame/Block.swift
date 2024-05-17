@@ -38,7 +38,7 @@ class Block: Object {
         }
     }
     
-    func checkSnap(manager: GameManager) {
+    func checkSnap(manager: GameManager){
         
         let objArr = manager.getObjects()
         
@@ -85,7 +85,9 @@ class Block: Object {
     
     override func handleCollision(event: CollisionEvents.Began) {
         if manager?.findObject(model:event.entityB)?.getID() == ID.SIMPLE_BLOCK {
-            checkSnap(manager: manager!)
+            if self.getEntity()?.components[PhysicsBodyComponent.self]?.mode != .static {
+                checkSnap(manager: manager!)
+            }
         }
         if manager?.findObject(model: event.entityB)?.getID() == ID.ISLAND_FLOOR {
             getEntity()?.components[PhysicsBodyComponent.self]?.mode = .static

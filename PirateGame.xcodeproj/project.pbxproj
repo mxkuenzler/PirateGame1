@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F14A22BEE99BF009A64D8 /* Flag.swift */; };
 		0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */; };
+		0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5ABAB62BF7BA5800D31B8D /* Effects.swift */; };
 		0EB6A94A2BEBA9B70027443F /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 0EB6A9492BEBA9B70027443F /* RealityKitContent */; };
 		0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */; };
 		0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A94D2BEBA9B70027443F /* ContentView.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0E3F14A22BEE99BF009A64D8 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTypes.swift; sourceTree = "<group>"; };
+		0E5ABAB62BF7BA5800D31B8D /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		0EB6A9442BEBA9B70027443F /* PirateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PirateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB6A9482BEBA9B70027443F /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RealityKitContent; sourceTree = "<group>"; };
 		0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameApp.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
 				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
 				3F77B8552BED05E400895BD0 /* Helper.swift */,
+				0E5ABAB62BF7BA5800D31B8D /* Effects.swift */,
 				0EB6A9512BEBA9B70027443F /* ImageBasedLighting.skybox */,
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
 				0EB6A9582BEBA9B90027443F /* Info.plist */,
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */,
+				0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */,
 				3F77B8542BED050B00895BD0 /* Block.swift in Sources */,
 				3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */,
 				3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */,

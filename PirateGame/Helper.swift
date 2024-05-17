@@ -12,7 +12,7 @@ import RealityKitContent
 public var blockSize:Float = 1.0
 
 enum ID {
-    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP
+    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT
 }
 
 func isABlock(obj:Object) -> Bool {
@@ -57,6 +57,18 @@ func connectBlocks(a: Object, b: Object) {
         a.getEntity()?.position = newPos
         a.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
         b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+        
+        let nop = newPos
+//        let m = max // use to change oreantation of the effect
+        Task {
+            let be = await BlockEffect(pos: nop - SIMD3(0, blockSize/4, 0))
+            manager?.registerObject(object: be)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                Task.init {
+                    manager?.unregisterObject(object: be)
+                }
+            }
+        }
         
     } else {
         a.goToSpawn()

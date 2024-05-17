@@ -17,6 +17,7 @@ class Object {
     
     init(Entity: Entity, ID: ID) {
         self.Entity =  Entity.children.first?.children.first
+        print(self.Entity)
         self.ID = ID
     }
     
@@ -75,6 +76,10 @@ class Object {
     
     func handleCollision(event: CollisionEvents.Began) {
         //override in classes
+    }
+    
+    func getPosition() -> SIMD3<Float>? {
+        return Entity?.position
     }
     
     func setPosition(pos:SIMD3<Float>) {

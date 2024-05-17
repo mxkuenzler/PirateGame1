@@ -16,7 +16,6 @@ class PirateShip: Object {
     var ship:Entity?
     init() async{
         let PirateShipModel = try? await Entity(named: "PirateShip", in: realityKitContentBundle)
-        await print(PirateShipModel?.children.first?.children.first?.children.first?.name)
         ship = await PirateShipModel?.children.first?.children.first?.children.first
         super.init(Entity: PirateShipModel!, ID: ID.PIRATE_SHIP)
     }

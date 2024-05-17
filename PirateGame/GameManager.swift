@@ -32,7 +32,9 @@ class GameManager {
     
     func registerObject(object: Object) {
         object.initiateLighting(IBL: lighting!)
-        object.initiatePhysicsBody()
+        if object.getID() != ID.EFFECT {
+            object.initiatePhysicsBody()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             Task.init {
                 self.rContent?.add(object.getEntity()!)
