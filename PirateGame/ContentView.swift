@@ -54,7 +54,7 @@ class blockStorage {
 
 var storage: blockStorage?
 
-let deltaT = 0.1
+let deltaT = 0.01
 
 struct ContentView: View {
 
@@ -106,13 +106,19 @@ struct ContentView: View {
                     .font(.custom("billy", size: 100))
                 
             } else {
-                ProgressView(value: progressTime, total: 1).padding()
-                    .onAppear {
+                ProgressView(value: progressTime, total: 1).scaleEffect(x:1.02, y:32).frame(width:1000, height:110).padding(10)
+                    .glassBackgroundEffect(in: RoundedRectangle(
+                        cornerRadius: 1000000,
+                        style: .continuous
+                    ))
+                    .padding(10)
+                        .onAppear {
                         progressTime = 0
                     }
                     .onReceive(timer) {_ in
-                        if progressTime < 1 {
-                            progressTime += deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
+                        let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
+                        if progressTime + diff < 1 {
+                            progressTime += diff
                         }
                     }
             }
