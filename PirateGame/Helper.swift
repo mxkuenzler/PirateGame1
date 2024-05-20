@@ -139,3 +139,18 @@ func getTimes(intervals : Int, time:Float) async -> Array<Float> {
     
     return arr
 }
+
+func playAudio(fileName: String) async {
+    let fileName = "/Root/" + fileName
+    print("a")
+    print(fileName)
+    let resource = try? await AudioFileResource(named: fileName, from: "AudioController.usda",in:realityKitContentBundle)
+    print("b")
+    print(resource)
+    let ac = await audioController?.prepareAudio(resource!)
+    print(ac)
+    print(audioController)
+    print("c")
+    await ac?.play()
+    print("d")
+}

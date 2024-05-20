@@ -13,6 +13,7 @@ import Combine
 
 var rContent: RealityViewContent?
 var lighting: EnvironmentResource?
+var audioController: Entity?
 var manager: GameManager?
 
 struct ImmersiveView: View {
@@ -43,7 +44,11 @@ struct ImmersiveView: View {
                 // https://developer.apple.com/
             }
             
-            setManager(a:GameManager(rContent: rContent, lighting: lighting))
+            let entity = try? await Entity(named: "AudioController", in: realityKitContentBundle)
+            audioController = entity?.findEntity(named: "AmbientAudio")
+            content.add(entity!)
+            
+            setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController))
             manager = getManager()
             setLevelManager(a: LevelManager())
             
@@ -68,8 +73,6 @@ struct ImmersiveView: View {
             //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
             
             await sandRing()
-            
-            
             
             /*for i in 0...3 {
                 

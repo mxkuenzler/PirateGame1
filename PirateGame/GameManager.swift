@@ -15,17 +15,19 @@ class GameManager {
     
     private var rContent:RealityViewContent?
     private var lighting:EnvironmentResource?
+    private var audioController:Entity?
     private var objectList:[Object]
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
     private var currentLevel = 1
     
     
-    init(rContent: RealityViewContent?, lighting:EnvironmentResource?) {
+    init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?) {
         
         
         self.rContent = rContent
         self.lighting = lighting
+        self.audioController = audioController
         self.objectList = Array<Object>()
     }
     

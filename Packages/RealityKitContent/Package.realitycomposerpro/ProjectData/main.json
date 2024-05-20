@@ -3,10 +3,13 @@
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/GridMaterial.usda" : "95052448-183C-40B5-9E52-3717AF9B48FA",
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Immersive.usda" : "65F6F990-A780-4474-B78B-572E0E4E273D",
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/AudioController.usda" : "7F24CE4F-02EA-4BA6-BBE2-70104CF09DF6",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/basicBlock.usda" : "12D6045B-B436-4EE4-A86B-51C62028ED36",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/basicBlockView.usda" : "84B71130-F0C0-4960-855D-3A9D49130652",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/blockParticle.usda" : "3A819B04-BF7D-461A-B581-235F4759B650",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Can.usda" : "1C6BA7D4-6591-470D-A11B-84D62B8BAB83",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Cannonball.usda" : "47403D7D-BC68-4539-9AA1-381ED6278A7C",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/CatMeow01.usdz" : "25FF0D9C-603D-44EA-9632-27793AA8AEFE",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/CorrugatedCardboard.usdz" : "93407D6A-4F7D-4F91-8A52-DF0C710B0170",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Flag.usda" : "8257AE41-1F5C-4011-AAE1-5B551C81993A",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/GridMaterial.usda" : "A21C1E11-ABB0-4972-8159-55AD3A9AA5B3",
@@ -17,7 +20,6 @@
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/sandBlock.usda 12-18-12-688.usda" : "789C7E59-B428-422B-B775-672112B85751",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "D66134B1-3681-4A8E-AFE5-29F257229F3B",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/stoneBlock.usda" : "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
-    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Untitled%20Scene.usda" : "F658D7BF-9300-4631-AAE1-67EF5BAA00BF",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/woodBlock.usda" : "D34D8DDD-7068-4331-B8DE-8A2EEDA37E95"
   }
 }
