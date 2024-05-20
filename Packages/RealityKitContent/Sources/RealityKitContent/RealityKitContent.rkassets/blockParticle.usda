@@ -10,6 +10,7 @@
 
 def Xform "Root"
 {
+    reorder nameChildren = ["ParticleEmitter", "SpatialAudio", "mixkit_interface_click_1126_wav"]
     def Xform "ParticleEmitter"
     {
         float3 xformOp:scale = (5, 5, 5)
@@ -95,5 +96,20 @@ def Xform "Root"
             }
         }
     }
+
+    def Xform "SpatialAudio"
+    {
+        def RealityKitComponent "SpatialAudio"
+        {
+            float directLevel = 0
+            uniform token info:id = "RealityKit.SpatialAudio"
+            float reverbLevel = -49.694923
+        }
+    }
+}
+
+def RealityKitAudioFile "mixkit_interface_click_1126_wav"
+{
+    uniform asset file = @mixkit-interface-click-1126.wav@
 }
 

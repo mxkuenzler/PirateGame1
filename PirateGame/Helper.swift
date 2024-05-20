@@ -59,10 +59,25 @@ func connectBlocks(a: Object, b: Object) {
         b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
         
         let nop = newPos
-//        let m = max // use to change oreantation of the effect
+        let m = max // use to change oreantation of the effect
         Task {
-            let be = await BlockEffect(pos: nop - SIMD3(0, blockSize/4, 0))
+            let be: BlockEffect
+            if m == 0 {
+                be = await BlockEffect(pos: nop - SIMD3(((dVector.x > 0) ? -1*blockSize/4 : 1*blockSize/4), 0, 0))
+                await be.getEntity()?.setOrientation(simd_quatf(angle: 1.571, axis: SIMD3<Float>(0, 0, 1)), relativeTo: be.getEntity())
+            }
+            else if m == 1 {
+                be = await BlockEffect(pos: nop - SIMD3(0, ((dVector.y > 0) ? -1*blockSize/4 : 1*blockSize/4), 0))
+            }
+            else if m == 2 {
+                be = await BlockEffect(pos: nop - SIMD3(0, 0, ((dVector.z > 0) ? -1*blockSize/4 : 1*blockSize/4)))
+                await be.getEntity()?.setOrientation(simd_quatf(angle: 1.571, axis: SIMD3<Float>(1, 0, 0)), relativeTo: be.getEntity())
+            }
+            else {
+                be = await BlockEffect(pos: nop - SIMD3(0, 0, 0))
+            }
             manager?.registerObject(object: be)
+//            await playSound(entity: be.getEntity())
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 Task.init {
                     manager?.unregisterObject(object: be)
@@ -75,6 +90,17 @@ func connectBlocks(a: Object, b: Object) {
     }
     
     a.getEntity()!.components[PhysicsBodyComponent.self]?.mode = .static
+}
+
+func playSound(entity: Entity?) async {
+    
+    guard let entity = await entity!.findEntity(named: "SpatialAudio"),
+          let resource = try? await AudioFileResource(named: "Root/Clicker/mixkit_interface_click_1126_wav",
+                                   from: "blockParticle.usda",
+                                    in: realityKitContentBundle) else { print("nay"); return }
+        
+    let audioPlaybackController = await entity.prepareAudio(resource)
+    await audioPlaybackController.play()
 }
 
 func isEmptySpace(pos:SIMD3<Float>, ignore: Entity) -> Bool {

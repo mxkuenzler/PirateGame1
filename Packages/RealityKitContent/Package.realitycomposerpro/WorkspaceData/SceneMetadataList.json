@@ -89,11 +89,35 @@
     "objectMetadataList" : [
       [
         "3A819B04-BF7D-461A-B581-235F4759B650",
+        "Root",
+        "SpatialAudio"
+      ],
+      {
+        "isExpanded" : false,
+        "isLocked" : false,
+        "selectedAudioFilePrim" : {
+          "string" : "\/mixkit_interface_click_1126_wav"
+        }
+      },
+      [
+        "3A819B04-BF7D-461A-B581-235F4759B650",
         "Root"
       ],
       {
         "isExpanded" : true,
         "isLocked" : false
+      },
+      [
+        "3A819B04-BF7D-461A-B581-235F4759B650",
+        "Root",
+        "ParticleEmitter"
+      ],
+      {
+        "isExpanded" : false,
+        "isLocked" : false,
+        "selectedAudioFilePrim" : {
+          "string" : "\/mixkit_interface_click_1126_wav"
+        }
       }
     ]
   },
