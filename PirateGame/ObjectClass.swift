@@ -94,4 +94,10 @@ class Object {
         //override in classes
     }
     
+    func setOrientation(angle: Float, axes:SIMD3<Float>) {
+        
+        Entity?.setOrientation(simd_quatf(angle: angle, axis: axes), relativeTo: Entity!)
+        
+    }
+    
 }
