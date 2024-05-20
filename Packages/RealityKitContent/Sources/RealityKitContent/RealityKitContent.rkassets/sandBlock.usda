@@ -27,9 +27,15 @@ def Xform "Root"
             def Shader "DefaultSurfaceShader"
             {
                 uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
                 color3f inputs:diffuseColor = (0.88366085, 0.8333531, 0.53552043) (
                     colorSpace = "srgb_displayp3"
                 )
+                color3f inputs:emissiveColor = (0, 0, 0) (
+                    colorSpace = "lin_srgb"
+                )
+                float inputs:metallic = 0
+                float inputs:opacityThreshold
                 float inputs:roughness = 0.75
                 token outputs:surface
             }

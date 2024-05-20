@@ -46,6 +46,8 @@ def Xform "Root"
                     }
                 }
             )
+            token outputs:mtlx:surface.connect = </Root/Cube/Smooth_Concrete/PreviewSurface.outputs:out>
+            token outputs:surface.connect = </Root/Cube/Smooth_Concrete/UsdPreviewSurface_1.outputs:surface>
             float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
             quatf xformOp:orient = (1, 0, 0, 0)
             float3 xformOp:scale = (1, 1, 1)
@@ -67,7 +69,9 @@ def Xform "Root"
                 float2 ui:nodegraph:node:size = (61.5, 36.5)
             }
 
-            over "PreviewSurface"
+            over "PreviewSurface" (
+                active = true
+            )
             {
                 float2 ui:nodegraph:node:size = (148.5, 199)
                 int ui:nodegraph:node:stackingOrder = 2345
@@ -115,6 +119,18 @@ def Xform "Root"
             over "Normal"
             {
                 float2 ui:nodegraph:node:size = (158.5, 235)
+            }
+
+            def Shader "UsdPreviewSurface_1" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:emissiveColor = (0, 0, 0) (
+                    colorSpace = "lin_srgb"
+                )
+                float inputs:roughness = 1
+                token outputs:surface
             }
         }
     }

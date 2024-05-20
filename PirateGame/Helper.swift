@@ -12,7 +12,7 @@ import RealityKitContent
 public var blockSize:Float = 1.0
 
 enum ID {
-    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT
+    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT, SAMPLE_BLOCK
 }
 
 func isABlock(obj:Object) -> Bool {

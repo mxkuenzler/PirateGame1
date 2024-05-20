@@ -188,7 +188,6 @@ struct ContentView: View {
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
                     .frame(depth: 300)
 
-                
                 Button("Stone") {
                     Task{
                         var block =  storage?.getStoneBlock()
@@ -202,6 +201,7 @@ struct ContentView: View {
                 }.font(.custom("billy", size: 100))
                     .frame(depth: 300)
             }
+            
             .padding(10)
             .glassBackgroundEffect(in: RoundedRectangle(
                 cornerRadius: 10,
