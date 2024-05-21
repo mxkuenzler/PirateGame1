@@ -59,31 +59,77 @@ func connectBlocks(a: Object, b: Object) {
         b.getEntity()!.orientation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
         
         let nop = newPos
-        let m = max // use to change oreantation of the effect
-        Task {
-            let be: BlockEffect
-            if m == 0 {
-                be = await BlockEffect(pos: nop - SIMD3(((dVector.x > 0) ? -1*blockSize/4 : 1*blockSize/4), 0, 0))
-                await be.getEntity()?.setOrientation(simd_quatf(angle: 1.571, axis: SIMD3<Float>(0, 0, 1)), relativeTo: be.getEntity())
-            }
-            else if m == 1 {
-                be = await BlockEffect(pos: nop - SIMD3(0, ((dVector.y > 0) ? -1*blockSize/4 : 1*blockSize/4), 0))
-            }
-            else if m == 2 {
-                be = await BlockEffect(pos: nop - SIMD3(0, 0, ((dVector.z > 0) ? -1*blockSize/4 : 1*blockSize/4)))
-                await be.getEntity()?.setOrientation(simd_quatf(angle: 1.571, axis: SIMD3<Float>(1, 0, 0)), relativeTo: be.getEntity())
-            }
-            else {
-                be = await BlockEffect(pos: nop - SIMD3(0, 0, 0))
-            }
-            manager?.registerObject(object: be)
-//            await playSound(entity: be.getEntity())
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                Task.init {
-                    manager?.unregisterObject(object: be)
+        guard let ent = a.getEntity() else { return }
+        let xPos = (a.getPosition()?.x)!
+        let yPos = (a.getPosition()?.y)!
+        let zPos = (a.getPosition()?.z)!
+
+        Task{
+            if !isEmptySpace(pos: SIMD3<Float>(xPos - blockSize/2, yPos, zPos), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(blockSize/4, 0, 0))
+                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
                 }
             }
+            if !isEmptySpace(pos: SIMD3<Float>(xPos + blockSize/2 , yPos, zPos), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(-blockSize/4, 0, 0))
+                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
+                }
+                
+            }
+            if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos - blockSize/2, zPos), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, blockSize/4, 0))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
+                }
+                
+            }
+            if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos + blockSize/2, zPos), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, -blockSize/4, 0))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
+                }
+                
+            }
+            if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos, zPos - blockSize/2), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, blockSize/4))
+                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
+                }
+                
+            }
+            if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos, zPos + blockSize/2), ignore: ent){
+                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, -blockSize/4))
+                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
+                manager?.registerObject(object: be)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task.init{
+                        manager?.unregisterObject(object: be)
+                    }
+                }
+                
+            }
         }
+        
         
     } else {
         a.goToSpawn()
