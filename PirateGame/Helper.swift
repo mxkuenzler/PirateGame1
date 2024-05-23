@@ -8,11 +8,12 @@
 import Foundation
 import RealityKit
 import RealityKitContent
+import SwiftUI
 
 public var blockSize:Float = 1.0
 
 enum ID {
-    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT, SAMPLE_BLOCK
+    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT, SAMPLE_BLOCK, BUTTON, SHOP
 }
 
 func isABlock(obj:Object) -> Bool {
@@ -180,23 +181,21 @@ func getTimes(intervals : Int, time:Float) async -> Array<Float> {
         }
         
     }
-    
-    print(arr)
-    
+        
     return arr
 }
 
 func playAudio(fileName: String) async {
     let fileName = "/Root/" + fileName
-    print("a")
-    print(fileName)
     let resource = try? await AudioFileResource(named: fileName, from: "AudioController.usda",in:realityKitContentBundle)
-    print("b")
-    print(resource)
     let ac = await audioController?.prepareAudio(resource!)
-    print(ac)
-    print(audioController)
-    print("c")
     await ac?.play()
-    print("d")
 }
+
+func makeButton(size: Float, color: UIColor) -> ModelEntity {
+    
+    let ent = ModelEntity(mesh: .generateBox(width: size*1.618, height: size/2*1.618, depth: size/2), materials: [SimpleMaterial(color: color,isMetallic:false)])
+    return ent
+    
+}
+

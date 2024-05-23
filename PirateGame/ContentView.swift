@@ -64,6 +64,14 @@ struct ContentView: View {
     @State private var coins:Int = 10000
     @State private var isLevelActive = false
     @State private var progressTime = 0.0
+    @State private var gameMode:GameMode = .mode1
+
+    enum GameMode: String, CaseIterable, Identifiable
+    {
+        case mode1, mode2
+        var id: Self { self }
+    }
+    
     @State private var totalProgressTime = 0
     let timer = Timer.publish(every: deltaT, on: .main, in: .common).autoconnect()
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
@@ -73,10 +81,26 @@ struct ContentView: View {
             
         }
         
+        
         .task {
             storage = await blockStorage()
             await openImmersiveSpace(id: "ImmersiveSpace")
         }
+
+                // in the VStack under the start level button
+
+        Picker("Game Mode", selection: $gameMode)
+                        {
+                            ForEach(GameMode.allCases)
+                            {
+                                gameMode in
+                                Text(gameMode.rawValue)
+                            }
+                        }.pickerStyle(.segmented)
+                            .frame(width: 500, height: 250)
+                            .scaleEffect(x: 3, y: 3)
+                            .opacity(1.0)
+
         
         VStack {
             
@@ -208,7 +232,17 @@ struct ContentView: View {
                 style: .continuous
             ))
             .padding(10)
+            
+            if !isLevelActive {
+                getManager()?.getCurrentIntermission().onStart()
+            }
         }
+        
+        
+        
+    }
+    var body1: some View {
+        getManager()!.getCurrentIntermission().onStart()
     }
 }
 

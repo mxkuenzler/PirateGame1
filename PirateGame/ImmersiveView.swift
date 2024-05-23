@@ -73,7 +73,31 @@ struct ImmersiveView: View {
             //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
             
             await sandRing()
-            
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                Task.init {
+                    
+                    /*
+                    manager?.registerObject(object: button)
+                    
+
+                    button.getEntity()?.position = [0,4,0]
+                    button.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .static
+                    print(button)
+                     */
+                    for i in -1...1 {
+                        let shop = await Shop(soldObject: i == -1 ? cardboardBlock() : (i == 0 ? woodBlock() : stoneBlock()), price: i+1, color: i == -1 ? .orange : (i == 0 ? .brown : .darkGray))
+                        await manager?.registerObject(object:shop)
+                        shop.setPosition(pos: SIMD3<Float>(7,2.5,1+Float(i*3)))
+                        shop.setOrientation(angle: -1*Float(i)*3.14159/6 + 3*3.14159/2, axes: SIMD3<Float>(0,0,1))
+                    }
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                Task.init {
+                    //print(button.getEntity()?.position)
+                }
+            }
             /*for i in 0...3 {
                 
                 let block = await cardboardBlock()
@@ -88,6 +112,8 @@ struct ImmersiveView: View {
             
         }.gesture(gestureA)
         
+
+        
     }
     
     var gestureA : some Gesture {
@@ -96,25 +122,34 @@ struct ImmersiveView: View {
             .onChanged { value in
                 let entity = manager?.findObject(model: value.entity)
                 if let _ = entity {
-                    entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
-                    entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    if entity?.getID() == ID.SIMPLE_BLOCK {
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
+                        entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    }
+                    if entity?.getID() == ID.BUTTON {
+                        var button = entity as! gameButton
+                        button.pressedButton()
+                    }
+                    
                 } else {
                 }
                 
             }
             .onEnded { value in
                 
-                value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
-                
                 let entity = manager?.findObject(model: value.entity)
                 if let _ = entity {
-                    entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
                     if entity?.getID() == ID.SIMPLE_BLOCK {
-                        (entity! as! Block).checkSnap(manager: manager!) 
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                        (entity! as! Block).checkSnap(manager: manager!)
+                    }
+                    if entity?.getID() == ID.BUTTON {
+                        //DO NOTHING ATM
                     }
                 }
             }
     }
+    
 }
 
 func sandRing() async {

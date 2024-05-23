@@ -31,6 +31,20 @@ class GameManager {
         self.objectList = Array<Object>()
     }
     
+    func registerObject(object: Shop) {
+        object.initiateLighting(IBL: lighting!)
+        if object.getID() != ID.EFFECT {
+            object.initiatePhysicsBody()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task.init {
+                self.rContent?.add(object.getEntity()!)
+                self.objectList.append(object)
+            }
+        }
+        registerObject(object: object.gameButton!)
+        object.gameButton!.setPosition(pos: SIMD3<Float>(0,object.buttonOffset,0))
+    }
     
     func registerObject(object: Object) {
         object.initiateLighting(IBL: lighting!)
@@ -151,6 +165,14 @@ class GameManager {
     
     }
     
+    func pickIntermission() -> levelIntermission {
+        return Merchantintermission() // INFINITE LOOP CHANGE THIS
+    }
+    
+    func getCurrentIntermission() -> levelIntermission {
+        let intermission = pickIntermission()
+        return intermission
+    }
     
         
         

@@ -30,6 +30,8 @@ struct PirateGameApp: App {
         WindowGroup {
             ContentView()
         }.windowStyle(.volumetric).defaultSize(width: 5000, height: 3000, depth: 500)
+        
+       
 
     }
 }

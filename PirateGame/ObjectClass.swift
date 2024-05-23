@@ -17,7 +17,11 @@ class Object {
     
     init(Entity: Entity, ID: ID) {
         self.Entity =  Entity.children.first?.children.first
-        print(self.Entity)
+        self.ID = ID
+    }
+    
+    init(ModelEntity: ModelEntity, ID: ID) {
+        self.Entity = ModelEntity as Entity
         self.ID = ID
     }
     
@@ -25,6 +29,13 @@ class Object {
         
         initiatePhysicsBody()
         initiateLighting(IBL: lighting!)
+        
+    }
+    
+    func displayObject(lighting:EnvironmentResource?) {
+        
+        initiateLighting(IBL: lighting!)
+        rContent?.add(getEntity()!)
         
     }
     
@@ -40,7 +51,6 @@ class Object {
             massProperties: .default,
             //material: .generate(staticFriction: 0, dynamicFriction: 0, restitution: 0),
             mode: .static)))
-        print(Entity!)
         Entity?.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
     }
     
@@ -97,7 +107,7 @@ class Object {
     func setOrientation(angle: Float, axes:SIMD3<Float>) {
         
         Entity?.setOrientation(simd_quatf(angle: angle, axis: axes), relativeTo: Entity!)
-        
+    
     }
     
 }
