@@ -54,7 +54,7 @@ class blockStorage {
 
 var storage: blockStorage?
 
-let deltaT = 0.01
+let deltaT = Double(0.01)
 
 struct ContentView: View {
 
@@ -162,8 +162,7 @@ struct ContentView: View {
                 Button("Start Next Level") {
                     Task.init {
                         isLevelActive = true
-                        let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
-                        await getManager()?.startNextLevel(level:level)
+                        let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel()+1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                             Task.init {
                                 isLevelActive = false
@@ -171,6 +170,7 @@ struct ContentView: View {
                                 coins += level.reward
                             }
                         }
+                        await getManager()?.startNextLevel(level:level)
                     }
                 }.frame(width: 500,height: 250)
                     .font(.custom("billy", size: 100))

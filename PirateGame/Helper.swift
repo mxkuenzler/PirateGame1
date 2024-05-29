@@ -72,6 +72,7 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(blockSize/4, 0, 0))
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)
@@ -82,6 +83,7 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(-blockSize/4, 0, 0))
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)
@@ -92,6 +94,7 @@ func connectBlocks(a: Object, b: Object) {
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos - blockSize/2, zPos), ignore: ent){
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, blockSize/4, 0))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)
@@ -102,6 +105,7 @@ func connectBlocks(a: Object, b: Object) {
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos + blockSize/2, zPos), ignore: ent){
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, -blockSize/4, 0))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)
@@ -113,6 +117,7 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, blockSize/4))
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)
@@ -124,6 +129,7 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, -blockSize/4))
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
                 manager?.registerObject(object: be)
+                await be.playAudio()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     Task.init{
                         manager?.unregisterObject(object: be)

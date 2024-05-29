@@ -19,7 +19,7 @@ class GameManager {
     private var objectList:[Object]
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
-    private var currentLevel = 1
+    private var currentLevel = 0
     private var teleportVector:Vector3D = Vector3D(x: 0,y: 0,z: 2000)
     private var selectedBlock:ID = ID.NIL
     

@@ -3,17 +3,31 @@
     customLayerData = {
         string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
     }
-    defaultPrim = "Root"
+    defaultPrim = ""
     metersPerUnit = 1
     upAxis = "Y"
 )
 
-def Xform "Root"
+def Xform "Root" (
+    customData = {
+        float3 rotationEulerHint = (1.5707964, 0, 0)
+    }
+)
 {
     reorder nameChildren = ["ParticleEmitter", "SpatialAudio", "Bison_Roar"]
-    def Xform "ParticleEmitter"
+    quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    float3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Xform "ParticleEmitter" (
+        customData = {
+            float3 rotationEulerHint = (0, 0, 0)
+        }
+    )
     {
         reorder nameChildren = ["VFXEmitter", "SpatialAudio"]
+        quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (5, 5, 5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
@@ -24,10 +38,10 @@ def Xform "Root"
             def RealityKitStruct "currentState"
             {
                 token birthDirection = "Normal"
-                token birthLocation = "Surface"
+                token birthLocation = "Volume"
                 float3 emissionDirection = (0, 1, 0)
                 double emissionDuration = 0.2
-                token emitterShape = "Box"
+                token emitterShape = "Point"
                 double idleDuration = 3
                 double idleDurationVariation = 0
                 bool isLocal = 0
@@ -35,7 +49,7 @@ def Xform "Root"
                 bool loops = 0
                 float particleSpeed = 0.5
                 float particleSpeedVariation = 0.1
-                float3 shapeSize = (0.05, 0.01, 0.05)
+                float3 shapeSize = (1, 1, 1)
                 bool spawnInheritParentColor = 0
                 token spawnOccasion = "OnDeath"
                 float spawnSpreadFactor = 0
@@ -54,7 +68,7 @@ def Xform "Root"
                     float colorEvolutionPower = 1
                     int64 columnCount = 4
                     float dampingFactor = 8
-                    float4 endColorA = (0.0013309671, 0.03458923, 1, 1)
+                    float4 endColorA = (0.10603755, 0.08798238, 0.032249905, 1)
                     float4 endColorB = (0.11386989, 0.0064959256, 0.10626237, 1)
                     float frameRate = 0
                     float frameRateVariation = 0
@@ -65,7 +79,7 @@ def Xform "Root"
                     float noiseAnimationSpeed = 0
                     float noiseScale = 1
                     float noiseStrength = 0.1
-                    token opacityOverLife = "LinearFadeOut"
+                    token opacityOverLife = "QuickFadeInOut"
                     float particleAngle = 0
                     float particleAngleVariation = 0
                     float particleAngularVelocity = 0
@@ -75,16 +89,17 @@ def Xform "Root"
                     double particleLifeSpanVariation = 1
                     float particleMass = 1
                     float particleMassVariation = 0.8
+                    float particleSize = 0.2
                     float3 radialGravityCenter = (0, 0, 0)
                     float radialGravityStrength = 0
                     int64 rowCount = 4
                     float sizeMultiplierAtEndOfLifespan = 8
                     float sizeMultiplierAtEndOfLifespanPower = 0.2
                     token sortOrder = "DecreasingDepth"
-                    float4 startColorA = (1, 1, 1, 0.26)
-                    float4 startColorB = (1, 1, 1, 0.07)
+                    float4 startColorA = (1, 0.21453872, 0, 0.26)
+                    float4 startColorB = (1, 0.23164642, 0, 0.07)
                     float stretchFactor = 0
-                    bool useEndColor = 0
+                    bool useEndColor = 1
                     bool useEndColorRange = 0
                     bool useStartColorRange = 1
                     float3 vortexDirection = (0, 1, 0)

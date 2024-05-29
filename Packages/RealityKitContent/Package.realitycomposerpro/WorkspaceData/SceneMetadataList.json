@@ -27,7 +27,8 @@
     "objectMetadataList" : [
       [
         "0FFA7117-78E8-4895-841F-6B4283C393C3",
-        "Root"
+        "Root",
+        "Island"
       ],
       {
         "isExpanded" : true,
@@ -35,8 +36,7 @@
       },
       [
         "0FFA7117-78E8-4895-841F-6B4283C393C3",
-        "Root",
-        "Island"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -79,9 +79,7 @@
       },
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
-        "Root",
-        "Ocean",
-        "Material"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -89,7 +87,9 @@
       },
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
-        "Root"
+        "Root",
+        "Ocean",
+        "Material"
       ],
       {
         "isExpanded" : true,
@@ -101,7 +101,26 @@
     "objectMetadataList" : [
       [
         "3A819B04-BF7D-461A-B581-235F4759B650",
+        "Root",
+        "ParticleEmitter",
+        "SpatialAudio"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3A819B04-BF7D-461A-B581-235F4759B650",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3A819B04-BF7D-461A-B581-235F4759B650",
+        "Root",
+        "ParticleEmitter"
       ],
       {
         "isExpanded" : true,
@@ -113,8 +132,7 @@
     "objectMetadataList" : [
       [
         "7B2B28B7-5693-4919-8EF1-0C1B959479BE",
-        "Cube",
-        "Dock"
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -122,7 +140,8 @@
       },
       [
         "7B2B28B7-5693-4919-8EF1-0C1B959479BE",
-        "Cube"
+        "Cube",
+        "Dock"
       ],
       {
         "isExpanded" : true,
@@ -167,14 +186,6 @@
     "objectMetadataList" : [
       [
         "12F00458-96BF-4414-A25D-DE5E3C0C6E3F",
-        "Shield"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "12F00458-96BF-4414-A25D-DE5E3C0C6E3F",
         "Circle",
         "Shield"
       ],
@@ -186,6 +197,14 @@
         "12F00458-96BF-4414-A25D-DE5E3C0C6E3F",
         "Shield",
         "Circle_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "12F00458-96BF-4414-A25D-DE5E3C0C6E3F",
+        "Shield"
       ],
       {
         "isExpanded" : true,
@@ -219,15 +238,6 @@
       },
       [
         "76B5A3E0-6C97-46C5-BA87-F2ABBDDE874E",
-        "Frame",
-        "ShopFrame"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "76B5A3E0-6C97-46C5-BA87-F2ABBDDE874E",
         "Frame"
       ],
       {
@@ -239,6 +249,15 @@
         "Frame",
         "ShopFrame",
         "Background"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "76B5A3E0-6C97-46C5-BA87-F2ABBDDE874E",
+        "Frame",
+        "ShopFrame"
       ],
       {
         "isExpanded" : true,
@@ -271,15 +290,6 @@
     "objectMetadataList" : [
       [
         "116B7C75-A1DC-4D07-B729-623814ACBF34",
-        "Root",
-        "Ocean"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "116B7C75-A1DC-4D07-B729-623814ACBF34",
         "Root"
       ],
       {
@@ -291,6 +301,27 @@
         "Root",
         "Ocean",
         "Material"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "116B7C75-A1DC-4D07-B729-623814ACBF34",
+        "Root",
+        "Ocean"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "0410F8A0-9907-47D6-9F53-EAA478210568" : {
+    "objectMetadataList" : [
+      [
+        "0410F8A0-9907-47D6-9F53-EAA478210568",
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -314,8 +345,7 @@
     "objectMetadataList" : [
       [
         "602CA447-0FA1-4E26-9C71-8F4F992A1B81",
-        "Root",
-        "Cube"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -323,7 +353,8 @@
       },
       [
         "602CA447-0FA1-4E26-9C71-8F4F992A1B81",
-        "Root"
+        "Root",
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -424,8 +455,7 @@
     "objectMetadataList" : [
       [
         "D2D8913C-5F1E-48CF-B222-D871B2CB6957",
-        "Button",
-        "Button_1"
+        "Button"
       ],
       {
         "isExpanded" : true,
@@ -433,7 +463,8 @@
       },
       [
         "D2D8913C-5F1E-48CF-B222-D871B2CB6957",
-        "Button"
+        "Button",
+        "Button_1"
       ],
       {
         "isExpanded" : true,
@@ -476,8 +507,7 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "Sphere"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -485,7 +515,8 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "Sphere"
       ],
       {
         "isExpanded" : true,
@@ -497,8 +528,7 @@
     "objectMetadataList" : [
       [
         "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
-        "Root",
-        "Cube"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -506,7 +536,8 @@
       },
       [
         "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
-        "Root"
+        "Root",
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -519,6 +550,37 @@
       [
         "F8B4926F-149C-4111-8C37-C7DFFA7947F2",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "F32EB372-C5DE-46F5-8F36-FE4D816C8C15" : {
+    "objectMetadataList" : [
+      [
+        "F32EB372-C5DE-46F5-8F36-FE4D816C8C15",
+        "Root",
+        "ParticleEmitter"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "F32EB372-C5DE-46F5-8F36-FE4D816C8C15",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "F32EB372-C5DE-46F5-8F36-FE4D816C8C15",
+        "Root",
+        "ParticleEmitter",
+        "SpatialAudio"
       ],
       {
         "isExpanded" : true,

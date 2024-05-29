@@ -70,8 +70,8 @@ class PirateShip: Object {
     
     func moveBall(ent : Entity, newPos: SIMD3<Float>, time:Float) async {
         
-        //let angle:Float = await getEntity()!.orientation.angle
-        //await playEffect(pos: ent.position, angle: angle)
+        let angle:Float = await getEntity()!.orientation.angle
+        await playEffect(pos: ent.position, angle: angle)
         
         let currentPos = await ent.position
         let diff = newPos - currentPos
@@ -96,8 +96,7 @@ class PirateShip: Object {
 func playEffect(pos : SIMD3<Float>, angle: Float) async {
     print(angle)
     
-    let effect = await BlockEffect(pos: pos) //MAKE THIS SHIP EFFECT
-    effect.setOrientation(angle: angle, axes: [0,1,0])
+    let effect = await CannonballEffect(pos: pos, angle:angle) //MAKE THIS SHIP EFFECT
     getManager()?.registerObject(object: effect)
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
