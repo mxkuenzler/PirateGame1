@@ -135,7 +135,6 @@ struct ImmersiveView: View {
             .targetedToAnyEntity()
             .onEnded { value in
                 
-                print("a")
                 let scene = value.entity.scene!
                 if getManager()?.getSelectedBlock() != ID.NIL {
                     let entity = manager?.findObject(model: value.entity)
