@@ -39,3 +39,14 @@ class IslandFloor: Floor {
         super.init(Model: FloorModel!, id: ID.ISLAND_FLOOR)
     }
 }
+
+class DockFloor: Floor {
+    init() async {
+        let FloorModel = try? await Entity(named: "Dock", in: realityKitContentBundle)
+        
+        super.init(Model: FloorModel!, id: ID.DOCK_FLOOR)
+        
+        setPosition(pos: SIMD3<Float>(-8.5,0.1,0))
+        setOrientation(angle: Float.pi/2, axes: SIMD3<Float>(1,0,0))
+    }
+}

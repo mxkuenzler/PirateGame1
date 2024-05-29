@@ -45,6 +45,9 @@ class Cannonball: Object {
         if obj?.getID() == ID.OCEAN_FLOOR {
             manager?.unregisterObject(object: self)
         }
+        if obj?.getID() == ID.SHIELD {
+            manager?.unregisterObject(object: self)
+        }
         
     }
     

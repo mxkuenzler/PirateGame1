@@ -101,7 +101,7 @@ class Object {
     }
     
     func goToSpawn() {
-        //override in classes
+        Entity?.setPosition(SIMD3<Float>(0,1,0), relativeTo: Entity!)
     }
     
     func setOrientation(angle: Float, axes:SIMD3<Float>) {

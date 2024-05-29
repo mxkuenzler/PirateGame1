@@ -31,6 +31,7 @@
 		3F77B8542BED050B00895BD0 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8512BED050B00895BD0 /* Block.swift */; };
 		3F77B8562BED05E400895BD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8552BED05E400895BD0 /* Helper.swift */; };
 		3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8612BF3A3C400895BD0 /* PirateShip.swift */; };
+		3FC0AA692C0045230022D71E /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0AA682C0045230022D71E /* Items.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		3F77B8512BED050B00895BD0 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		3F77B8552BED05E400895BD0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3F77B8612BF3A3C400895BD0 /* PirateShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateShip.swift; sourceTree = "<group>"; };
+		3FC0AA682C0045230022D71E /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
 				3F77B8502BED050B00895BD0 /* Floor.swift */,
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
+				3FC0AA682C0045230022D71E /* Items.swift */,
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */,
+				3FC0AA692C0045230022D71E /* Items.swift in Sources */,
 				0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */,
 				3F77B8542BED050B00895BD0 /* Block.swift in Sources */,
 				3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */,

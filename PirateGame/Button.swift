@@ -30,19 +30,6 @@ class gameButton : Object {
 
     }
     
-    init(entity: ModelEntity, action: @escaping () -> Void, debounceTime:Double) {
-                
-        super.init(ModelEntity: entity, ID: ID.BUTTON)
-        act = action
-        self.debounceTime = debounceTime
-        
-        entity.components.set(HoverEffectComponent())
-        entity.components.set(InputTargetComponent())
-        
-        entity.components[PhysicsBodyComponent.self]?.mode = .static
-        
-    }
-    
     func pressedButton() {
         if !buttonDebounce {
             buttonDebounce = true

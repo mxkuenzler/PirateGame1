@@ -20,7 +20,8 @@ class GameManager {
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
     private var currentLevel = 1
-    
+    private var teleportVector:Vector3D = Vector3D(x: 0,y: 0,z: 2000)
+    private var selectedBlock:ID = ID.NIL
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?) {
         
@@ -29,9 +30,11 @@ class GameManager {
         self.lighting = lighting
         self.audioController = audioController
         self.objectList = Array<Object>()
+        
     }
     
     func registerObject(object: Shop) {
+        print("shop")
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
             object.initiatePhysicsBody()
@@ -47,6 +50,7 @@ class GameManager {
     }
     
     func registerObject(object: Object) {
+        print("button")
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
             object.initiatePhysicsBody()
@@ -165,16 +169,34 @@ class GameManager {
     
     }
     
-    func pickIntermission() -> levelIntermission {
+    func pickIntermission() async -> levelIntermission {
         return Merchantintermission() // INFINITE LOOP CHANGE THIS
     }
     
-    func getCurrentIntermission() -> levelIntermission {
-        let intermission = pickIntermission()
-        return intermission
+    func startIntermission() async {
+        let intermission = await pickIntermission()
+        await intermission.onStart()
     }
     
+    func getTeleportVector() -> Vector3D {
         
+        return teleportVector
+        
+    }
+    
+    func setTeleportVector(a:Vector3D) {
+        teleportVector = a
+    }
+    
+    func setSelectedBlock(block: ID) {
+        selectedBlock = block
+    }
+    
+    func getSelectedBlock() -> ID {
+        return selectedBlock
+    }
+    
+    
         
         
     

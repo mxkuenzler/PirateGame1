@@ -13,7 +13,9 @@ import SwiftUI
 public var blockSize:Float = 1.0
 
 enum ID {
-    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR, PIRATE_SHIP, EFFECT, SAMPLE_BLOCK, BUTTON, SHOP
+    case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR,
+         PIRATE_SHIP, EFFECT, SAMPLE_BLOCK, BUTTON, SHOP, NIL, SAND_BLOCK,
+         STONE_BLOCK, WOOD_BLOCK, CARDBOARD_BLOCK, DOCK_FLOOR, SHIELD
 }
 
 func isABlock(obj:Object) -> Bool {
@@ -199,3 +201,19 @@ func makeButton(size: Float, color: UIColor) -> ModelEntity {
     
 }
 
+func getObjectFromID(id: ID) async -> Object {
+    switch id  {
+    case .CARDBOARD_BLOCK:
+        return await cardboardBlock()
+    case .STONE_BLOCK:
+        return await stoneBlock()
+    case .WOOD_BLOCK:
+        return await woodBlock()
+    case .SAND_BLOCK:
+        return await sandBlock()
+    case .SHIELD:
+        return await Shield()
+    default:
+        return await Object(Entity: Entity(), ID: .NIL)
+    }
+}

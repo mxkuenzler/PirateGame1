@@ -61,11 +61,21 @@ struct ContentView: View {
     @State private var enlarge = false
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
-    @State private var coins:Int = 10000
     @State private var isLevelActive = false
     @State private var progressTime = 0.0
     @State private var gameMode:GameMode = .mode1
+    @State private var temp:Bool = false
+    @State private var selectedBlock:ID = ID.NIL
+    // VECTORS:
+    
+    let leftVector:Vector3D = Vector3D(x:2000,y:0,z:0)
+    let rightVector:Vector3D = Vector3D(x:-2000,y:0,z:0)
+    let backwardVector:Vector3D = Vector3D(x:0,y:0,z:-2000)
+    let forwardVector:Vector3D = Vector3D(x:0,y:0,z:2000)
+    let centerVector:Vector3D = Vector3D(x:0,y:0,z:0)
+    let dockVector:Vector3D = Vector3D(x:10000,y:0,z:0)
 
+    
     enum GameMode: String, CaseIterable, Identifiable
     {
         case mode1, mode2
@@ -79,6 +89,8 @@ struct ContentView: View {
     var body: some View {
         RealityView { content in
             
+            
+            
         }
         
         
@@ -86,9 +98,8 @@ struct ContentView: View {
             storage = await blockStorage()
             await openImmersiveSpace(id: "ImmersiveSpace")
         }
-
-                // in the VStack under the start level button
-
+                        // in the VStack under the start level button
+        
         Picker("Game Mode", selection: $gameMode)
                         {
                             ForEach(GameMode.allCases)
@@ -100,11 +111,43 @@ struct ContentView: View {
                             .frame(width: 500, height: 250)
                             .scaleEffect(x: 3, y: 3)
                             .opacity(1.0)
-
+        Button("Change Mode") {
+            if gameMode == .mode2 {
+                gameMode = .mode1
+                selectedBlock = .NIL
+            } else {
+                gameMode = .mode2
+                selectedBlock = .CARDBOARD_BLOCK
+            }
+        }
+        .task {
+            func toggleTimer() async {
+                while true {
+                    getManager()?.setSelectedBlock(block:(selectedBlock))
+                    sleep(1)
+                }
+            }
+            
+            await toggleTimer()
+        }
         
         VStack {
-            
-        Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
+            Text("\(temp)").opacity(0).task {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+                    Task.init {
+                        
+                        func toggleTimer() async {
+                            while true {
+                                temp = !temp
+                                sleep(1)
+                            }
+                        }
+                        
+                        await toggleTimer()
+                    }
+                }
+            }
+            Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
             cornerRadius: 32,
             style: .continuous
         )).frame(width: 500,height: 250)
@@ -122,8 +165,11 @@ struct ContentView: View {
                         let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
                         await getManager()?.startNextLevel(level:level)
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
-                            isLevelActive = false
-                            coins += level.reward
+                            Task.init {
+                                isLevelActive = false
+                                await getManager()?.startIntermission()
+                                coins += level.reward
+                            }
                         }
                     }
                 }.frame(width: 500,height: 250)
@@ -145,12 +191,46 @@ struct ContentView: View {
                             progressTime += diff
                         }
                     }
+                    
             }
             
         }
         
         
         HStack{
+            
+            
+            VStack {
+                
+                Button("Left Button") {
+                    
+                    getManager()?.setTeleportVector(a: leftVector)
+                    
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                Button("Right Button") {
+                    
+                    getManager()?.setTeleportVector(a: rightVector)
+
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                Button("Forward Button") {
+                    
+                    getManager()?.setTeleportVector(a: forwardVector)
+
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                Button("Backward Button") {
+                    
+                    getManager()?.setTeleportVector(a: backwardVector)
+
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                
+            }
+            
+                
+            
             
             VStack{
                 Model3D(named: "basicBlock", bundle: realityKitContentBundle)
@@ -159,17 +239,22 @@ struct ContentView: View {
                     .frame(depth: 300)
 
 
-                Button("Cardboard") {
+                Button(gameMode == .mode1 ? "Cardboard" : "Select") {
                     Task{
-                        var block =  storage?.getCardboardBlock()
-                        if coins >= block!.getPrice() {
-                            block = await storage?.takeCardboardBlock()
-                            block!.setPosition(pos: cardboardSpawn)
-                            coins-=block!.getPrice()
-                            getManager()?.registerObject(object: block!)
+                        if gameMode == .mode1 {
+                            var block =  storage?.getCardboardBlock()
+                            if coins >= block!.getPrice() {
+                                block = await storage?.takeCardboardBlock()
+                                block!.setPosition(pos: cardboardSpawn)
+                                coins-=block!.getPrice()
+                                getManager()?.registerObject(object: block!)
+                            }
+                        }
+                        if gameMode == .mode2 {
+                            selectedBlock = ID.CARDBOARD_BLOCK
                         }
                     }
-                }.font(.custom("billy", size: 100))
+                }.font(.custom("billy", size: 100)).scaledToFill()
                     .frame(depth: 300)
             }
             .padding(10)
@@ -186,14 +271,19 @@ struct ContentView: View {
                     .frame(depth: 300)
 
                 
-                Button("Wood") {
+                Button(gameMode == .mode1 ? "Wood" : "Select") {
                     Task{
-                        var block =  storage?.getWoodBlock()
-                        if coins >= block!.getPrice() {
-                            block = await storage?.takeWoodBlock()
-                            block!.setPosition(pos: woodSpawn)
-                            coins-=block!.getPrice()
-                            getManager()?.registerObject(object: block!)
+                        if gameMode == .mode1 {
+                            var block =  storage?.getWoodBlock()
+                            if coins >= block!.getPrice() {
+                                block = await storage?.takeWoodBlock()
+                                block!.setPosition(pos: woodSpawn)
+                                coins-=block!.getPrice()
+                                getManager()?.registerObject(object: block!)
+                            }
+                        }
+                        if gameMode == .mode2 {
+                            selectedBlock = ID.WOOD_BLOCK
                         }
                     }
                 }.font(.custom("billy", size: 100))
@@ -212,14 +302,19 @@ struct ContentView: View {
                     .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
                     .frame(depth: 300)
 
-                Button("Stone") {
+                Button(gameMode == .mode1 ? "Stone" : "Select") {
                     Task{
-                        var block =  storage?.getStoneBlock()
-                        if coins >= block!.getPrice() {
-                            block = await storage?.takeStoneBlock()
-                            block!.setPosition(pos: stoneSpawn)
-                            coins-=block!.getPrice()
-                            getManager()?.registerObject(object: block!)
+                        if gameMode == .mode1 {
+                            var block =  storage?.getStoneBlock()
+                            if coins >= block!.getPrice() {
+                                block = await storage?.takeStoneBlock()
+                                block!.setPosition(pos: stoneSpawn)
+                                coins-=block!.getPrice()
+                                getManager()?.registerObject(object: block!)
+                            }
+                        }
+                        if gameMode == .mode2 {
+                            selectedBlock = ID.STONE_BLOCK
                         }
                     }
                 }.font(.custom("billy", size: 100))
@@ -233,19 +328,47 @@ struct ContentView: View {
             ))
             .padding(10)
             
-            if !isLevelActive {
-                getManager()?.getCurrentIntermission().onStart()
+            VStack {
+                
+                Button("Home Button") {
+                    
+                    print("Home")
+                    
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                Button("Settings Button") {
+                    
+                    print("Settings")
+                    
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                Button("Center Button") {
+                    
+                    getManager()?.setTeleportVector(a: centerVector)
+
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                
+                
+                Button("Dock Button") {
+                    
+                    getManager()?.setTeleportVector(a: dockVector)
+
+                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                    
             }
+            
         }
         
         
         
     }
-    var body1: some View {
-        getManager()!.getCurrentIntermission().onStart()
-    }
+    
+    
+
 }
+
 
 #Preview(windowStyle: .volumetric) {
     ContentView()
 }
+

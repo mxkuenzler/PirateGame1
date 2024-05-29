@@ -13,33 +13,45 @@ import _RealityKit_SwiftUI
 import SwiftUI
 
 class Shop:Object {
-        
     var price:Int
-    var object:Object
+    var sellID:ID
+    var object:Object?
     var color:UIColor
     var buttonOffset:Float = -1.4
     var gameButton:Object?
     var background:Entity?
     
-    init(soldObject: Object, price:Int, color: UIColor) async {
+    init(soldObjectID: ID, price:Int, color: UIColor) async {
         
-        self.object = soldObject
+        self.sellID = soldObjectID
         self.price = price
         self.color = color
+        
         
         let ent = try? await Entity(named: "shopFrame", in:realityKitContentBundle)
         
         super.init(Entity:ent!, ID: ID.SHOP)
         
         background = await getEntity()?.findEntity(named: "Background")
-                
+            
         changeColor(color: color)
+        
+        object = await getObjectFromID(id: sellID)
                 
         gameButton = await PirateGame.gameButton(action:{
             
             print("Price: \(self.price)")
-            getManager()?.registerObject(object: self.object)
-            self.object.goToSpawn()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+                Task.init {
+                    
+                    coins+=(-price)
+                    let obj = await getObjectFromID(id: self.sellID)
+                    getManager()?.registerObject(object:obj)
+                    obj.goToSpawn()
+                    print(coins)
+                }
+            }
             
         })
         
@@ -51,13 +63,13 @@ class Shop:Object {
     override func setPosition(pos: SIMD3<Float>) {
         self.getEntity()?.position = pos
         gameButton?.setPosition(pos: SIMD3<Float>(pos.x, pos.y+buttonOffset, pos.z))
-        object.setPosition(pos: SIMD3<Float>(pos.x, pos.y-buttonOffset/6, pos.z))
+        object!.setPosition(pos: SIMD3<Float>(pos.x, pos.y-buttonOffset/6, pos.z))
     }
     
     override func setOrientation(angle: Float, axes: SIMD3<Float>) {
         super.setOrientation(angle: angle, axes: SIMD3<Float>(0,0,1))
         gameButton?.setOrientation(angle: angle, axes: SIMD3<Float>(1,0,0))
-        object.setOrientation(angle: angle, axes: SIMD3<Float>(0,1,0))
+        object!.setOrientation(angle: angle, axes: SIMD3<Float>(0,1,0))
     }
     
     func changeColor(color: UIColor) {
@@ -67,8 +79,9 @@ class Shop:Object {
     }
     
     func spawnObject() {
-        object.displayObject(lighting: lighting)
+        object!.displayObject(lighting: lighting)
     }
     
     
 }
+
