@@ -34,7 +34,6 @@ class GameManager {
     }
     
     func registerObject(object: Shop) {
-        print("shop")
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
             object.initiatePhysicsBody()
@@ -50,7 +49,6 @@ class GameManager {
     }
     
     func registerObject(object: Object) {
-        print("button")
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
             object.initiatePhysicsBody()

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -238,6 +238,9 @@
 				Base,
 			);
 			mainGroup = 0EB6A93B2BEBA9B70027443F;
+			packageReferences = (
+				0EF2A85B2C08D1FB005C8733 /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */,
+			);
 			productRefGroup = 0EB6A9452BEBA9B70027443F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -560,6 +563,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		0EF2A85B2C08D1FB005C8733 /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RealityKitContent;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		0EB6A9492BEBA9B70027443F /* RealityKitContent */ = {

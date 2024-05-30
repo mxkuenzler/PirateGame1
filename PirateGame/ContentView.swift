@@ -60,12 +60,12 @@ struct ContentView: View {
 
     @State private var enlarge = false
     @State private var showImmersiveSpace = false
-    @State private var immersiveSpaceIsShown = false
     @State private var isLevelActive = false
     @State private var progressTime = 0.0
     @State private var gameMode:GameMode = .mode1
     @State private var temp:Bool = false
     @State private var selectedBlock:ID = ID.NIL
+    @Binding var keeper: Country
     // VECTORS:
     
     let leftVector:Vector3D = Vector3D(x:2000,y:0,z:0)
@@ -97,7 +97,6 @@ struct ContentView: View {
         .task {
             storage = await blockStorage()
             await openImmersiveSpace(id: "ImmersiveSpace")
-            immersiveSpaceIsShown = true
             
         }
                         // in the VStack under the start level button
@@ -108,14 +107,14 @@ struct ContentView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
                     Task.init {
                         
-                        func toggleTimer() async {
+                       /* func toggleTimer() async {
                             while true {
                                 temp = !temp
                                 sleep(1)
                             }
                         }
                         
-                        await toggleTimer()
+                        await toggleTimer()*/
                     }
                 }
             }
@@ -125,25 +124,7 @@ struct ContentView: View {
         }
             // in the VStack under the start level button
             
-            if !immersiveSpaceIsShown {
-                //home menu
-                RealityView{ content in
-                    guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
-                    
-                    let world = makeWorld(light: ImageBasedLight)
-                    let portal = makePortal(world: world)
-                    
-                    content.add(world)
-                    content.add(portal)
-                }
-                Button("Start"){
-                    Task{
-                        await openImmersiveSpace(id: "ImmersiveSpace")
-                        immersiveSpaceIsShown = true
-                    }
-                }.scaleEffect(10)
-            }
-            else{
+        if !(keeper.onHomescreen) {
                 //ingame menu
                 
                 VStack {
@@ -452,8 +433,9 @@ struct ContentView: View {
     
 
 }
-
+/*
 #Preview(windowStyle: .volumetric) {
-    ContentView()
+    ContentView(keeper: Country())
 }
 
+*/

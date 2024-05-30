@@ -16,14 +16,16 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
 
 var coins = 10000
 
-
+struct Country{
+    var onHomescreen = true
+}
 
 @main
 
 
 struct PirateGameApp: App {
     
-    @State private var cool = false
+    @State var statekeeper = Country()
 
     var body: some Scene {
         
@@ -33,13 +35,19 @@ struct PirateGameApp: App {
         }.immersionStyle(selection: .constant(.mixed), in: .mixed)
         */
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
-        }.immersionStyle(selection: .constant(cool ? .full : .mixed), in: cool ? .full : .mixed)
+            ImmersiveView(keeper: $statekeeper)
+        }.immersionStyle(selection: .constant(statekeeper.onHomescreen ? .mixed : .full), in: statekeeper.onHomescreen ? .mixed : .full)
         WindowGroup {
-            ContentView()
+            ContentView(keeper: $statekeeper)
+               /* .task {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                        Task.init {
+                            print(statekeeper.onHomescreen)
+                        }
+                    }
+                }*/
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
         
-    
 
     }
     

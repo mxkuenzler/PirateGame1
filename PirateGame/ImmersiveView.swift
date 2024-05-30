@@ -16,15 +16,17 @@ var lighting: EnvironmentResource?
 var audioController: Entity?
 var manager: GameManager?
 
+var k:Int = 0
+
 struct ImmersiveView: View {
     
     @State var collisionSubscription:Cancellable?
     @State var timeTotal:Float?
     @State var timeProgress:Float?
     @State var vec:Vector3D = Vector3D(x: 0,y: 0,z: 0)
-    
+    @Binding var keeper: Country
     var body: some View {
-        if true {
+        if (keeper.onHomescreen) {
             ZStack{
                 
                 RealityView{ content in
@@ -39,13 +41,19 @@ struct ImmersiveView: View {
             
                 Button("Start"){
                     Task{
-                        
+                        keeper.onHomescreen = false
+                        print(keeper.onHomescreen)
                     }
                 }.scaleEffect(10)
             }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))
         }
         else {
             RealityView { content in
+                if k > 0{
+                    return
+                }
+                k = k + 1
+                print("Full Immerse")
                 
                 
                 rContent = content
@@ -137,14 +145,14 @@ struct ImmersiveView: View {
             }.gesture(gestureA).gesture(gestureB)
             
                 .transform3DEffect(AffineTransform3D(translation: vec))
-                .task{
+                .task{/*
                     func toggleTimer() async {
                         while true {
                             vec = getManager()?.getTeleportVector() ?? Vector3D(x:0,y:0,z:2000)
                             sleep(1)
                         }
                     }
-                    await toggleTimer()
+                    await toggleTimer()*/
                     
                 }
         }
@@ -252,8 +260,8 @@ struct ImmersiveView: View {
             manager?.registerObject(object: sand2)
         }
     }
-    
+    /*
     #Preview(immersionStyle: .full) {
-        ImmersiveView()
+        ImmersiveView(keeper: Country())
     }
-
+*/
