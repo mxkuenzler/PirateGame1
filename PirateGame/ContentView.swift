@@ -97,39 +97,11 @@ struct ContentView: View {
         .task {
             storage = await blockStorage()
             await openImmersiveSpace(id: "ImmersiveSpace")
+            immersiveSpaceIsShown = true
+            
         }
                         // in the VStack under the start level button
         
-        Picker("Game Mode", selection: $gameMode)
-                        {
-                            ForEach(GameMode.allCases)
-                            {
-                                gameMode in
-                                Text(gameMode.rawValue)
-                            }
-                        }.pickerStyle(.segmented)
-                            .frame(width: 500, height: 250)
-                            .scaleEffect(x: 3, y: 3)
-                            .opacity(1.0)
-        Button("Change Mode") {
-            if gameMode == .mode2 {
-                gameMode = .mode1
-                selectedBlock = .NIL
-            } else {
-                gameMode = .mode2
-                selectedBlock = .CARDBOARD_BLOCK
-            }
-        }
-        .task {
-            func toggleTimer() async {
-                while true {
-                    getManager()?.setSelectedBlock(block:(selectedBlock))
-                    sleep(1)
-                }
-            }
-            
-            await toggleTimer()
-        }
         
         VStack {
             Text("\(temp)").opacity(0).task {
@@ -147,226 +119,339 @@ struct ContentView: View {
                     }
                 }
             }
-            Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
-            cornerRadius: 32,
-            style: .continuous
-        )).frame(width: 500,height: 250)
-            .font(.custom("billy", size: 100))
             /*Button("Add Coins") {
                 getManager()?.setCoins(a: getManager()!.getCoins() + 100)
             }*/
         }
-        
-        VStack {
-            if !isLevelActive {
-                Button("Start Next Level") {
-                    Task.init {
-                        isLevelActive = true
-                        let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel()+1)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
-                            Task.init {
-                                isLevelActive = false
-                                await getManager()?.startIntermission()
-                                coins += level.reward
-                            }
-                        }
-                        await getManager()?.startNextLevel(level:level)
+            // in the VStack under the start level button
+            
+            if !immersiveSpaceIsShown {
+                //home menu
+                RealityView{ content in
+                    guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
+                    
+                    let world = makeWorld(light: ImageBasedLight)
+                    let portal = makePortal(world: world)
+                    
+                    content.add(world)
+                    content.add(portal)
+                }
+                Button("Start"){
+                    Task{
+                        await openImmersiveSpace(id: "ImmersiveSpace")
+                        immersiveSpaceIsShown = true
                     }
-                }.frame(width: 500,height: 250)
-                    .font(.custom("billy", size: 100))
+                }.scaleEffect(10)
+            }
+            else{
+                //ingame menu
                 
-            } else {
-                ProgressView(value: progressTime, total: 1).scaleEffect(x:1.02, y:32).frame(width:1000, height:110).padding(10)
+                VStack {
+                    Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
+                    cornerRadius: 32,
+                    style: .continuous
+                )).frame(width: 500,height: 250)
+                    .font(.custom("billy", size: 100))
+                    
+                    if !isLevelActive {
+                        Button("Start Next Level") {
+                            Task.init {
+                                isLevelActive = true
+                                let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
+                                await getManager()?.startNextLevel(level:level)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
+                                    Task.init {
+                                        isLevelActive = false
+                                        await getManager()?.startIntermission()
+                                        coins += level.reward
+                                    }
+                                }
+                            }
+                        }.frame(width: 500,height: 250)
+                            .font(.custom("billy", size: 100))
+                        
+                    } else {
+                        ProgressView(value: progressTime, total: 1).scaleEffect(x:1.02, y:32).frame(width:1000, height:110).padding(10)
+                            .glassBackgroundEffect(in: RoundedRectangle(
+                                cornerRadius: 1000000,
+                                style: .continuous
+                            ))
+                            .padding(10)
+                            .onAppear {
+                                progressTime = 0
+                            }
+                            .onReceive(timer) {_ in
+                                let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
+                                if progressTime + diff < 1 {
+                                    progressTime += diff
+                                }
+                            }
+                    }
+
+                Picker("Game Mode", selection: $gameMode)
+                {
+                    ForEach(GameMode.allCases)
+                    {
+                        gameMode in
+                        Text(gameMode.rawValue)
+                    }
+                }.pickerStyle(.segmented)
+                    .frame(width: 500, height: 250)
+                    .scaleEffect(x: 3, y: 3)
+                    .opacity(1.0)
+                
+                HStack{
+                    //tp buttons
+                    VStack {
+                        
+                        Button("Left Button") {
+                            
+                            getManager()?.setTeleportVector(a: leftVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Right Button") {
+                            
+                            getManager()?.setTeleportVector(a: rightVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Forward Button") {
+                            
+                            getManager()?.setTeleportVector(a: forwardVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Backward Button") {
+                            
+                            getManager()?.setTeleportVector(a: backwardVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        
+                    }
+                    
+                    //block adding with modes
+                    VStack{
+                        Model3D(named: "basicBlock", bundle: realityKitContentBundle)
+                            .scaleEffect(0.4)
+                            .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                            .frame(depth: 300)
+                        
+                        
+                        Button(gameMode == .mode1 ? "Cardboard" : "Select") {
+                            Task{
+                                if gameMode == .mode1 {
+                                    var block =  storage?.getCardboardBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeCardboardBlock()
+                                        block!.setPosition(pos: cardboardSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                                if gameMode == .mode2 {
+                                    selectedBlock = ID.CARDBOARD_BLOCK
+                                }
+                            }
+                        }.font(.custom("billy", size: 100)).scaledToFill()
+                            .frame(depth: 300)
+                    }
+                    .padding(10)
                     .glassBackgroundEffect(in: RoundedRectangle(
-                        cornerRadius: 1000000,
+                        cornerRadius: 10,
                         style: .continuous
                     ))
                     .padding(10)
-                        .onAppear {
-                        progressTime = 0
+                    
+                    VStack {
+                        Model3D(named: "woodBlock", bundle: realityKitContentBundle)
+                            .scaleEffect(0.4)
+                            .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                            .frame(depth: 300)
+                        
+                        Button(gameMode == .mode1 ? "Wood" : "Select") {
+                            Task{
+                                if gameMode == .mode1 {
+                                    var block =  storage?.getWoodBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeWoodBlock()
+                                        block!.setPosition(pos: woodSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                                if gameMode == .mode2 {
+                                    selectedBlock = ID.WOOD_BLOCK
+                                }
+                            }
+                        }.font(.custom("billy", size: 100)).scaledToFill()
+                            .frame(depth: 300)
                     }
-                    .onReceive(timer) {_ in
-                        let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
-                        if progressTime + diff < 1 {
-                            progressTime += diff
-                        }
+                    .padding(10)
+                    .glassBackgroundEffect(in: RoundedRectangle(
+                        cornerRadius: 10,
+                        style: .continuous
+                    ))
+                    .padding(10)
+                    
+                    VStack{
+                        Model3D(named: "stoneBlock", bundle: realityKitContentBundle)
+                            .scaleEffect(0.4)
+                            .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                            .frame(depth: 300)
+                        
+                        Button(gameMode == .mode1 ? "Stone" : "Select") {
+                            Task{
+                                if gameMode == .mode1 {
+                                    var block =  storage?.getStoneBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeStoneBlock()
+                                        block!.setPosition(pos: stoneSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                                if gameMode == .mode2 {
+                                    selectedBlock = ID.STONE_BLOCK
+                                }
+                            }
+                        }.font(.custom("billy", size: 100)).scaledToFill()
+                            .frame(depth: 300)
+                    }
+                    .padding(10)
+                    .glassBackgroundEffect(in: RoundedRectangle(
+                        cornerRadius: 10,
+                        style: .continuous
+                    ))
+                    .padding(10)
+                    
+                    //tp buttons
+                    VStack {
+                        
+                        Button("Home Button") {
+                            
+                            print("Home")
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Settings Button") {
+                            
+                            print("Settings")
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Center Button") {
+                            
+                            getManager()?.setTeleportVector(a: centerVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        
+                        Button("Dock Button") {
+                            
+                            getManager()?.setTeleportVector(a: dockVector)
+                            
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                     }
                     
+                    /*HStack{
+                        
+                        //adding blocks
+                        
+                        VStack{
+                            Model3D(named: "basicBlock", bundle: realityKitContentBundle)
+                                .scaleEffect(0.4)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .frame(depth: 300)
+                            
+                            
+                            Button("Cardboard") {
+                                Task{
+                                    var block =  storage?.getCardboardBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeCardboardBlock()
+                                        block!.setPosition(pos: cardboardSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                            }.font(.custom("billy", size: 100))
+                                .frame(depth: 300)
+                        }
+                        .padding(10)
+                        .glassBackgroundEffect(in: RoundedRectangle(
+                            cornerRadius: 10,
+                            style: .continuous
+                        ))
+                        .padding(10)
+                        
+                        VStack{
+                            Model3D(named: "woodBlock", bundle: realityKitContentBundle)
+                                .scaleEffect(0.4)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .frame(depth: 300)
+                            
+                            
+                            Button("Wood") {
+                                Task{
+                                    var block =  storage?.getWoodBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeWoodBlock()
+                                        block!.setPosition(pos: woodSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                            }.font(.custom("billy", size: 100))
+                                .frame(depth: 300)
+                        }
+                        .padding(10)
+                        .glassBackgroundEffect(in: RoundedRectangle(
+                            cornerRadius: 10,
+                            style: .continuous
+                        ))
+                        .padding(10)
+                        
+                        VStack{
+                            Model3D(named: "stoneBlock", bundle: realityKitContentBundle)
+                                .scaleEffect(0.4)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .frame(depth: 300)
+                            
+                            Button("Stone") {
+                                Task{
+                                    var block =  storage?.getStoneBlock()
+                                    if coins >= block!.getPrice() {
+                                        block = await storage?.takeStoneBlock()
+                                        block!.setPosition(pos: stoneSpawn)
+                                        coins-=block!.getPrice()
+                                        getManager()?.registerObject(object: block!)
+                                    }
+                                }
+                            }.font(.custom("billy", size: 100))
+                                .frame(depth: 300)
+                        }
+                        
+                        .padding(10)
+                        .glassBackgroundEffect(in: RoundedRectangle(
+                            cornerRadius: 10,
+                            style: .continuous
+                        ))
+                        .padding(10)
+                         
+                        
+                    }*/
+                }
+                
             }
-            
         }
-        
-        
-        HStack{
-            
-            
-            VStack {
-                
-                Button("Left Button") {
-                    
-                    getManager()?.setTeleportVector(a: leftVector)
-                    
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                Button("Right Button") {
-                    
-                    getManager()?.setTeleportVector(a: rightVector)
-
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                Button("Forward Button") {
-                    
-                    getManager()?.setTeleportVector(a: forwardVector)
-
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                Button("Backward Button") {
-                    
-                    getManager()?.setTeleportVector(a: backwardVector)
-
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                
-            }
-            
-                
-            
-            
-            VStack{
-                Model3D(named: "basicBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.4)
-                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
-                    .frame(depth: 300)
-
-
-                Button(gameMode == .mode1 ? "Cardboard" : "Select") {
-                    Task{
-                        if gameMode == .mode1 {
-                            var block =  storage?.getCardboardBlock()
-                            if coins >= block!.getPrice() {
-                                block = await storage?.takeCardboardBlock()
-                                block!.setPosition(pos: cardboardSpawn)
-                                coins-=block!.getPrice()
-                                getManager()?.registerObject(object: block!)
-                            }
-                        }
-                        if gameMode == .mode2 {
-                            selectedBlock = ID.CARDBOARD_BLOCK
-                        }
-                    }
-                }.font(.custom("billy", size: 100)).scaledToFill()
-                    .frame(depth: 300)
-            }
-            .padding(10)
-            .glassBackgroundEffect(in: RoundedRectangle(
-                cornerRadius: 10,
-                style: .continuous
-            ))
-            .padding(10)
-            
-            VStack{
-                Model3D(named: "woodBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.4)
-                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
-                    .frame(depth: 300)
-
-                
-                Button(gameMode == .mode1 ? "Wood" : "Select") {
-                    Task{
-                        if gameMode == .mode1 {
-                            var block =  storage?.getWoodBlock()
-                            if coins >= block!.getPrice() {
-                                block = await storage?.takeWoodBlock()
-                                block!.setPosition(pos: woodSpawn)
-                                coins-=block!.getPrice()
-                                getManager()?.registerObject(object: block!)
-                            }
-                        }
-                        if gameMode == .mode2 {
-                            selectedBlock = ID.WOOD_BLOCK
-                        }
-                    }
-                }.font(.custom("billy", size: 100))
-                    .frame(depth: 300)
-            }
-            .padding(10)
-            .glassBackgroundEffect(in: RoundedRectangle(
-                cornerRadius: 10,
-                style: .continuous
-            ))
-            .padding(10)
-            
-            VStack{
-                Model3D(named: "stoneBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.4)
-                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
-                    .frame(depth: 300)
-
-                Button(gameMode == .mode1 ? "Stone" : "Select") {
-                    Task{
-                        if gameMode == .mode1 {
-                            var block =  storage?.getStoneBlock()
-                            if coins >= block!.getPrice() {
-                                block = await storage?.takeStoneBlock()
-                                block!.setPosition(pos: stoneSpawn)
-                                coins-=block!.getPrice()
-                                getManager()?.registerObject(object: block!)
-                            }
-                        }
-                        if gameMode == .mode2 {
-                            selectedBlock = ID.STONE_BLOCK
-                        }
-                    }
-                }.font(.custom("billy", size: 100))
-                    .frame(depth: 300)
-            }
-            
-            .padding(10)
-            .glassBackgroundEffect(in: RoundedRectangle(
-                cornerRadius: 10,
-                style: .continuous
-            ))
-            .padding(10)
-            
-            VStack {
-                
-                Button("Home Button") {
-                    
-                    print("Home")
-                    
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                Button("Settings Button") {
-                    
-                    print("Settings")
-                    
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                Button("Center Button") {
-                    
-                    getManager()?.setTeleportVector(a: centerVector)
-
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                
-                
-                Button("Dock Button") {
-                    
-                    getManager()?.setTeleportVector(a: dockVector)
-
-                }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                    
-            }
-            
-        }
-        
-        
         
     }
     
     
 
 }
-
 
 #Preview(windowStyle: .volumetric) {
     ContentView()

@@ -19,6 +19,7 @@
 		0EB6A9542BEBA9B90027443F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB6A9532BEBA9B90027443F /* Assets.xcassets */; };
 		0EB6A9572BEBA9B90027443F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB6A9562BEBA9B90027443F /* Preview Assets.xcassets */; };
 		0EB6A9622BEBA9B90027443F /* PirateGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */; };
+		0EF2A82A2BFFA6D1005C8733 /* Homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF2A8292BFFA6D1005C8733 /* Homescreen.swift */; };
 		3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */; };
 		3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */; };
 		3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */; };
@@ -59,6 +60,7 @@
 		0EB6A9582BEBA9B90027443F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EB6A95D2BEBA9B90027443F /* PirateGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PirateGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateGameTests.swift; sourceTree = "<group>"; };
+		0EF2A8292BFFA6D1005C8733 /* Homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homescreen.swift; sourceTree = "<group>"; };
 		3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectClass.swift; sourceTree = "<group>"; };
 		3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
 				3FC0AA682C0045230022D71E /* Items.swift */,
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
+				0EF2A8292BFFA6D1005C8733 /* Homescreen.swift */,
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
 				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
@@ -276,6 +279,7 @@
 				0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */,
 				3F77B8542BED050B00895BD0 /* Block.swift in Sources */,
 				3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */,
+				0EF2A82A2BFFA6D1005C8733 /* Homescreen.swift in Sources */,
 				3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */,
 				3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */,
 				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,

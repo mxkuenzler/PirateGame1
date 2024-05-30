@@ -24,7 +24,7 @@ class Cannonball: Object {
         
         let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
         
-        await super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
+        super.init(Entity: CannonballModel!, ID: ID.CANNON_BALL)
         
         setPosition(pos: pos, relativeTo: relativeTo)
         

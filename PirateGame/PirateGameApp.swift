@@ -23,12 +23,18 @@ var coins = 10000
 
 struct PirateGameApp: App {
     
-    
+    @State private var cool = false
 
     var body: some Scene {
+        
+        /*
+        ImmersiveSpace {
+            Homescreen()
+        }.immersionStyle(selection: .constant(.mixed), in: .mixed)
+        */
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
-        }.immersionStyle(selection: .constant(.full), in: .full)
+        }.immersionStyle(selection: .constant(cool ? .full : .mixed), in: cool ? .full : .mixed)
         WindowGroup {
             ContentView()
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
