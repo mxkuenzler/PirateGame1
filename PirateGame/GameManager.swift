@@ -21,7 +21,6 @@ class GameManager {
     private var pirateShip:PirateShip?
     private var currentLevel = 0
     private var teleportVector:Vector3D = Vector3D(x: 0,y: 0,z: 2000)
-    private var selectedBlock:ID = ID.NIL
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?) {
         
@@ -186,13 +185,6 @@ class GameManager {
         teleportVector = a
     }
     
-    func setSelectedBlock(block: ID) {
-        selectedBlock = block
-    }
-    
-    func getSelectedBlock() -> ID {
-        return selectedBlock
-    }
     
     
         

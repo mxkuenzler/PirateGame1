@@ -16,11 +16,15 @@ class Block: Object {
     
     var price: Int
     
-    init(Entity: Entity, Health: Int, cost: Int){
+    var blockID:ID
+    
+    init(Entity: Entity, Health: Int, cost: Int, blockID:ID){
         
         HP = Health
         
         price = cost
+        
+        self.blockID = blockID
         
         super.init(Entity: Entity, ID: ID.SIMPLE_BLOCK)
         
@@ -92,6 +96,10 @@ class Block: Object {
         if manager?.findObject(model: event.entityB)?.getID() == ID.ISLAND_FLOOR {
             getEntity()?.components[PhysicsBodyComponent.self]?.mode = .static
         }
+    }
+    
+    func getBlockID() -> ID {
+        return blockID
     }
 }
 

@@ -11,10 +11,10 @@ import RealityKitContent
 import _RealityKit_SwiftUI
 
 class cardboardBlock: Block {
+    
     init() async {
         let blockModel = try? await Entity(named: "basicBlock", in: realityKitContentBundle)
-        
-        super.init(Entity: blockModel!, Health: 1, cost: 10)
+        super.init(Entity: blockModel!, Health: 1, cost: 10, blockID: ID.CARDBOARD_BLOCK)
     }
     
     override func goToSpawn() {
@@ -26,7 +26,7 @@ class woodBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "woodBlock", in: realityKitContentBundle)
             
-        super.init(Entity: blockModel!, Health: 2, cost: 25)
+        super.init(Entity: blockModel!, Health: 2, cost: 25, blockID: ID.WOOD_BLOCK)
     }
     override func goToSpawn() {
         getEntity()?.position = woodSpawn
@@ -37,7 +37,7 @@ class stoneBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "stoneBlock", in: realityKitContentBundle)
             
-        super.init(Entity: blockModel!, Health: 5, cost: 100)
+        super.init(Entity: blockModel!, Health: 5, cost: 100, blockID: ID.STONE_BLOCK)
     }
     override func goToSpawn() {
         getEntity()?.position = stoneSpawn
@@ -48,7 +48,7 @@ class sandBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "sandBlock", in: realityKitContentBundle)
             
-        super.init(Entity: blockModel!, Health: 2, cost: 0)
+        super.init(Entity: blockModel!, Health: 2, cost: 0, blockID: ID.SAND_BLOCK)
         
         await self.getEntity()?.components.remove(InputTargetComponent.self)
     }

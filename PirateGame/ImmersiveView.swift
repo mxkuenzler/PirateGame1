@@ -16,16 +16,21 @@ var lighting: EnvironmentResource?
 var audioController: Entity?
 var manager: GameManager?
 
-var k:Int = 0
-
 struct ImmersiveView: View {
+    
+    static var k:Int = 0
     
     @State var collisionSubscription:Cancellable?
     @State var timeTotal:Float?
     @State var timeProgress:Float?
     @State var vec:Vector3D = Vector3D(x: 0,y: 0,z: 0)
     @Binding var keeper: Country
+    @State var isDraggingBlock:Bool = false
+    @State var currentlyDraggingID:ID = ID.NIL
+    @State var draggingObj:Object?
+    
     var body: some View {
+        
         if (keeper.onHomescreen) {
             ZStack{
                 
@@ -38,7 +43,7 @@ struct ImmersiveView: View {
                     content.add(world)
                     content.add(portal)
                 }
-            
+                
                 Button("Start"){
                     Task{
                         keeper.onHomescreen = false
@@ -47,15 +52,16 @@ struct ImmersiveView: View {
                 }.scaleEffect(10)
             }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))
         }
+        
         else {
             RealityView { content in
-                if k > 0{
+                print("ran")
+                if ImmersiveView.k > 0{
+                    print("blocked")
                     return
                 }
-                k = k + 1
+                ImmersiveView.k = ImmersiveView.k + 1
                 print("Full Immerse")
-                
-                
                 rContent = content
                 
                 // Add the initial RealityKit content
@@ -85,6 +91,7 @@ struct ImmersiveView: View {
                     manager?.handleCollision(event: event)
                 }
                 
+                
                 await manager?.registerObject(object: OceanFloor())
                 await manager?.registerObject(object: IslandFloor())
                 await manager?.registerObject(object: Flag())
@@ -102,6 +109,7 @@ struct ImmersiveView: View {
                 //ship.getEntity()?.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(1,0,0)
                 
                 await sandRing()
+                
                 
                 /*DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                  Task.init {
@@ -139,104 +147,88 @@ struct ImmersiveView: View {
                  let cannonBall = await Cannonball()
                  manager?.registerObject(object: cannonBall)
                  cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
-                 
                  }*/
-                
             }.gesture(gestureA).gesture(gestureB)
-            
                 .transform3DEffect(AffineTransform3D(translation: vec))
-                .task{/*
-                    func toggleTimer() async {
-                        while true {
-                            vec = getManager()?.getTeleportVector() ?? Vector3D(x:0,y:0,z:2000)
-                            sleep(1)
-                        }
-                    }
-                    await toggleTimer()*/
-                    
-                }
         }
-            
-            
-        }
+    }
+
         
-        var gestureA : some Gesture {
-            TapGesture()
-                .targetedToAnyEntity()
-                .onEnded { value in
-                    
-                    let scene = value.entity.scene!
-                    if getManager()?.getSelectedBlock() != ID.NIL {
-                        let entity = manager?.findObject(model: value.entity)
-                        
-                        print("b")
-                        
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                            
-                            Task.init {
-                                
-                                let ent = await getObjectFromID(id: getManager()!.getSelectedBlock())
-                                print(ent)
-                                getManager()?.registerObject(object: ent)
-                                ent.setPosition(pos:value.entity.position)
-                                (ent as! Block).checkSnap(manager: getManager()!)
-                                
-                            }
-                        }
-                        
-                    }
-                }
-            
-            
-        }
         
-        var gestureB: some Gesture {
-            DragGesture()
-                .targetedToAnyEntity()
-                .onChanged { value in
-                    if getManager()?.getSelectedBlock() == ID.NIL {
-                        let entity = manager?.findObject(model: value.entity)
-                        if let _ = entity {
-                            if entity?.getID() == ID.SIMPLE_BLOCK || entity?.getID() == ID.SHIELD {
-                                entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
-                                entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
-                            }
-                            if entity?.getID() == ID.BUTTON {
-                                var button = entity as! gameButton
-                                button.pressedButton()
-                            }
+    var gestureA : some Gesture {
+        TapGesture()
+            .targetedToAnyEntity()
+            .onEnded { value in
+                
+                let scene = value.entity.scene!
+                let entity = manager?.findObject(model: value.entity)
+                
+                print("b")
+                
+                if isDraggingBlock && currentlyDraggingID != ID.NIL {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                        
+                        Task.init {
                             
-                        } else {
-                        }
-                    }
-                }
-                .onEnded { value in
-                    if getManager()?.getSelectedBlock() == ID.NIL {
-                        let entity = manager?.findObject(model: value.entity)
-                        if let _ = entity {
-                            if entity?.getID() == ID.SIMPLE_BLOCK {
-                                entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
-                                (entity! as! Block).checkSnap(manager: manager!)
-                            }
-                            if entity?.getID() == ID.BUTTON {
-                                //DO NOTHING ATM
-                            }
-                            if entity?.getID() == ID.SHIELD {
-                                entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
-                            }
+                            let ent = await getObjectFromID(id: currentlyDraggingID)
+                            print(ent)
+                            getManager()?.registerObject(object: ent)
+                            ent.setPosition(pos:value.entity.position)
+                            (ent as! Block).checkSnap(manager: getManager()!)
+                            
                         }
                     }
                     
                 }
-        }
+            }
+    }
+
+    
+    
+    var gestureB: some Gesture {
+        DragGesture()
+            .targetedToAnyEntity()
+            .onChanged { value in
+                let entity = manager?.findObject(model: value.entity)
+                if let _ = entity {
+                    if entity?.getID() == ID.SIMPLE_BLOCK {
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
+                        entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                        isDraggingBlock = true
+                        currentlyDraggingID = (entity as! Block).blockID
+                    }
+                    if entity?.getID() == ID.SHIELD {
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
+                        entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    }
+                    if entity?.getID() == ID.BUTTON {
+                        let button = entity as! gameButton
+                        button.pressedButton()
+                    }
+                    
+                    
+                }
+            }
+            .onEnded { value in
+                let entity = manager?.findObject(model: value.entity)
+                if let _ = entity {
+                    if entity?.getID() == ID.SIMPLE_BLOCK {
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                        (entity! as! Block).checkSnap(manager: manager!)
+                        isDraggingBlock = false
+                        currentlyDraggingID = ID.NIL
+                    }
+                    if entity?.getID() == ID.BUTTON {
+                        //DO NOTHING ATM
+                    }
+                    if entity?.getID() == ID.SHIELD {
+                        entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
+                    }
+                }
+            }
         
     }
-    
-    
-    
-    
-    
+}
     
     
     func sandRing() async {
@@ -260,8 +252,6 @@ struct ImmersiveView: View {
             manager?.registerObject(object: sand2)
         }
     }
-    /*
-    #Preview(immersionStyle: .full) {
-        ImmersiveView(keeper: Country())
-    }
-*/
+    
+    
+

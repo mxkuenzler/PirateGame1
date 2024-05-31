@@ -47,7 +47,7 @@ class Merchantintermission : levelIntermission {
     override func onStart() async {
         print("Starting")
         for i in -1...1 {
-            let shop:Shop = await Shop(soldObjectID: (i == -1 ? ID.SHIELD : (i == 0 ? ID.WOOD_BLOCK: ID.STONE_BLOCK)), price: i+1, color: i == -1 ? .blue : (i == 0 ? .brown : .darkGray))
+            let shop:Shop = await Shop(soldObjectID: (i == -1 ? ID.CARDBOARD_BLOCK : (i == 0 ? ID.WOOD_BLOCK: ID.STONE_BLOCK)), price: i+1, color: i == -1 ? .blue : (i == 0 ? .brown : .darkGray))
             print("let")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 Task.init {

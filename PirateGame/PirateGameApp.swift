@@ -20,13 +20,12 @@ struct Country{
     var onHomescreen = true
 }
 
+
 @main
-
-
 struct PirateGameApp: App {
     
     @State var statekeeper = Country()
-
+    
     var body: some Scene {
         
         /*
@@ -36,18 +35,10 @@ struct PirateGameApp: App {
         */
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView(keeper: $statekeeper)
-        }.immersionStyle(selection: .constant(statekeeper.onHomescreen ? .mixed : .full), in: statekeeper.onHomescreen ? .mixed : .full)
+        }.immersionStyle(selection: .constant(.full), in: .full)
         WindowGroup {
             ContentView(keeper: $statekeeper)
-               /* .task {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                        Task.init {
-                            print(statekeeper.onHomescreen)
-                        }
-                    }
-                }*/
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
-        
 
     }
     

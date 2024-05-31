@@ -1,9 +1,3 @@
-//
-//  Level.swift
-//  PirateGame
-//
-//  Created by Student on 5/16/24.
-//
 
 import Foundation
 
