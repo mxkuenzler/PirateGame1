@@ -15,8 +15,24 @@ public var blockSize:Float = 1.0
 enum ID {
     case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR,
          PIRATE_SHIP, EFFECT, SAMPLE_BLOCK, BUTTON, SHOP, NIL, SAND_BLOCK,
-         STONE_BLOCK, WOOD_BLOCK, CARDBOARD_BLOCK, DOCK_FLOOR, SHIELD
+         STONE_BLOCK, WOOD_BLOCK, CARDBOARD_BLOCK, DOCK_FLOOR, SHIELD, SECOND_OCEAN_FLOOR
 }
+
+let leftVector:Vector3D = Vector3D(x:2000,y:0,z:0)
+let rightVector:Vector3D = Vector3D(x:-2000,y:0,z:0)
+let backwardVector:Vector3D = Vector3D(x:0,y:0,z:-2000)
+let forwardVector:Vector3D = Vector3D(x:0,y:0,z:2000)
+let centerVector:Vector3D = Vector3D(x:0,y:0,z:0)
+let dockVector:Vector3D = Vector3D(x:10000,y:0,z:0)
+let homeVector:Vector3D = Vector3D(x:-100000,y: 0,z: 0)
+
+let leftLocation = gameLocation(vector3D: leftVector)
+let rightLocation = gameLocation(vector3D: rightVector)
+let backwardLocation = gameLocation(vector3D: backwardVector)
+let forwardLocation = gameLocation(vector3D: forwardVector)
+let centerLocation = gameLocation(vector3D: centerVector)
+let dockLocation = gameLocation(vector3D: dockVector)
+let homeLocation = gameLocation(vector3D: homeVector)
 
 func isABlock(obj:Object) -> Bool {
     if obj.getID() == ID.SIMPLE_BLOCK {

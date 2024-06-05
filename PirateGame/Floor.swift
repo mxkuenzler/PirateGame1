@@ -28,13 +28,23 @@ class OceanFloor: Floor {
     init() async {
         let FloorModel = try? await Entity(named: "Ocean", in: realityKitContentBundle)
         
+        super.init(Model: FloorModel!, id: ID.SECOND_OCEAN_FLOOR)
+    }
+}
+
+class secondOceanFloor: Floor {
+    init() async {
+        let FloorModel = try? await Entity(named: "Ocean", in: realityKitContentBundle)
+        
         super.init(Model: FloorModel!, id: ID.OCEAN_FLOOR)
+        
+        setPosition(pos: SIMD3<Float>(0,-10,0))
     }
 }
 
 class IslandFloor: Floor {
     init() async {
-        let FloorModel = try? await Entity(named: "Island", in: realityKitContentBundle)
+        let FloorModel = try? await Entity(named: "island", in: realityKitContentBundle)
         
         super.init(Model: FloorModel!, id: ID.ISLAND_FLOOR)
     }

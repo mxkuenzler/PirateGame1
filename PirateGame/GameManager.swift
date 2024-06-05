@@ -20,7 +20,7 @@ class GameManager {
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
     private var currentLevel = 0
-    private var teleportVector:Vector3D = Vector3D(x: 0,y: 0,z: 2000)
+    private var gameLocation:gameLocation?
     
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?) {
         
@@ -29,7 +29,7 @@ class GameManager {
         self.lighting = lighting
         self.audioController = audioController
         self.objectList = Array<Object>()
-        
+
     }
     
     func registerObject(object: Shop) {
@@ -175,14 +175,14 @@ class GameManager {
         await intermission.onStart()
     }
     
-    func getTeleportVector() -> Vector3D {
-        
-        return teleportVector
-        
+    func getGameLocation() -> gameLocation {
+        return gameLocation!
     }
     
-    func setTeleportVector(a:Vector3D) {
-        teleportVector = a
+    func setGameLocation(a:gameLocation, vec: inout Vector3D) {
+        gameLocation = a
+        vec = a.vector3D
+        print(vec)
     }
     
     

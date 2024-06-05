@@ -62,7 +62,6 @@ class Cannonball: Object {
     }
     
     func damageFlag(obj: Object) {
-        print("Flag collided")
         let flag:Flag = obj as! Flag
         flag.hit(obj: self)
         manager?.unregisterObject(object: self)

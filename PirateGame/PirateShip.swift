@@ -41,11 +41,7 @@ class PirateShip: Object {
             Task.init {
                 manager?.registerObject(object: ball)
                 ball.setDynamic()
-                print("ball")
-                
-                print("pos")
                 let newPos = SIMD3<Float>(0 + Float.random(in: -1.5...1.5),1 + Float.random(in: -1.5...1.5),0 + Float.random(in: -1.5...1.5))
-                print("shooting")
                 await self.moveBall(ent: ball.getEntity()!, newPos: newPos, time: time)
             }
         }
@@ -58,11 +54,7 @@ class PirateShip: Object {
             Task.init {
                 manager?.registerObject(object: ball)
                 ball.setDynamic()
-                print("ball")
-                
-                print("pos")
                 let newPos = SIMD3<Float>(0 + Float.random(in: 0...0),1 + Float.random(in: 0...0),0 + Float.random(in: 0...0))
-                print("shooting")
                 await self.moveBall(ent: ball.getEntity()!, newPos: newPos, time: time)
             }
         }
@@ -81,10 +73,18 @@ class PirateShip: Object {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             Task.init {
                 ent.components[PhysicsMotionComponent.self]?.linearVelocity = SIMD3<Float>(vX,vY,vZ)
-                print("velocity")
-                print(ent.components[PhysicsBodyComponent.self]?.mode)
             }
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3*Double(time)) {
+            Task.init {
+                let obj = manager!.findObject(model: ent)
+                if let _ = obj {
+                    manager?.unregisterObject(object: obj!)
+                }
+            }
+        }
+        
     }
     
     func getRandomTime() ->Float {
@@ -94,7 +94,6 @@ class PirateShip: Object {
 }
 
 func playEffect(pos : SIMD3<Float>, angle: Float) async {
-    print(angle)
     
     let effect = await CannonballEffect(pos: pos, angle:angle) //MAKE THIS SHIP EFFECT
     getManager()?.registerObject(object: effect)

@@ -68,14 +68,6 @@ struct ContentView: View {
     static var k = 0
     // VECTORS:
     
-    let leftVector:Vector3D = Vector3D(x:2000,y:0,z:0)
-    let rightVector:Vector3D = Vector3D(x:-2000,y:0,z:0)
-    let backwardVector:Vector3D = Vector3D(x:0,y:0,z:-2000)
-    let forwardVector:Vector3D = Vector3D(x:0,y:0,z:2000)
-    let centerVector:Vector3D = Vector3D(x:0,y:0,z:0)
-    let dockVector:Vector3D = Vector3D(x:10000,y:0,z:0)
-    
-    
     @State private var totalProgressTime = 0
     let timer = Timer.publish(every: deltaT, on: .main, in: .common).autoconnect()
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
@@ -85,8 +77,7 @@ struct ContentView: View {
         
         RealityView { content in
             
-            
-            
+
         }
         .task {
             storage = await blockStorage()
@@ -156,7 +147,7 @@ struct ContentView: View {
                             progressTime = 0
                         }
                         .onReceive(timer) {_ in
-                            let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()).getDuration()+3)
+                            let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()-1).getDuration()+3)
                             if progressTime + diff < 1 {
                                 progressTime += diff
                             }
@@ -168,20 +159,27 @@ struct ContentView: View {
                     VStack {
                         Button("Right Button") {
                             
-                            getManager()?.setTeleportVector(a: rightVector)
-                            
+                            rightLocation.activateLocation(vec: &keeper.vec)
+                    
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
+                        Button("Left Button") {
+                            
+                            leftLocation.activateLocation(vec: &keeper.vec)
+
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
                         
                         Button("Forward Button") {
                             
-                            getManager()?.setTeleportVector(a: forwardVector)
+                            forwardLocation.activateLocation(vec: &keeper.vec)
                             
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                         
                         Button("Backward Button") {
                             
-                            getManager()?.setTeleportVector(a: backwardVector)
-                            
+                            backwardLocation.activateLocation(vec: &keeper.vec)
+
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                         
                         
@@ -199,15 +197,11 @@ struct ContentView: View {
                         
                         Button("Cardboard") {
                             Task{
-                                print("k")
                                 var block =  storage?.getCardboardBlock()
-                                print("a")
                                 if coins >= block!.getPrice() {
-                                    print("b")
                                     block = await storage?.takeCardboardBlock()
                                     block!.setPosition(pos: cardboardSpawn)
                                     coins-=block!.getPrice()
-                                    print("e")
                                     getManager()?.registerObject(object: block!)
                                 }
                                 
@@ -281,29 +275,29 @@ struct ContentView: View {
                     //tp buttons
                     VStack {
                         
-                        Button("Home Button") {
-                            
-                            print("Home")
-                            
-                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
-                        
                         Button("Settings Button") {
                             
                             print("Settings")
                             
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                         
+                        Button("Home Button") {
+                            
+                            homeLocation.activateLocation(vec: &keeper.vec)
+
+                        }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
+                        
                         Button("Center Button") {
                             
-                            getManager()?.setTeleportVector(a: centerVector)
-                            
+                            centerLocation.activateLocation(vec: &keeper.vec)
+
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                         
                         
                         Button("Dock Button") {
                             
-                            getManager()?.setTeleportVector(a: dockVector)
-                            
+                            dockLocation.activateLocation(vec: &keeper.vec)
+
                         }.font(.custom("bill", size:6)).scaleEffect(1.5).padding().frame(depth:1).glassBackgroundEffect(in:Circle()).scaleEffect(3).padding(100).buttonBorderShape(.circle).scaledToFill()
                     }
                     

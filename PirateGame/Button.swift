@@ -19,9 +19,7 @@ class gameButton : Object {
     
     init(action: @escaping () -> Void) async {
         
-        print("he")
         var entity = try? await Entity(named:"gameBuyButton", in:realityKitContentBundle)
-        await print(entity)
         super.init(Entity: entity!, ID: ID.BUTTON)
         act = action
         entity = await entity?.children.first?.children.first

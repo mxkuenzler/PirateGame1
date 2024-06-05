@@ -40,7 +40,6 @@ class Shop:Object {
                 
         gameButton = await PirateGame.gameButton(action:{
             
-            print("Price: \(self.price)")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
                 Task.init {
@@ -49,7 +48,7 @@ class Shop:Object {
                     let obj = await getObjectFromID(id: self.sellID)
                     getManager()?.registerObject(object:obj)
                     obj.goToSpawn()
-                    print(coins)
+
                 }
             }
             

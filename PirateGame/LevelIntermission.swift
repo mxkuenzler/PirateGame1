@@ -45,14 +45,11 @@ class Merchantintermission : levelIntermission {
     }
     
     override func onStart() async {
-        print("Starting")
         for i in -1...1 {
             let shop:Shop = await Shop(soldObjectID: (i == -1 ? ID.CARDBOARD_BLOCK : (i == 0 ? ID.WOOD_BLOCK: ID.STONE_BLOCK)), price: i+1, color: i == -1 ? .blue : (i == 0 ? .brown : .darkGray))
-            print("let")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 Task.init {
                     manager?.registerObject(object:shop)
-                    print("reg")
                     shop.setPosition(pos: SIMD3<Float>(-10,2.5,Float(i*3)))
                     shop.setOrientation(angle: Float.pi + Float(i)*Float.pi/6 + 3*Float.pi/2, axes: SIMD3<Float>(0,0,1))
                 }

@@ -15,7 +15,6 @@ var rContent: RealityViewContent?
 var lighting: EnvironmentResource?
 var audioController: Entity?
 var manager: GameManager?
-
 struct ImmersiveView: View {
     
     static var k:Int = 0
@@ -23,7 +22,6 @@ struct ImmersiveView: View {
     @State var collisionSubscription:Cancellable?
     @State var timeTotal:Float?
     @State var timeProgress:Float?
-    @State var vec:Vector3D = Vector3D(x: 0,y: 0,z: 0)
     @Binding var keeper: Country
     @State var isDraggingBlock:Bool = false
     @State var currentlyDraggingID:ID = ID.NIL
@@ -47,7 +45,6 @@ struct ImmersiveView: View {
                 Button("Start"){
                     Task{
                         keeper.onHomescreen = false
-                        print(keeper.onHomescreen)
                     }
                 }.scaleEffect(10)
             }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))
@@ -55,13 +52,10 @@ struct ImmersiveView: View {
         
         else {
             RealityView { content in
-                print("ran")
                 if ImmersiveView.k > 0{
-                    print("blocked")
                     return
                 }
                 ImmersiveView.k = ImmersiveView.k + 1
-                print("Full Immerse")
                 rContent = content
                 
                 // Add the initial RealityKit content
@@ -93,6 +87,7 @@ struct ImmersiveView: View {
                 
                 
                 await manager?.registerObject(object: OceanFloor())
+                await manager?.registerObject(object: secondOceanFloor())
                 await manager?.registerObject(object: IslandFloor())
                 await manager?.registerObject(object: Flag())
                 let ship = await PirateShip()
@@ -110,6 +105,17 @@ struct ImmersiveView: View {
                 
                 await sandRing()
                 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    Task.init {
+                        print(keeper.vec)
+                    }
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    Task.init {
+                        print(keeper.vec)
+                    }
+                }
                 
                 /*DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                  Task.init {
@@ -136,7 +142,7 @@ struct ImmersiveView: View {
                  }
                  }*/
                 
-                await getManager()?.registerObject(object: DockFloor())
+                //await getManager()?.registerObject(object: DockFloor())
                 
                 /*for i in 0...3 {
                  
@@ -149,7 +155,8 @@ struct ImmersiveView: View {
                  cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
                  }*/
             }.gesture(gestureA).gesture(gestureB)
-                .transform3DEffect(AffineTransform3D(translation: vec))
+                .transform3DEffect(AffineTransform3D(translation: keeper.vec))
+            
         }
     }
 
@@ -159,11 +166,13 @@ struct ImmersiveView: View {
         TapGesture()
             .targetedToAnyEntity()
             .onEnded { value in
-                
-                let scene = value.entity.scene!
+                    
                 let entity = manager?.findObject(model: value.entity)
                 
-                print("b")
+                if entity?.getID() == ID.BUTTON {
+                    let button = entity as! gameButton
+                    button.pressedButton()
+                }
                 
                 if isDraggingBlock && currentlyDraggingID != ID.NIL {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
@@ -171,7 +180,6 @@ struct ImmersiveView: View {
                         Task.init {
                             
                             let ent = await getObjectFromID(id: currentlyDraggingID)
-                            print(ent)
                             getManager()?.registerObject(object: ent)
                             ent.setPosition(pos:value.entity.position)
                             (ent as! Block).checkSnap(manager: getManager()!)
@@ -201,11 +209,6 @@ struct ImmersiveView: View {
                         entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
                         entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
                     }
-                    if entity?.getID() == ID.BUTTON {
-                        let button = entity as! gameButton
-                        button.pressedButton()
-                    }
-                    
                     
                 }
             }

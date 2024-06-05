@@ -18,13 +18,14 @@ var coins = 10000
 
 struct Country{
     var onHomescreen = true
+    var vec = Vector3D(x:0,y:0,z:0)
 }
 
 
 @main
 struct PirateGameApp: App {
     
-    @State var statekeeper = Country()
+    @State public var statekeeper = Country()
     
     var body: some Scene {
         

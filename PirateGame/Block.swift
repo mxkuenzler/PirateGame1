@@ -29,6 +29,8 @@ class Block: Object {
         super.init(Entity: Entity, ID: ID.SIMPLE_BLOCK)
         
         self.getEntity()?.components.set(InputTargetComponent())
+        
+        self.getEntity()?.components.set(HoverEffectComponent())
     }
     
     func getPrice() -> Int{
