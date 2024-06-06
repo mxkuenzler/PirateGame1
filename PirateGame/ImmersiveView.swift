@@ -51,7 +51,7 @@ struct ImmersiveView: View {
         }
         
         else {
-            RealityView { content in
+            RealityView { content, attachments in
                 if ImmersiveView.k > 0{
                     return
                 }
@@ -105,17 +105,24 @@ struct ImmersiveView: View {
                 
                 await sandRing()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    Task.init {
-                        print(keeper.vec)
-                    }
+                
+                var anchorEnt = AnchorEntity(.head)
+                content.add(anchorEnt)
+                
+                /*
+                var cube = await cardboardBlock()
+                cube.getEntity()?.setParent(anchorEnt)
+                cube.getEntity()?.position = SIMD3(x:0,y:0,z:-1)
+                */
+                if let attachment = attachments.entity(for: "earthLabel") {
+                    attachment.setParent(anchorEnt)
+                    attachment.position = [0,0,-4]
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                    Task.init {
-                        print(keeper.vec)
-                    }
-                }
+                anchorEnt.anchoring.trackingMode = .continuous
+                
+                
+            
                 
                 /*DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                  Task.init {
@@ -154,9 +161,45 @@ struct ImmersiveView: View {
                  manager?.registerObject(object: cannonBall)
                  cannonBall.setPosition(pos: SIMD3<Float>(x:0,y:3,z:0))
                  }*/
-            }.gesture(gestureA).gesture(gestureB)
-                .transform3DEffect(AffineTransform3D(translation: keeper.vec))
+            }
+        attachments: {
             
+            let ent = VStack{
+                Model3D(named: "basicBlock", bundle: realityKitContentBundle)
+                    .scaleEffect(0.4)
+                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                    .frame(depth: 300)
+                
+                
+                Button("Cardboard") {
+                    Task{
+                        var block =  storage?.getCardboardBlock()
+                        if coins >= block!.getPrice() {
+                            block = await storage?.takeCardboardBlock()
+                            block!.setPosition(pos: cardboardSpawn)
+                            coins-=block!.getPrice()
+                            getManager()?.registerObject(object: block!)
+                        }
+                        
+                    }
+                }.font(.custom("billy", size: 100)).scaledToFill()
+                    .frame(depth: 300)
+            }
+            .padding(10)
+            .glassBackgroundEffect(in: RoundedRectangle(
+                cornerRadius: 10,
+                style: .continuous
+            ))
+            .padding(10)
+            
+            Attachment(id: "earthLabel")
+                {
+                    ent
+                }
+            }
+            .gesture(gestureA).gesture(gestureB)
+                .transform3DEffect(AffineTransform3D(translation: keeper.vec))
+        
         }
     }
 
