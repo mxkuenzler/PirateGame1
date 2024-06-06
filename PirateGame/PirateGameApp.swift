@@ -16,7 +16,7 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
 
 var coins = 10000
 
-struct Country{
+@Observable class Country{
     var onHomescreen = true
     var vec = Vector3D(x:0,y:0,z:0)
 }
@@ -35,10 +35,10 @@ struct PirateGameApp: App {
         }.immersionStyle(selection: .constant(.mixed), in: .mixed)
         */
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView(keeper: $statekeeper)
+            ImmersiveView(keeper: statekeeper)
         }.immersionStyle(selection: .constant(.full), in: .full)
         WindowGroup {
-            ContentView(keeper: $statekeeper)
+            ContentView(keeper: statekeeper)
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
 
     }

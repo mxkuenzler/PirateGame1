@@ -64,8 +64,7 @@ struct ContentView: View {
     @State private var progressTime = 0.0
     @State private var temp:Bool = false
     @State private var selectedBlock:ID = ID.NIL
-    @Binding var keeper: Country
-    static var k = 0
+    var keeper: Country
     // VECTORS:
     
     @State private var totalProgressTime = 0
