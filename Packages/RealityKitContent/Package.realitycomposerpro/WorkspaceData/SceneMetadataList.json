@@ -89,7 +89,13 @@
       },
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
+<<<<<<< Updated upstream
         "Root"
+=======
+        "Root",
+        "Cylinder",
+        "Material"
+>>>>>>> Stashed changes
       ],
       {
         "isExpanded" : true,
@@ -101,8 +107,12 @@
     "objectMetadataList" : [
       [
         "3A819B04-BF7D-461A-B581-235F4759B650",
+<<<<<<< Updated upstream
         "Root",
         "ParticleEmitter"
+=======
+        "Root"
+>>>>>>> Stashed changes
       ],
       {
         "isExpanded" : true,
@@ -110,7 +120,9 @@
       },
       [
         "3A819B04-BF7D-461A-B581-235F4759B650",
-        "Root"
+        "Root",
+        "ParticleEmitter",
+        "SpatialAudio"
       ],
       {
         "isExpanded" : true,
@@ -131,6 +143,7 @@
   "05D54195-3517-451B-9CB0-A5423279FEE1" : {
     "objectMetadataList" : [
       [
+<<<<<<< Updated upstream
         "05D54195-3517-451B-9CB0-A5423279FEE1",
         "root"
       ],
@@ -163,6 +176,11 @@
         "05D54195-3517-451B-9CB0-A5423279FEE1",
         "root",
         "Cone"
+=======
+        "7B2B28B7-5693-4919-8EF1-0C1B959479BE",
+        "Cube",
+        "Dock"
+>>>>>>> Stashed changes
       ],
       {
         "isExpanded" : true,
@@ -185,8 +203,7 @@
     "objectMetadataList" : [
       [
         "7B2B28B7-5693-4919-8EF1-0C1B959479BE",
-        "Cube",
-        "Dock"
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -459,7 +476,8 @@
     "objectMetadataList" : [
       [
         "47403D7D-BC68-4539-9AA1-381ED6278A7C",
-        "Root"
+        "Root",
+        "Sphere"
       ],
       {
         "isExpanded" : true,
@@ -467,8 +485,7 @@
       },
       [
         "47403D7D-BC68-4539-9AA1-381ED6278A7C",
-        "Root",
-        "Sphere"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -498,7 +515,7 @@
       [
         "B1D22296-0CC1-4291-8913-73959265C1B9",
         "Button",
-        "Button"
+        "Frame"
       ],
       {
         "isExpanded" : true,
@@ -515,7 +532,7 @@
       [
         "B1D22296-0CC1-4291-8913-73959265C1B9",
         "Button",
-        "Frame"
+        "Button"
       ],
       {
         "isExpanded" : true,
@@ -610,8 +627,7 @@
       },
       [
         "D2D8913C-5F1E-48CF-B222-D871B2CB6957",
-        "Button",
-        "Button_1"
+        "Button"
       ],
       {
         "isExpanded" : true,
@@ -619,7 +635,12 @@
       },
       [
         "D2D8913C-5F1E-48CF-B222-D871B2CB6957",
+<<<<<<< Updated upstream
         "Button"
+=======
+        "Button",
+        "Button_1"
+>>>>>>> Stashed changes
       ],
       {
         "isExpanded" : true,
@@ -631,8 +652,7 @@
     "objectMetadataList" : [
       [
         "D34D8DDD-7068-4331-B8DE-8A2EEDA37E95",
-        "Root",
-        "Cube"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -640,7 +660,8 @@
       },
       [
         "D34D8DDD-7068-4331-B8DE-8A2EEDA37E95",
-        "Root"
+        "Root",
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -673,7 +694,8 @@
     "objectMetadataList" : [
       [
         "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
-        "Root"
+        "Root",
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -681,8 +703,7 @@
       },
       [
         "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
-        "Root",
-        "Cube"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -716,7 +737,8 @@
       },
       [
         "F32EB372-C5DE-46F5-8F36-FE4D816C8C15",
-        "Root"
+        "Root",
+        "ParticleEmitter"
       ],
       {
         "isExpanded" : true,
@@ -724,8 +746,12 @@
       },
       [
         "F32EB372-C5DE-46F5-8F36-FE4D816C8C15",
+<<<<<<< Updated upstream
         "Root",
         "ParticleEmitter"
+=======
+        "Root"
+>>>>>>> Stashed changes
       ],
       {
         "isExpanded" : true,

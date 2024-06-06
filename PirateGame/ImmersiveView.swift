@@ -22,7 +22,7 @@ struct ImmersiveView: View {
     @State var collisionSubscription:Cancellable?
     @State var timeTotal:Float?
     @State var timeProgress:Float?
-    @Binding var keeper: Country
+    var keeper: Country
     @State var isDraggingBlock:Bool = false
     @State var currentlyDraggingID:ID = ID.NIL
     @State var draggingObj:Object?
