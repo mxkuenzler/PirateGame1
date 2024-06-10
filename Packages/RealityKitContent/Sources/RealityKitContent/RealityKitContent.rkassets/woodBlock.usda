@@ -8,20 +8,22 @@
     upAxis = "Y"
 )
 
-reorder rootPrims = ["Root", "Wood_Plank"]
+reorder rootPrims = ["Root", "Cube_004"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube", "Wood_Plank"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
+        reorder nameChildren = ["Wood_Plank", "Group"]
         rel material:binding = </Root/Cube/Wood_Plank> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.5
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def "Wood_Plank" (
             active = true

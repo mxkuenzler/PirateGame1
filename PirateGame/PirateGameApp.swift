@@ -19,6 +19,8 @@ var coins = 10000
 @Observable class Country{
     var onHomescreen = true
     var vec = Vector3D(x:0,y:0,z:0)
+    var cards:[GameCard]? 
+
 }
 
 
@@ -40,7 +42,7 @@ struct PirateGameApp: App {
         WindowGroup {
             ContentView(keeper: statekeeper)
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
-
+        
     }
     
 }

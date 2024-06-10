@@ -26,6 +26,7 @@ struct ImmersiveView: View {
     @State var isDraggingBlock:Bool = false
     @State var currentlyDraggingID:ID = ID.NIL
     @State var draggingObj:Object?
+    var cards:[GameCard]?
     
     var body: some View {
         
@@ -84,7 +85,7 @@ struct ImmersiveView: View {
                 content.subscribe(to: CollisionEvents.Began.self) { event in
                     manager?.handleCollision(event: event)
                 }
-                
+
                 
                 await manager?.registerObject(object: OceanFloor())
                 await manager?.registerObject(object: secondOceanFloor())
@@ -121,8 +122,46 @@ struct ImmersiveView: View {
                 
                 anchorEnt.anchoring.trackingMode = .continuous
                 
+                keeper.cards = Array()
+                for i in 0...2 {
+                    keeper.cards!.append(GameCard())
+                }
+                getManager()?.setCards(cards: &keeper.cards)
                 
-            
+                let card0 = await PhysicalCard()
+                let card1 = await PhysicalCard()
+                let card2 = await PhysicalCard()
+
+                let scale:Float = 0.01
+                
+                card0.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+                card1.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+                card2.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+
+                getManager()?.registerObject(object: card0)
+                getManager()?.registerObject(object: card1)
+                getManager()?.registerObject(object: card2)
+                                
+                card0.getEntity()?.scale = SIMD3<Float>(0,0,0)
+                card1.getEntity()?.scale = SIMD3<Float>(0,0,0)
+                card2.getEntity()?.scale = SIMD3<Float>(0,0,0)
+                
+                card0.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5))
+                card1.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0))
+                card2.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0.5))
+                
+                if let attachment = attachments.entity(for: "card0") {
+                    attachment.setParent(card0.getEntity())
+                    attachment.position = [0,0,0]
+                }
+                if let attachment = attachments.entity(for: "card1") {
+                    attachment.setParent(card1.getEntity())
+                    attachment.position = [0,0,0]
+                }
+                if let attachment = attachments.entity(for: "card2") {
+                    attachment.setParent(card2.getEntity())
+                    attachment.position = [0,0,0]
+                }
                 
                 /*DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                  Task.init {
@@ -164,38 +203,17 @@ struct ImmersiveView: View {
             }
         attachments: {
             
-            let ent = VStack{
-                Model3D(named: "basicBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.4)
-                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
-                    .frame(depth: 300)
-                
-                
-                Button("Cardboard") {
-                    Task{
-                        var block =  storage?.getCardboardBlock()
-                        if coins >= block!.getPrice() {
-                            block = await storage?.takeCardboardBlock()
-                            block!.setPosition(pos: cardboardSpawn)
-                            coins-=block!.getPrice()
-                            getManager()?.registerObject(object: block!)
-                        }
-                        
-                    }
-                }.font(.custom("billy", size: 100)).scaledToFill()
-                    .frame(depth: 300)
-            }
-            .padding(10)
-            .glassBackgroundEffect(in: RoundedRectangle(
-                cornerRadius: 10,
-                style: .continuous
-            ))
-            .padding(10)
             
-            Attachment(id: "earthLabel")
-                {
-                    ent
-                }
+            Attachment(id: "card0") {
+                keeper.cards?[0].getView()
+            }
+            Attachment(id: "card1") {
+                keeper.cards?[1].getView()
+            }
+            Attachment(id: "card2") {
+                keeper.cards?[2].getView()
+            }
+            
             }
             .gesture(gestureA).gesture(gestureB)
                 .transform3DEffect(AffineTransform3D(translation: keeper.vec))

@@ -123,11 +123,16 @@ struct ContentView: View {
                         Task.init {
                             isLevelActive = true
                             let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
-                            await getManager()?.startNextLevel(level:level)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                Task.init {
+                                    await getManager()?.startNextLevel(level:level)
+                                    await getManager()?.endIntermission(cards:&keeper.cards)
+                                }
+                            }
                             DispatchQueue.main.asyncAfter(deadline: .now() + Double(level.getDuration() + 3)) {
                                 Task.init {
                                     isLevelActive = false
-                                    await getManager()?.startIntermission()
+                                    await getManager()?.startIntermission(cards:&keeper.cards)
                                     coins += level.reward
                                 }
                             }

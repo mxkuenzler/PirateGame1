@@ -19,7 +19,7 @@ class LevelManager
         switch num
         {
             case 1:
-                return Level(levelNum: num, duration: 18, amount: 4, reward: 25)
+                return Level(levelNum: num, duration: 2, amount: 4, reward: 25)
             case 2:
                 return Level(levelNum: num, duration: 20, amount: 8, reward: 50)
             case 3:

@@ -24,6 +24,8 @@
 		3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */; };
 		3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */; };
 		3F1B85AA2BF6318D006CE7A6 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B85A92BF6318D006CE7A6 /* Level.swift */; };
+		3F49D9DD2C1518FE00DCAB8B /* marketShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */; };
+		3F49D9DF2C152B1000DCAB8B /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9DE2C152B1000DCAB8B /* GameCard.swift */; };
 		3F578FDA2BFCED9A0045DC8C /* LevelIntermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */; };
 		3F578FDC2BFEABCD0045DC8C /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FDB2BFEABCD0045DC8C /* Button.swift */; };
 		3F578FDE2BFED77F0045DC8C /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FDD2BFED77F0045DC8C /* Shop.swift */; };
@@ -66,6 +68,8 @@
 		3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
 		3F1B85A92BF6318D006CE7A6 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = marketShip.swift; sourceTree = "<group>"; };
+		3F49D9DE2C152B1000DCAB8B /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
 		3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelIntermission.swift; sourceTree = "<group>"; };
 		3F578FDB2BFEABCD0045DC8C /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		3F578FDD2BFED77F0045DC8C /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
@@ -135,6 +139,8 @@
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
 				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
+				3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */,
+				3F49D9DE2C152B1000DCAB8B /* GameCard.swift */,
 				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
 				3F77B8552BED05E400895BD0 /* Helper.swift */,
 				3F578FDB2BFEABCD0045DC8C /* Button.swift */,
@@ -295,9 +301,11 @@
 				3FEF9DA12C0FF6F400C9A084 /* GameLocation.swift in Sources */,
 				0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */,
 				3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */,
+				3F49D9DD2C1518FE00DCAB8B /* marketShip.swift in Sources */,
 				0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,
 				3F578FDA2BFCED9A0045DC8C /* LevelIntermission.swift in Sources */,
+				3F49D9DF2C152B1000DCAB8B /* GameCard.swift in Sources */,
 				3F0778EA2BEBBFCD0039E2A8 /* GameManager.swift in Sources */,
 				3F578FDC2BFEABCD0045DC8C /* Button.swift in Sources */,
 				3F578FDE2BFED77F0045DC8C /* Shop.swift in Sources */,

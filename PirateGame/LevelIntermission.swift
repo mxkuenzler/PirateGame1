@@ -27,11 +27,11 @@ class levelIntermission {
         self.intID = ID
     }
     
-    func onStart() async {
+    func onStart(cards:inout [GameCard]?) async {
         //override in classes
     }
     
-    func onEnd() async {
+    func onEnd(cards:inout [GameCard]?) async {
         //override in classes
     }
     
@@ -40,22 +40,28 @@ class levelIntermission {
 }
 
 class Merchantintermission : levelIntermission {
+    
+    var marketShip:MarketShip?
+    
     init() {
         super.init(chance:0.2, name:"Travelling Merchant", ID: intermissionID.travelling_menu)
     }
     
-    override func onStart() async {
-        for i in -1...1 {
-            let shop:Shop = await Shop(soldObjectID: (i == -1 ? ID.CARDBOARD_BLOCK : (i == 0 ? ID.WOOD_BLOCK: ID.STONE_BLOCK)), price: i+1, color: i == -1 ? .blue : (i == 0 ? .brown : .darkGray))
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                Task.init {
-                    manager?.registerObject(object:shop)
-                    shop.setPosition(pos: SIMD3<Float>(-10,2.5,Float(i*3)))
-                    shop.setOrientation(angle: Float.pi + Float(i)*Float.pi/6 + 3*Float.pi/2, axes: SIMD3<Float>(0,0,1))
-                }
+    override func onStart(cards:inout [GameCard]?) async {
+        
+        
+        marketShip = await MarketShip()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task.init{
+                getManager()?.registerObject(object: self.marketShip!)
+                self.marketShip!.setPosition(pos: SIMD3<Float>(x:-10,y:0.2,z:0))
             }
         }
-        
+        getManager()?.pickCards(cards: &cards)
+    }
+    
+    override func onEnd(cards:inout [GameCard]?) async {
+        getManager()?.unregisterObject(object: marketShip!)
     }
     
 }

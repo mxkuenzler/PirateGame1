@@ -110,4 +110,8 @@ class Object {
     
     }
     
+    func onRegister() {
+        //override
+    }
+    
 }

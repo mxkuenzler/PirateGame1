@@ -19,9 +19,13 @@ class GameManager {
     private var objectList:[Object]
     private var IsLevelActive = false
     private var pirateShip:PirateShip?
-    private var currentLevel = 0
+    private var currentLevel = 1
     private var gameLocation:gameLocation?
-    
+    private var intermission:levelIntermission?
+    private var cardObjects:[GameCard]?
+    private var cardList:[GameCard]
+    private var physicalCards:[Object]?
+    private var cardSize:SIMD3<Float>?
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?) {
         
         
@@ -29,24 +33,37 @@ class GameManager {
         self.lighting = lighting
         self.audioController = audioController
         self.objectList = Array<Object>()
+        cardObjects = Array()
+        cardObjects!.append(GameCard())
+        cardObjects!.append(GameCard())
+        cardObjects!.append(GameCard())
 
+        cardList = Array()
+        self.setupCardList()
+        
+        physicalCards = Array()
     }
     
-    func registerObject(object: Shop) {
-        object.initiateLighting(IBL: lighting!)
-        if object.getID() != ID.EFFECT {
-            object.initiatePhysicsBody()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            Task.init {
-                self.rContent?.add(object.getEntity()!)
-                self.objectList.append(object)
-            }
-        }
-        registerObject(object: object.gameButton!)
-        object.gameButton!.setPosition(pos: SIMD3<Float>(0,object.buttonOffset,0))
+    func setupCardList() {
+        cardList.append(doubleCannonballCard())
+        cardList.append(largeCannonballCard())
     }
     
+//    func registerObject(object: Shop) {
+//        object.initiateLighting(IBL: lighting!)
+//        if object.getID() != ID.EFFECT {
+//            object.initiatePhysicsBody()
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+//            Task.init {
+//                self.rContent?.add(object.getEntity()!)
+//                self.objectList.append(object)
+//            }
+//        }
+//        registerObject(object: object.gameButton!)
+//        object.gameButton!.setPosition(pos: SIMD3<Float>(0,object.buttonOffset,0))
+//    }
+//    
     func registerObject(object: Object) {
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
@@ -56,10 +73,27 @@ class GameManager {
             Task.init {
                 self.rContent?.add(object.getEntity()!)
                 self.objectList.append(object)
+                object.onRegister()
             }
         }
     }
     
+    func registerObject(object: PhysicalCard) {
+        object.initiateLighting(IBL: lighting!)
+        if object.getID() != ID.EFFECT {
+            object.initiatePhysicsBody()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task.init {
+                self.rContent?.add(object.getEntity()!)
+                self.objectList.append(object)
+                object.onRegister()
+            }
+        }
+        print("physical")
+        physicalCards?.append(object)
+        cardSize = object.getEntity()!.scale
+    }
     
     func unregisterObject(object: Object) {
         
@@ -170,9 +204,29 @@ class GameManager {
         return Merchantintermission() // INFINITE LOOP CHANGE THIS
     }
     
-    func startIntermission() async {
-        let intermission = await pickIntermission()
-        await intermission.onStart()
+    func startIntermission(cards:inout [GameCard]?) async {
+        intermission = await pickIntermission()
+        for i in 0...physicalCards!.count-1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                Task.init{
+                    self.physicalCards![i].getEntity()!.scale = self.cardSize!
+                }
+            }
+        }
+        await intermission?.onStart(cards: &cards)
+    }
+    
+    func endIntermission(cards:inout [GameCard]?) async {
+        await intermission?.onEnd(cards: &cards)
+        if let _ = physicalCards {
+            for i in 0...physicalCards!.count-1 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    Task.init{
+                        self.physicalCards![i].getEntity()!.scale = [0,0,0]
+                    }
+                }
+            }}
+        intermission = nil
     }
     
     func getGameLocation() -> gameLocation {
@@ -185,9 +239,26 @@ class GameManager {
         print(vec)
     }
     
+    func getCards() -> [GameCard]? {
+        return cardObjects
+    }
     
+    func pickRandomCard() -> GameCard {
+        return cardList[Int.random(in: 0...(cardList.count-1))]
+    }
     
+    func pickCards(cards:inout [GameCard]?) {
+        for i in 0...2 {
+            cardObjects![i] = pickRandomCard()
+            cards![i] = cardObjects![i]
+        }
+    }
+    
+    func setCards(cards:inout [GameCard]?) {
+        cards = cardObjects
         
+        
+    }
         
     
     

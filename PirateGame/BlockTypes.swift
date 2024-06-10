@@ -57,3 +57,15 @@ class sandBlock: Block {
         return
     }
 }
+
+class refinedWoodBlock: Block {
+    init() async {
+        let blockModel = try? await Entity(named: "refinedWoodBlock", in: realityKitContentBundle)
+            
+        super.init(Entity: blockModel!, Health: 10, cost: 50, blockID: ID.REFINED_WOOD_BLOCK)
+        }
+    
+    override func goToSpawn() {
+        getEntity()?.position = woodSpawn
+    }
+}

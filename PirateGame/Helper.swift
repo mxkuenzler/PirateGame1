@@ -15,7 +15,8 @@ public var blockSize:Float = 1.0
 enum ID {
     case FLAG, CANNON_BALL, SIMPLE_BLOCK, OCEAN_FLOOR, ISLAND_FLOOR,
          PIRATE_SHIP, EFFECT, SAMPLE_BLOCK, BUTTON, SHOP, NIL, SAND_BLOCK,
-         STONE_BLOCK, WOOD_BLOCK, CARDBOARD_BLOCK, DOCK_FLOOR, SHIELD, SECOND_OCEAN_FLOOR
+         STONE_BLOCK, WOOD_BLOCK, CARDBOARD_BLOCK, DOCK_FLOOR, SHIELD, SECOND_OCEAN_FLOOR,
+         REFINED_WOOD_BLOCK, MARKET_SHIP, CARD, PHYSICAL_CARD
 }
 
 let leftVector:Vector3D = Vector3D(x:2000,y:0,z:0)
@@ -235,6 +236,8 @@ func getObjectFromID(id: ID) async -> Object {
         return await sandBlock()
     case .SHIELD:
         return await Shield()
+    case .REFINED_WOOD_BLOCK:
+        return await refinedWoodBlock()
     default:
         return await Object(Entity: Entity(), ID: .NIL)
     }
