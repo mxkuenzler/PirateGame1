@@ -108,7 +108,7 @@ struct ContentView: View {
         }
         // in the VStack under the start level button
         
-        if !(keeper.onHomescreen) {
+        if (keeper.onHomescreen) {
             //ingame menu
             
             VStack {

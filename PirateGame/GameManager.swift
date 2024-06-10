@@ -95,6 +95,9 @@ class GameManager {
         cardSize = object.getEntity()!.scale
     }
     
+    func partialRegisterObject(object: Object) {
+        self.objectList.append(object)
+    }
     
     func unregisterObject(object: Object) {
         
