@@ -95,6 +95,7 @@ class GameManager {
         cardSize = object.getEntity()!.scale
     }
     
+    
     func unregisterObject(object: Object) {
         
         let count = 0...objectList.count-1

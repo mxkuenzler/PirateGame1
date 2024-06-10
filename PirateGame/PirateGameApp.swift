@@ -31,11 +31,11 @@ struct PirateGameApp: App {
     
     var body: some Scene {
         
-        /*
-        ImmersiveSpace {
+        
+        ImmersiveSpace(id: "ImmersiveHomescreen") {
             Homescreen()
         }.immersionStyle(selection: .constant(.mixed), in: .mixed)
-        */
+        
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView(keeper: statekeeper)
         }.immersionStyle(selection: .constant(.full), in: .full)

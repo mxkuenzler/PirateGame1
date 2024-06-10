@@ -1,0 +1,79 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Cube", "Wood"]
+    def Cube "Cube" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Wood> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+
+        def Material "DefaultMaterial"
+        {
+            prepend token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+            def Shader "DefaultSurfaceShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+        }
+    }
+
+    def Material "Wood"
+    {
+        prepend token outputs:mtlx:surface.connect = </Root/Wood/PreviewSurface.outputs:out>
+        token outputs:realitykit:vertex.connect = </Root/Wood/GeometryModifier.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (408.05078, 76.92969)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 10
+
+        def Shader "PreviewSurface"
+        {
+            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+            float inputs:clearcoat = 0
+            float inputs:clearcoatRoughness = 0.01
+            color3f inputs:diffuseColor.connect = </Root/Wood/Image.outputs:out>
+            float inputs:ior = 0.6
+            float inputs:metallic = 0
+            float inputs:occlusion = 1
+            float inputs:opacity = 1
+            float inputs:roughness = 0.9
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (172.2667, 48.24087)
+            float2 ui:nodegraph:node:size = (148.5, 199)
+            int ui:nodegraph:node:stackingOrder = 35
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:roughness", "inputs:opacity"]
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_color3"
+            color3f inputs:default = (0, 0, 0) (
+                colorSpace = "srgb_displayp3"
+            )
+            asset inputs:file = @Canyon_Maple_Dark_Wood_4k_8b_sgyHQKK/textures/Canyon_Maple_Dark_Wood_baseColor.png@
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-47.648438, -14.902344)
+            float2 ui:nodegraph:node:size = (148.5, 199)
+            int ui:nodegraph:node:stackingOrder = 27
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default"]
+        }
+    }
+}
+
