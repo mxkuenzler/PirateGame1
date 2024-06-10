@@ -12,22 +12,34 @@ import RealityKitContent
 
 
 struct Homescreen: View {
+    
+    @Environment(\.openImmersiveSpace) var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    
     var body: some View {//home menu
-        RealityView{ content in
-            guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
+        ZStack{
             
-            let world = makeWorld(light: ImageBasedLight)
-            let portal = makePortal(world: world)
+            RealityView{ content in
+                guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
+                
+                let world = makeWorld(light: ImageBasedLight)
+                let portal = makePortal(world: world)
+                
+                content.add(world)
+                content.add(portal)
+            }
             
-            content.add(world)
-            content.add(portal)
-        }
-        Button("Start"){
-            Task{/*
-                await openImmersiveSpace(id: "ImmersiveSpace")
-                immersiveSpaceIsShown = true
-            */}
-        }.scaleEffect(10)
+            Button("Start"){
+                
+                Task{
+                    await dismissImmersiveSpace()
+                    await openImmersiveSpace(id: "ImmersiveSpace")
+                }
+            }.scaleEffect(10)
+        }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))
+//            .task {
+//                await openImmersiveSpace(id: "ImmersiveHomescreen")
+//            }
     }
 }
 

@@ -60,6 +60,10 @@ class GameManager {
         }
     }
     
+    func partialRegisterObject(object: Object) {
+        self.objectList.append(object)
+    }
+    
     
     func unregisterObject(object: Object) {
         

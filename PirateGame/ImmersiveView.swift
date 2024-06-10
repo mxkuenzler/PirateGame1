@@ -10,6 +10,9 @@ import RealityKit
 import RealityKitContent
 import Combine
 
+enum menuStates {
+    case STANDARD, TELEPORT, BLOCK, SETTINGS
+}
 
 var rContent: RealityViewContent?
 var lighting: EnvironmentResource?
@@ -27,30 +30,11 @@ struct ImmersiveView: View {
     @State var currentlyDraggingID:ID = ID.NIL
     @State var draggingObj:Object?
     
+    @State var HUDState = menuStates.STANDARD
+    
     var body: some View {
         
-        if (keeper.onHomescreen) {
-            ZStack{
-                
-                RealityView{ content in
-                    guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
-                    
-                    let world = makeWorld(light: ImageBasedLight)
-                    let portal = makePortal(world: world)
-                    
-                    content.add(world)
-                    content.add(portal)
-                }
-                
-                Button("Start"){
-                    Task{
-                        keeper.onHomescreen = false
-                    }
-                }.scaleEffect(10)
-            }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))
-        }
         
-        else {
             RealityView { content, attachments in
                 if ImmersiveView.k > 0{
                     return
@@ -106,7 +90,7 @@ struct ImmersiveView: View {
                 await sandRing()
                 
                 
-                var anchorEnt = AnchorEntity(.head)
+                let anchorEnt = AnchorEntity(.head)
                 content.add(anchorEnt)
                 
                 /*
@@ -116,7 +100,8 @@ struct ImmersiveView: View {
                 */
                 if let attachment = attachments.entity(for: "earthLabel") {
                     attachment.setParent(anchorEnt)
-                    attachment.position = [0,0,-4]
+                    attachment.position = [0,-0.1,-0.2]
+                    
                 }
                 
                 anchorEnt.anchoring.trackingMode = .continuous
@@ -164,33 +149,163 @@ struct ImmersiveView: View {
             }
         attachments: {
             
-            let ent = VStack{
-                Model3D(named: "basicBlock", bundle: realityKitContentBundle)
-                    .scaleEffect(0.4)
-                    .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
-                    .frame(depth: 300)
-                
-                
-                Button("Cardboard") {
-                    Task{
-                        var block =  storage?.getCardboardBlock()
-                        if coins >= block!.getPrice() {
-                            block = await storage?.takeCardboardBlock()
-                            block!.setPosition(pos: cardboardSpawn)
-                            coins-=block!.getPrice()
-                            getManager()?.registerObject(object: block!)
+            var ent = VStack{
+                switch HUDState {
+                case .STANDARD:
+                    Button("Hiole"){
+                        HUDState = .BLOCK
+                    }
+                case .TELEPORT:
+                    Button("blind") {
+                        print("I can see")
+                    }
+                case .BLOCK:
+                    HStack{
+                        VStack{
+                            /*Model3D(named: "basicBlock", bundle: realityKitContentBundle)
+                                .frame(depth: 100)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .onTapGesture {
+                                    Task{
+                                        var block =  storage?.getCardboardBlock()
+                                        if coins >= block!.getPrice() {
+                                            block = await storage?.takeCardboardBlock()
+                                            block!.setPosition(pos: cardboardSpawn)
+                                            coins-=block!.getPrice()
+                                            getManager()?.registerObject(object: block!)
+                                        }
+                                    }
+                                }
+                                .brightness(8)*/
+                            RealityView{ cheese in
+                                /*if let block = try? await Entity(named: "basicBlock", in: realityKitContentBundle){
+                                    cheese.add(block)
+                                    let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
+                                    block.components.set(iblComponent)
+                                    block.components.set(ImageBasedLightReceiverComponent(imageBasedLight: block))
+                                    
+                                    block.setOrientation(simd_quatf(angle: -Float.pi/5, axis: [0, 1, 0]), relativeTo: block)
+                                }
+                                let ex = await cardboardBlock()
+                                manager?.registerObject(object: ex)
+                                ex.setPosition(pos: [0, -10, 0])*/
+                                
+                                let block = await cardboardBlock()
+                                manager?.partialRegisterObject(object: block)
+                                block.initiateLighting(IBL: lighting!)
+                                block.initiatePhysicsBody()
+                                block.getEntity()?.components[CollisionComponent.self]?.isStatic = true
+                                
+                                cheese.add(block.getEntity()!)
+                            }.frame(depth: 50)
+                                .gesture(HUDtap)
                         }
+                        .position(CGPoint(x: -1500, y: 0))
+                        
+                        VStack{
+                            /*Model3D(named: "woodBlock", bundle: realityKitContentBundle)
+                                .frame(depth: 100)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .onTapGesture {
+                                    Task{
+                                        var block =  storage?.getWoodBlock()
+                                        if coins >= block!.getPrice() {
+                                            block = await storage?.takeWoodBlock()
+                                            block!.setPosition(pos: woodSpawn)
+                                            coins-=block!.getPrice()
+                                            getManager()?.registerObject(object: block!)
+                                            
+                                        }
+                                    }
+                                }*/
+                            RealityView{ cheese in
+                                /*if let block = try? await Entity(named: "woodBlock", in: realityKitContentBundle){
+                                    cheese.add(block)
+                                    let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
+                                    block.components.set(iblComponent)
+                                    block.components.set(ImageBasedLightReceiverComponent(imageBasedLight: block))
+                                    
+                                    block.setOrientation(simd_quatf(angle: Float.pi/4, axis: [0, 1, 0]), relativeTo: block)
+                                }
+                                let ex = await woodBlock()
+                                manager?.registerObject(object: ex)
+                                ex.setPosition(pos: [0, -10, 0])*/
+                                
+                                let block = await woodBlock()
+                                manager?.partialRegisterObject(object: block)
+                                block.initiateLighting(IBL: lighting!)
+                                block.initiatePhysicsBody()
+                                block.getEntity()?.components[CollisionComponent.self]?.isStatic = true
+                                
+                                cheese.add(block.getEntity()!)
+                            }.frame(depth: 50)
+                                .gesture(HUDtap)
+                        }
+                        .position(CGPoint(x: 0, y: 0))
+                        
+                        VStack{
+                            /*Model3D(named: "stoneBlock", bundle: realityKitContentBundle)
+                                .frame(depth: 100)
+                                .rotation3DEffect(Angle(degrees: 45), axis: (x: 1, y: 1, z: 1))
+                                .onTapGesture {
+                                    Task{
+                                        var block =  storage?.getStoneBlock()
+                                        if coins >= block!.getPrice() {
+                                            block = await storage?.takeStoneBlock()
+                                            block!.setPosition(pos: stoneSpawn)
+                                            coins-=block!.getPrice()
+                                            getManager()?.registerObject(object: block!)
+                                            
+                                        }
+                                    }
+                                }*/
+                            RealityView{ cheese in
+                                /*if let block = try? await Entity(named: "stoneBlock", in: realityKitContentBundle){
+                                    cheese.add(block)
+                                    
+                                    let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
+                                    block.components.set(iblComponent)
+                                    block.components.set(ImageBasedLightReceiverComponent(imageBasedLight: block))
+                                    
+                                    block.components.set(InputTargetComponent())
+                                    block.components.set(HoverEffectComponent())
+                                    
+                                    block.setOrientation(simd_quatf(angle: Float.pi/5, axis: [0, 1, 0]), relativeTo: block)
+                                }
+                                let ex = await stoneBlock()
+                                manager?.registerObject(object: ex)
+                                ex.setPosition(pos: [0, -10, 0])*/
+                                
+                                let block = await stoneBlock()
+                                manager?.partialRegisterObject(object: block)
+                                block.initiateLighting(IBL: lighting!)
+                                block.initiatePhysicsBody()
+                                block.getEntity()?.components[CollisionComponent.self]?.isStatic = true
+                                
+                                cheese.add(block.getEntity()!)
+                            }.frame(depth: 50)
+                                .gesture(HUDtap)
+                        }
+                        .position(CGPoint(x: 1500, y: 0))
+                        
                         
                     }
-                }.font(.custom("billy", size: 100)).scaledToFill()
-                    .frame(depth: 300)
-            }
-            .padding(10)
-            .glassBackgroundEffect(in: RoundedRectangle(
-                cornerRadius: 10,
-                style: .continuous
-            ))
-            .padding(10)
+                    .frame(width: 300, height: 80)
+                    .scaleEffect(0.05)
+                    
+                    Button("Close"){
+                        HUDState = .STANDARD
+                    }
+                    
+                    
+                case .SETTINGS:
+                    Button("set"){
+                        print("recieve")
+                    }
+                }
+            }.glassBackgroundEffect()
+            
+            
             
             Attachment(id: "earthLabel")
                 {
@@ -200,10 +315,58 @@ struct ImmersiveView: View {
             .gesture(gestureA).gesture(gestureB)
                 .transform3DEffect(AffineTransform3D(translation: keeper.vec))
         
-        }
-    }
-
         
+    }
+        
+        
+    var HUDtap : some Gesture {
+        TapGesture()
+            .targetedToAnyEntity()
+            .onEnded { value in
+                let block = manager?.findObject(model: value.entity) as! Block
+                
+                switch block.blockID {
+                    case .CARDBOARD_BLOCK:
+                        Task{
+                            let bb = await cardboardBlock()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                Task.init {
+                                    manager?.registerObject(object: bb)
+                                    bb.setPosition(pos: cardboardSpawn)
+                                }
+                            }
+                        }
+                        break
+                    case .WOOD_BLOCK:
+                        Task{
+                            let bb = await woodBlock()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                Task.init {
+                                    manager?.registerObject(object: bb)
+                                    bb.setPosition(pos: woodSpawn)
+                                }
+                            }
+                        }
+                        break
+                    case .STONE_BLOCK:
+                        Task{
+                            let bb = await stoneBlock()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                Task.init {
+                                    manager?.registerObject(object: bb)
+                                    bb.setPosition(pos: stoneSpawn)
+                                }
+                            }
+                        }
+                        break
+                    default:
+                        print("Nothing here")
+                        
+                    }
+               
+                
+            }
+    }
         
     var gestureA : some Gesture {
         TapGesture()
