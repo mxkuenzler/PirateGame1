@@ -11,6 +11,36 @@
       }
     ]
   },
+  "6DCA7E77-1395-4D57-849F-32093351053F" : {
+    "objectMetadataList" : [
+      [
+        "6DCA7E77-1395-4D57-849F-32093351053F",
+        "Root",
+        "Parts"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6DCA7E77-1395-4D57-849F-32093351053F",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6DCA7E77-1395-4D57-849F-32093351053F",
+        "Root",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "7AE274AB-4199-4D93-B2B8-27570B72528E" : {
     "objectMetadataList" : [
       [
@@ -96,6 +126,28 @@
         "root",
         "Cylinder",
         "Group",
+        "Root",
+        "Circle_012"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B84BED42-732D-4262-887B-6A4B97DC8937",
+        "root",
+        "Cylinder",
+        "Group"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B84BED42-732D-4262-887B-6A4B97DC8937",
+        "root",
+        "Cylinder",
+        "Group",
         "Circle_006"
       ],
       {
@@ -114,16 +166,6 @@
         "B84BED42-732D-4262-887B-6A4B97DC8937",
         "root",
         "Cylinder"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "B84BED42-732D-4262-887B-6A4B97DC8937",
-        "root",
-        "Cylinder",
-        "Group"
       ],
       {
         "isExpanded" : true,

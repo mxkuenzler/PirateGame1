@@ -42,7 +42,7 @@ struct BottomHUD: View {
                     
                     Button("Left") {
                         leftLocation.activateLocation(vec: &keeper.vec)
-                    }.position(CGPoint(x: 300, y: 75))
+                    }.position(CGPoint(x: 100, y: 75))
                     
                     Button("⛳") {
                         centerLocation.activateLocation(vec: &keeper.vec)
@@ -50,7 +50,7 @@ struct BottomHUD: View {
                     
                     Button("Right") {
                         rightLocation.activateLocation(vec: &keeper.vec)
-                    }.position(CGPoint(x: 100, y: 75))
+                    }.position(CGPoint(x: 300, y: 75))
                     
                     Button("🏠") {
                         homeLocation.activateLocation(vec: &keeper.vec)
@@ -262,7 +262,7 @@ struct RightHud: View {
                     }
             }
             
-        }
+        }.padding(10)
         
     }
 }

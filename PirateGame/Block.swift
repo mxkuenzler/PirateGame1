@@ -98,6 +98,9 @@ class Block: Object {
         if manager?.findObject(model: event.entityB)?.getID() == ID.ISLAND_FLOOR {
             getEntity()?.components[PhysicsBodyComponent.self]?.mode = .static
         }
+        if manager?.findObject(model: event.entityB)?.getID() == ID.SECOND_OCEAN_FLOOR {
+            getManager()?.unregisterObject(object: self)
+        }
     }
     
     func getBlockID() -> ID {
