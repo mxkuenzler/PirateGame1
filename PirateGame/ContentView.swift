@@ -9,59 +9,14 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
-class blockStorage {
-    
-    var CB: cardboardBlock
-    var WB: woodBlock
-    var SB: stoneBlock
-    
-    init() async {
-        CB = await cardboardBlock()
-        WB = await woodBlock()
-        SB = await stoneBlock()
-    }
-    
-    func getCardboardBlock() -> cardboardBlock{
-        return CB
-    }
-    
-    func takeCardboardBlock() async -> cardboardBlock {
-        let holdBlock = CB
-        CB = await cardboardBlock()
-        return holdBlock
-    }
-    
-    func getWoodBlock() -> woodBlock {
-        return WB
-    }
-    
-    func takeWoodBlock() async -> woodBlock {
-        let holdBlock = WB
-        WB = await woodBlock()
-        return holdBlock
-    }
-    
-    func getStoneBlock() -> stoneBlock {
-        return SB
-    }
-    
-    func takeStoneBlock() async -> stoneBlock {
-        let holdBlock = SB
-        SB = await stoneBlock()
-        return holdBlock
-    }
-}
 
-var storage: blockStorage?
 
-let deltaT = Double(0.01)
 
 struct ContentView: View {
     
     @State private var enlarge = false
     @State private var showImmersiveSpace = false
     @State private var isLevelActive = false
-    @State private var progressTime = 0.0
     @State private var temp:Bool = false
     @State private var selectedBlock:ID = ID.NIL
     var keeper: Country
@@ -86,33 +41,13 @@ struct ContentView: View {
         // in the VStack under the start level button
         
         
-        VStack {
-            Text("\(temp)").opacity(0).task {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
-                    Task.init {
-                        
-                        /* func toggleTimer() async {
-                         while true {
-                         temp = !temp
-                         sleep(1)
-                         }
-                         }
-                         
-                         await toggleTimer()*/
-                    }
-                }
-            }
-            /*Button("Add Coins") {
-             getManager()?.setCoins(a: getManager()!.getCoins() + 100)
-             }*/
-        }
         // in the VStack under the start level button
         
         if (keeper.onHomescreen) {
             //ingame menu
             
             VStack {
-                Text("Coins: \(String(describing: coins))").glassBackgroundEffect(in: RoundedRectangle(
+                Text("Coins: \(keeper.coins)").glassBackgroundEffect(in: RoundedRectangle(
                     cornerRadius: 32,
                     style: .continuous
                 )).frame(width: 500,height: 250)
@@ -133,7 +68,7 @@ struct ContentView: View {
                                 Task.init {
                                     isLevelActive = false
                                     await getManager()?.startIntermission(cards:&keeper.cards)
-                                    coins += level.reward
+                                    keeper.coins += level.reward
                                 }
                             }
                         }
@@ -141,19 +76,19 @@ struct ContentView: View {
                         .font(.custom("billy", size: 100))
                     
                 } else {
-                    ProgressView(value: progressTime, total: 1).scaleEffect(x:1.02, y:32).frame(width:1000, height:110).padding(10)
+                    ProgressView(value: keeper.progressTime, total: 1).scaleEffect(x:1.02, y:32).frame(width:1000, height:110).padding(10)
                         .glassBackgroundEffect(in: RoundedRectangle(
                             cornerRadius: 1000000,
                             style: .continuous
                         ))
                         .padding(10)
                         .onAppear {
-                            progressTime = 0
+                            keeper.progressTime = 0
                         }
                         .onReceive(timer) {_ in
                             let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()-1).getDuration()+3)
-                            if progressTime + diff < 1 {
-                                progressTime += diff
+                            if keeper.progressTime + diff < 1 {
+                                keeper.progressTime += diff
                             }
                         }
                 }
@@ -202,10 +137,10 @@ struct ContentView: View {
                         Button("Cardboard") {
                             Task{
                                 var block =  storage?.getCardboardBlock()
-                                if coins >= block!.getPrice() {
+                                if keeper.coins >= block!.getPrice() {
                                     block = await storage?.takeCardboardBlock()
                                     block!.setPosition(pos: cardboardSpawn)
-                                    coins-=block!.getPrice()
+                                    keeper.coins-=block!.getPrice()
                                     getManager()?.registerObject(object: block!)
                                 }
                                 
@@ -230,10 +165,10 @@ struct ContentView: View {
                         Button("Wood") {
                             Task{
                                 var block =  storage?.getWoodBlock()
-                                if coins >= block!.getPrice() {
+                                if keeper.coins >= block!.getPrice() {
                                     block = await storage?.takeWoodBlock()
                                     block!.setPosition(pos: woodSpawn)
-                                    coins-=block!.getPrice()
+                                    keeper.coins-=block!.getPrice()
                                     getManager()?.registerObject(object: block!)
                                     
                                 }
@@ -258,10 +193,10 @@ struct ContentView: View {
                         Button("Stone") {
                             Task{
                                 var block =  storage?.getStoneBlock()
-                                if coins >= block!.getPrice() {
+                                if keeper.coins >= block!.getPrice() {
                                     block = await storage?.takeStoneBlock()
                                     block!.setPosition(pos: stoneSpawn)
-                                    coins-=block!.getPrice()
+                                    keeper.coins-=block!.getPrice()
                                     getManager()?.registerObject(object: block!)
                                     
                                 }

@@ -14,12 +14,13 @@ let cardboardSpawn = SIMD3<Float>(-1, 3, -1)
 let woodSpawn = SIMD3<Float>(0, 3, -1)
 let stoneSpawn = SIMD3<Float>(1, 3, -1)
 
-var coins = 10000
 
 @Observable class Country{
     var onHomescreen = true
     var vec = Vector3D(x:0,y:0,z:0)
     var cards:[GameCard]? 
+    var progressTime = 0.0
+    var coins = 10000
 
 }
 

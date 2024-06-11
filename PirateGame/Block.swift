@@ -105,3 +105,48 @@ class Block: Object {
     }
 }
 
+
+class blockStorage {
+    
+    var CB: cardboardBlock
+    var WB: woodBlock
+    var SB: stoneBlock
+    
+    init() async {
+        CB = await cardboardBlock()
+        WB = await woodBlock()
+        SB = await stoneBlock()
+    }
+    
+    func getCardboardBlock() -> cardboardBlock{
+        return CB
+    }
+    
+    func takeCardboardBlock() async -> cardboardBlock {
+        let holdBlock = CB
+        CB = await cardboardBlock()
+        return holdBlock
+    }
+    
+    func getWoodBlock() -> woodBlock {
+        return WB
+    }
+    
+    func takeWoodBlock() async -> woodBlock {
+        let holdBlock = WB
+        WB = await woodBlock()
+        return holdBlock
+    }
+    
+    func getStoneBlock() -> stoneBlock {
+        return SB
+    }
+    
+    func takeStoneBlock() async -> stoneBlock {
+        let holdBlock = SB
+        SB = await stoneBlock()
+        return holdBlock
+    }
+}
+
+var storage: blockStorage?

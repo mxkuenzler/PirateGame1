@@ -5,7 +5,7 @@
 //  Created by Student on 5/22/24.
 //
 
-
+/*
 import Foundation
 import RealityKit
 import RealityKitContent
@@ -44,7 +44,7 @@ class Shop:Object {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
                 Task.init {
                     
-                    coins+=(-price)
+                    keeper.coins+=(-price)
                     let obj = await getObjectFromID(id: self.sellID)
                     getManager()?.registerObject(object:obj)
                     obj.goToSpawn()
@@ -84,3 +84,4 @@ class Shop:Object {
     
 }
 
+*/
