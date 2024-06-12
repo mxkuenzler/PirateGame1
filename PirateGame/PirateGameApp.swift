@@ -21,6 +21,11 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
     var cards:[GameCard]? 
     var progressTime = 0.0
     var coins = 10000
+    
+    //settings options
+    var musicVolume:Double = 1
+    var SFXVolume:Double = 1
+    
 
 }
 
