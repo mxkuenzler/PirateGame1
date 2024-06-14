@@ -1162,8 +1162,8 @@ def Xform "Root" (
             )
             uniform token subdivisionScheme = "none"
             quatf xformOp:orient = (0.70710677, -0.7071067, 0, 0)
-            float3 xformOp:scale = (1.369414, 1.369414, 0.7166918)
-            float3 xformOp:translate = (0, 0.7304463, -9.267941e-9)
+            float3 xformOp:scale = (1.369414, 1.369, 0.5)
+            float3 xformOp:translate = (0, 0.83, -9.267941e-9)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
             def Material "Material_1"
@@ -1319,7 +1319,7 @@ def Xform "Root" (
         uniform token subdivisionScheme = "none"
         quatf xformOp:orient = (0.75188696, 0.14600883, 0.16254793, 0.62203336)
         float3 xformOp:scale = (3, 2, 2)
-        float3 xformOp:translate = (-0.219, -0.86, 1.5173105)
+        float3 xformOp:translate = (-0.219, -1.2, 1.5173105)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }

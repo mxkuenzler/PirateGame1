@@ -27,6 +27,8 @@
 		3F1B85AA2BF6318D006CE7A6 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B85A92BF6318D006CE7A6 /* Level.swift */; };
 		3F49D9DD2C1518FE00DCAB8B /* marketShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */; };
 		3F49D9DF2C152B1000DCAB8B /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9DE2C152B1000DCAB8B /* GameCard.swift */; };
+		3F49D9E12C19DDA200DCAB8B /* HotAirBalloon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9E02C19DDA200DCAB8B /* HotAirBalloon.swift */; };
+		3F49D9EC2C1A026000DCAB8B /* TimedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49D9EB2C1A026000DCAB8B /* TimedTask.swift */; };
 		3F578FDA2BFCED9A0045DC8C /* LevelIntermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */; };
 		3F578FDC2BFEABCD0045DC8C /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FDB2BFEABCD0045DC8C /* Button.swift */; };
 		3F578FDE2BFED77F0045DC8C /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F578FDD2BFED77F0045DC8C /* Shop.swift */; };
@@ -72,6 +74,8 @@
 		3F1B85A92BF6318D006CE7A6 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = marketShip.swift; sourceTree = "<group>"; };
 		3F49D9DE2C152B1000DCAB8B /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
+		3F49D9E02C19DDA200DCAB8B /* HotAirBalloon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotAirBalloon.swift; sourceTree = "<group>"; };
+		3F49D9EB2C1A026000DCAB8B /* TimedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedTask.swift; sourceTree = "<group>"; };
 		3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelIntermission.swift; sourceTree = "<group>"; };
 		3F578FDB2BFEABCD0045DC8C /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		3F578FDD2BFED77F0045DC8C /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
@@ -125,34 +129,16 @@
 		0EB6A9462BEBA9B70027443F /* PirateGame */ = {
 			isa = PBXGroup;
 			children = (
-				3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */,
-				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
-				3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */,
-				3F77B8512BED050B00895BD0 /* Block.swift */,
-				3F1B85A92BF6318D006CE7A6 /* Level.swift */,
-				3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */,
-				0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */,
-				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
-				3F77B8502BED050B00895BD0 /* Floor.swift */,
-				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
-				3FC0AA682C0045230022D71E /* Items.swift */,
 				0EB6A94B2BEBA9B70027443F /* PirateGameApp.swift */,
-				0EF2A8292BFFA6D1005C8733 /* Homescreen.swift */,
-				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
-				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
-				0EE3C4DC2C1898BB00992F82 /* HUD.swift */,
-				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
-				3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */,
-				3F49D9DE2C152B1000DCAB8B /* GameCard.swift */,
-				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
+				3F49D9E22C19DDD200DCAB8B /* Objects */,
+				3F49D9E42C19DE1000DCAB8B /* Managers */,
+				3F49D9E32C19DDFA00DCAB8B /* Views */,
 				3F77B8552BED05E400895BD0 /* Helper.swift */,
-				3F578FDB2BFEABCD0045DC8C /* Button.swift */,
-				3F578FDD2BFED77F0045DC8C /* Shop.swift */,
-				0E5ABAB62BF7BA5800D31B8D /* Effects.swift */,
+				3F49D9EB2C1A026000DCAB8B /* TimedTask.swift */,
+				0EB6A9552BEBA9B90027443F /* Preview Content */,
 				0EB6A9512BEBA9B70027443F /* ImageBasedLighting.skybox */,
 				0EB6A9532BEBA9B90027443F /* Assets.xcassets */,
 				0EB6A9582BEBA9B90027443F /* Info.plist */,
-				0EB6A9552BEBA9B90027443F /* Preview Content */,
 			);
 			path = PirateGame;
 			sourceTree = "<group>";
@@ -179,6 +165,98 @@
 				0EB6A9612BEBA9B90027443F /* PirateGameTests.swift */,
 			);
 			path = PirateGameTests;
+			sourceTree = "<group>";
+		};
+		3F49D9E22C19DDD200DCAB8B /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3F49D9EA2C19DF1F00DCAB8B /* GameLocations */,
+				3F49D9E92C19DE5300DCAB8B /* GameItems */,
+				3F49D9E82C19DE4300DCAB8B /* GameEffects */,
+				3F49D9E72C19DE3500DCAB8B /* LevelObjects */,
+				3F49D9E52C19DE2100DCAB8B /* GameObjects */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		3F49D9E32C19DDFA00DCAB8B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3F49D9E02C19DDA200DCAB8B /* HotAirBalloon.swift */,
+				0EF2A8292BFFA6D1005C8733 /* Homescreen.swift */,
+				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
+				0EE3C4DC2C1898BB00992F82 /* HUD.swift */,
+				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3F49D9E42C19DE1000DCAB8B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3F1B85A72BF62FE7006CE7A6 /* LevelManager.swift */,
+				3F0778E92BEBBFCD0039E2A8 /* GameManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		3F49D9E52C19DE2100DCAB8B /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
+				3F77B8512BED050B00895BD0 /* Block.swift */,
+				3F49D9E62C19DE2800DCAB8B /* Types */,
+			);
+			path = GameObjects;
+			sourceTree = "<group>";
+		};
+		3F49D9E62C19DE2800DCAB8B /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				3F77B8612BF3A3C400895BD0 /* PirateShip.swift */,
+				3F578FDD2BFED77F0045DC8C /* Shop.swift */,
+				3F49D9DE2C152B1000DCAB8B /* GameCard.swift */,
+				3F578FDB2BFEABCD0045DC8C /* Button.swift */,
+				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
+				3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */,
+				0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */,
+				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
+				3F77B8502BED050B00895BD0 /* Floor.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		3F49D9E72C19DE3500DCAB8B /* LevelObjects */ = {
+			isa = PBXGroup;
+			children = (
+				3F578FD92BFCED9A0045DC8C /* LevelIntermission.swift */,
+				3F1B85A92BF6318D006CE7A6 /* Level.swift */,
+			);
+			path = LevelObjects;
+			sourceTree = "<group>";
+		};
+		3F49D9E82C19DE4300DCAB8B /* GameEffects */ = {
+			isa = PBXGroup;
+			children = (
+				0E5ABAB62BF7BA5800D31B8D /* Effects.swift */,
+			);
+			path = GameEffects;
+			sourceTree = "<group>";
+		};
+		3F49D9E92C19DE5300DCAB8B /* GameItems */ = {
+			isa = PBXGroup;
+			children = (
+				3FC0AA682C0045230022D71E /* Items.swift */,
+			);
+			path = GameItems;
+			sourceTree = "<group>";
+		};
+		3F49D9EA2C19DF1F00DCAB8B /* GameLocations */ = {
+			isa = PBXGroup;
+			children = (
+				3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */,
+			);
+			path = GameLocations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,10 +375,12 @@
 				0EF2A82A2BFFA6D1005C8733 /* Homescreen.swift in Sources */,
 				3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */,
 				3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */,
+				3F49D9EC2C1A026000DCAB8B /* TimedTask.swift in Sources */,
 				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,
 				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
 				3F1B85AA2BF6318D006CE7A6 /* Level.swift in Sources */,
+				3F49D9E12C19DDA200DCAB8B /* HotAirBalloon.swift in Sources */,
 				3FEF9DA12C0FF6F400C9A084 /* GameLocation.swift in Sources */,
 				0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */,
 				3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */,

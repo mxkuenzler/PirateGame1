@@ -90,10 +90,8 @@ func connectBlocks(a: Object, b: Object) {
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
-                        manager?.unregisterObject(object: be)
-                    }
+                gameTask(delay:1) {
+                    manager?.unregisterObject(object: be)
                 }
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos + blockSize/2 , yPos, zPos), ignore: ent){
@@ -101,10 +99,8 @@ func connectBlocks(a: Object, b: Object) {
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
+                gameTask(delay:1) {
                         manager?.unregisterObject(object: be)
-                    }
                 }
                 
             }
@@ -112,10 +108,8 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, blockSize/4, 0))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
+                gameTask(delay:1) {
                         manager?.unregisterObject(object: be)
-                    }
                 }
                 
             }
@@ -123,10 +117,8 @@ func connectBlocks(a: Object, b: Object) {
                 let be = await BlockEffect(pos: nop - SIMD3<Float>(0, -blockSize/4, 0))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
+                gameTask(delay:1) {
                         manager?.unregisterObject(object: be)
-                    }
                 }
                 
             }
@@ -135,11 +127,10 @@ func connectBlocks(a: Object, b: Object) {
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
+                gameTask(delay:1) {
                         manager?.unregisterObject(object: be)
                     }
-                }
+                
                 
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos, zPos + blockSize/2), ignore: ent){
@@ -147,11 +138,10 @@ func connectBlocks(a: Object, b: Object) {
                 be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
                 manager?.registerObject(object: be)
                 await be.playAudio()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    Task.init{
+                gameTask(delay:1) {
                         manager?.unregisterObject(object: be)
                     }
-                }
+                
                 
             }
         }

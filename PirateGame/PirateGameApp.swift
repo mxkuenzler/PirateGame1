@@ -21,12 +21,12 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
     var cards:[GameCard]? 
     var progressTime = 0.0
     var coins = 10000
-    
+    var flagHealth = 0
     //settings options
     var musicVolume:Double = 1
     var SFXVolume:Double = 1
-    
-
+    var isGameActive:Bool = false
+    var gameCount:Int = 0
 }
 
 
@@ -41,14 +41,15 @@ struct PirateGameApp: App {
         ImmersiveSpace(id: "ImmersiveHomescreen") {
             Homescreen()
         }.immersionStyle(selection: .constant(.mixed), in: .mixed)
-        
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView(keeper: statekeeper)
         }.immersionStyle(selection: .constant(.full), in: .full)
         WindowGroup {
             ContentView(keeper: statekeeper)
         }.windowStyle(.volumetric).defaultSize(width: 3000, height: 3000, depth: 500)
-        
+        ImmersiveSpace(id: "HotAirBalloon") {
+            HotAirBalloon(keeper: statekeeper)
+        }.immersionStyle(selection: .constant(.full), in: .full)
     }
     
 }
