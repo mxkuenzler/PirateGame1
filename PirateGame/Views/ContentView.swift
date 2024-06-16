@@ -237,6 +237,23 @@ struct ContentView: View {
                     }
                     
                 }
+                
+                Button("Add Cannonball"){
+                    gameTask() {
+                        var ball = await BasicCannonball()
+                        ball.getEntity()?.components.set(InputTargetComponent())
+                        ball.getEntity()?.components.set(HoverEffectComponent())
+                        ball.setPosition(pos: [0, 4, 0])
+                        getManager()?.registerObject(object: ball)
+                    }
+                    gameTask() {
+                        var ball = await HeavyCannonball()
+                        ball.getEntity()?.components.set(InputTargetComponent())
+                        ball.getEntity()?.components.set(HoverEffectComponent())
+                        ball.setPosition(pos: [1, 4, 0])
+                        getManager()?.registerObject(object: ball)
+                    }
+                }.font(.custom("billy", size: 100))
                 /*HStack{
                  
                  //adding blocks

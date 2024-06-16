@@ -39,7 +39,7 @@ class PirateShip: Object {
     
     func shootCannonBall(time: Float) async {
         
-        let ball = await Cannonball(pos: ship!.position, relativeTo: getEntity()!)
+        let ball = await HeavyCannonball(pos: ship!.position, relativeTo: getEntity()!)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
             Task.init {
                 if getManager()?.keeper.isGameActive == true  {
@@ -54,7 +54,7 @@ class PirateShip: Object {
     
     func shootCannonBall(time: Float, type: String) async { // MAKE THIS COMPATIBLE WITH DIFF TYPES
         
-        let ball = await Cannonball(pos: ship!.position, relativeTo: getEntity()!)
+        let ball = await HeavyCannonball(pos: ship!.position, relativeTo: getEntity()!)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
             Task.init {
                 if getManager()?.keeper.isGameActive == true {

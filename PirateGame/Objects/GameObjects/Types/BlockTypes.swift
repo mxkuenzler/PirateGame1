@@ -48,7 +48,7 @@ class sandBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "sandBlock", in: realityKitContentBundle)
             
-        super.init(Entity: blockModel!, Health: 2, cost: 0, blockID: ID.SAND_BLOCK)
+        super.init(Entity: blockModel!, Health: 0, cost: 0, blockID: ID.SAND_BLOCK)
         
         await self.getEntity()?.components.remove(InputTargetComponent.self)
     }

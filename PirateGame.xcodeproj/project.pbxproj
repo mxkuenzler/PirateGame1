@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E2C47EE2C1D283A00833C3E /* CannonballTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2C47ED2C1D283A00833C3E /* CannonballTypes.swift */; };
+		0E2C47F02C1D28C600833C3E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2C47EF2C1D28C600833C3E /* TestView.swift */; };
 		0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F14A22BEE99BF009A64D8 /* Flag.swift */; };
 		0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */; };
 		0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5ABAB62BF7BA5800D31B8D /* Effects.swift */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E2C47ED2C1D283A00833C3E /* CannonballTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonballTypes.swift; sourceTree = "<group>"; };
+		0E2C47EF2C1D28C600833C3E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		0E3F14A22BEE99BF009A64D8 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTypes.swift; sourceTree = "<group>"; };
 		0E5ABAB62BF7BA5800D31B8D /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				0EB6A94D2BEBA9B70027443F /* ContentView.swift */,
 				0EE3C4DC2C1898BB00992F82 /* HUD.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
+				0E2C47EF2C1D28C600833C3E /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 			children = (
 				3F0778E72BEBBE6B0039E2A8 /* ObjectClass.swift */,
 				3F77B8512BED050B00895BD0 /* Block.swift */,
+				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
 				3F49D9E62C19DE2800DCAB8B /* Types */,
 			);
 			path = GameObjects;
@@ -220,7 +226,7 @@
 				0E3F14A22BEE99BF009A64D8 /* Flag.swift */,
 				3F49D9DC2C1518FE00DCAB8B /* marketShip.swift */,
 				0E5ABAB42BF2513800D31B8D /* BlockTypes.swift */,
-				3F77B84F2BED050B00895BD0 /* Cannonball.swift */,
+				0E2C47ED2C1D283A00833C3E /* CannonballTypes.swift */,
 				3F77B8502BED050B00895BD0 /* Floor.swift */,
 			);
 			path = Types;
@@ -367,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2C47F02C1D28C600833C3E /* TestView.swift in Sources */,
 				0EB6A94E2BEBA9B70027443F /* ContentView.swift in Sources */,
 				3FC0AA692C0045230022D71E /* Items.swift in Sources */,
 				0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */,
@@ -384,6 +391,7 @@
 				3FEF9DA12C0FF6F400C9A084 /* GameLocation.swift in Sources */,
 				0E5ABAB52BF2513800D31B8D /* BlockTypes.swift in Sources */,
 				3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */,
+				0E2C47EE2C1D283A00833C3E /* CannonballTypes.swift in Sources */,
 				3F49D9DD2C1518FE00DCAB8B /* marketShip.swift in Sources */,
 				0E3F14A32BEE99BF009A64D8 /* Flag.swift in Sources */,
 				0EB6A9502BEBA9B70027443F /* ImmersiveView.swift in Sources */,

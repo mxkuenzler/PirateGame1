@@ -38,10 +38,12 @@ class Block: Object {
     }
     
     func hit(obj: Object) {
-        HP = HP - 1
+        let ball = obj as! Cannonball
+        HP -= ball.HP
         if HP <= 0 {
             manager?.unregisterObject(object: self)
         }
+        print("Block Health: \(HP)")
     }
     
     func checkSnap(manager: GameManager){

@@ -53,10 +53,11 @@ class Cannonball: Object {
     }
     
     func hit(block: Block) {
-        HP -= block.HP
+        HP -= block.HP + HP
         if HP <= 0 {
             manager?.unregisterObject(object: self)
         }
+        print("Ball Health: \(HP)")
     }
     
     func damageBlock(obj: Object) {
@@ -67,63 +68,4 @@ class Cannonball: Object {
         //override
     }
     
-}
-class BasicCannonball: Cannonball {
-    var hp = 1
-    init() async {
-        
-        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
-        
-        super.init(Entity: CannonballModel!, Health: hp)
-        
-    }
-    
-    init(pos: SIMD3<Float>, relativeTo: Entity) async {
-        
-        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
-        
-        super.init(Entity: CannonballModel!, Health: hp, pos: pos, relativeTo: relativeTo)
-    }
-    
-    override func damageBlock(obj: Object) {
-        let block:Block = obj as! Block
-        block.hit(obj: self)
-        manager?.unregisterObject(object: self)
-    }
-    
-    override func damageFlag(obj: Object) {
-        let flag:Flag = obj as! Flag
-        flag.hit(obj: self)
-        manager?.unregisterObject(object: self)
-    }
-}
-
-class HeavyCannonball: Cannonball {
-    var hp = 3
-    init() async {
-        
-        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
-        
-        super.init(Entity: CannonballModel!, Health: hp)
-        
-    }
-    
-    init(pos: SIMD3<Float>, relativeTo: Entity) async {
-        
-        let CannonballModel = try? await Entity(named: "Cannonball", in: realityKitContentBundle)
-        
-        super.init(Entity: CannonballModel!, Health: hp, pos: pos, relativeTo: relativeTo)
-    }
-    
-    override func damageBlock(obj: Object) {
-        let block:Block = obj as! Block
-        block.hit(obj: self)
-        hit(block: block)
-    }
-    
-    override func damageFlag(obj: Object) {
-        let flag:Flag = obj as! Flag
-        flag.hit(obj: self)
-        manager?.unregisterObject(object: self)
-    }
 }
