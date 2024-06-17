@@ -60,7 +60,7 @@ struct ContentView: View {
                             let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
                             gameTask() {
                                 await getManager()?.startNextLevel(level:level)
-                                await getManager()?.endIntermission(cards:&keeper.cards)
+                                await getManager()?.endIntermission()
                             }
                             gameTask(delay:Double(level.getDuration() + 3)) {
                                 isLevelActive = false

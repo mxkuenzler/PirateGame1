@@ -9,7 +9,6 @@ import SwiftUI
 
 var Manager:GameManager?
 var levelManager:LevelManager?
-
 let cardboardSpawn = SIMD3<Float>(-1, 3, -1)
 let woodSpawn = SIMD3<Float>(0, 3, -1)
 let stoneSpawn = SIMD3<Float>(1, 3, -1)
@@ -27,13 +26,19 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
     var SFXVolume:Double = 1
     var isGameActive:Bool = false
     var gameCount:Int = 0
+    var shells:Int = getShellsFromKeychain()
+    var BottomHUDState:menuStates = .STANDARD
+    var SideHUDState:infoStates = .STANDARD
+    var speech:InteractiveSpeech? = nil
+
 }
 
+var keeper = Country()
 
 @main
 struct PirateGameApp: App {
     
-    @State public var statekeeper = Country()
+    @State public var statekeeper = keeper
     
     var body: some Scene {
         
@@ -50,7 +55,6 @@ struct PirateGameApp: App {
         ImmersiveSpace(id: "HotAirBalloon") {
             HotAirBalloon(keeper: statekeeper)
         }.immersionStyle(selection: .constant(.full), in: .full)
-        
         //for testing purposes
         ImmersiveSpace(id: "TestSpace"){
             TestView(keeper: statekeeper)

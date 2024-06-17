@@ -31,7 +31,7 @@ class levelIntermission {
         //override in classes
     }
     
-    func onEnd(cards:inout [GameCard]?) async {
+    func onEnd() async {
         //override in classes
     }
     
@@ -57,7 +57,7 @@ class Merchantintermission : levelIntermission {
         getManager()?.pickCards(cards: &cards)
     }
     
-    override func onEnd(cards:inout [GameCard]?) async {
+    override func onEnd() async {
         if let _ = marketShip {
             getManager()?.unregisterObject(object: marketShip!)}
     }

@@ -10,28 +10,30 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 enum menuStates {
-    case STANDARD, TELEPORT, BLOCK, SETTINGS
+    case STANDARD, TELEPORT, BLOCK, SETTINGS, CUSTOM
+}
+enum infoStates {
+    case STANDARD, CUSTOM
 }
 struct BottomHUD: View {
     
     var keeper: Country
-    @State var HUDState = menuStates.STANDARD
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     var body: some View {
         VStack{
-            switch HUDState {
+            switch keeper.BottomHUDState {
             case .STANDARD:
                 HStack{
                     Button("Teleports"){
-                        HUDState = .TELEPORT
+                        keeper.BottomHUDState = .TELEPORT
                     }
                     Button("Blocks"){
-                        HUDState = .BLOCK
+                        keeper.BottomHUDState = .BLOCK
                     }
                     Button("⚙️"){
-                        HUDState = .SETTINGS
+                        keeper.BottomHUDState = .SETTINGS
                     }
                 }
             case .TELEPORT:
@@ -65,7 +67,7 @@ struct BottomHUD: View {
                     }.position(CGPoint(x: 200, y: 125))
                     
                     Button("Close"){
-                        HUDState = .STANDARD
+                        keeper.BottomHUDState = .STANDARD
                     }.position(CGPoint(x: 350, y: 125))
                 }.frame(width: 400, height: 150)
             case .BLOCK:
@@ -141,14 +143,16 @@ struct BottomHUD: View {
                 .scaleEffect(0.05)
                 
                 Button("Close"){
-                    HUDState = .STANDARD
+                    keeper.BottomHUDState = .STANDARD
                 }
                 
             case .SETTINGS:
                 Text("Nothing here yet")
                 Button("Close"){
-                    HUDState = .STANDARD
+                    keeper.BottomHUDState = .STANDARD
                 }
+            case .CUSTOM:
+                keeper.speech!.getInteractives()
             }
             if !keeper.isGameActive {
                 
@@ -233,41 +237,54 @@ struct RightHud: View {
     let timer = Timer.publish(every: deltaT, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        VStack{
-            Text("Coins: \(keeper.coins)")
-            Text("⛳️ Health: \(keeper.flagHealth)")
-            if !isLevelActive {
-                Button("Start Next Level") {
-                    Task.init {
-                        isLevelActive = true
-                        let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
-                        gameTask() {
+        switch keeper.SideHUDState {
+            case .STANDARD:
+            VStack{
+                Text("Coins: \(keeper.coins)")
+                Text("⛳️ Health: \(keeper.flagHealth)")
+                Text("Shells: \(keeper.shells)")
+                Button("Add Shells!") {
+                    addShells(amount:1)
+                }
+                if !isLevelActive {
+                    Button("Start Next Level") {
+                        Task.init {
+                            isLevelActive = true
+                            let level = getLevelManager()!.getLevel(num:getManager()!.getCurrentLevel())
+                            gameTask() {
                                 await getManager()?.startNextLevel(level:level)
-                                await getManager()?.endIntermission(cards:&keeper.cards)
-                        }
-                        gameTask(delay: Double(level.getDuration() + 3)) {
+                                await getManager()?.endIntermission()
+                            }
+                            gameTask(delay: Double(level.getDuration() + 3)) {
                                 isLevelActive = false
                                 await getManager()?.startIntermission(cards:&keeper.cards)
                                 keeper.coins += level.reward
                             }
-                    }
-                }
-                
-            } else {
-                ProgressView(value: keeper.progressTime, total: 1).scaleEffect(x:1.02, y:3.2).frame(width:100, height:11)
-                    .padding(10)
-                    .onAppear {
-                        keeper.progressTime = 0
-                    }
-                    .onReceive(timer) {_ in
-                        let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()-1).getDuration()+3)
-                        if keeper.progressTime + diff < 1 {
-                            keeper.progressTime += diff
                         }
                     }
-            }
+                    
+                } else {
+                    ProgressView(value: keeper.progressTime, total: 1).scaleEffect(x:1.02, y:3.2).frame(width:100, height:11)
+                        .padding(10)
+                        .onAppear {
+                            keeper.progressTime = 0
+                        }
+                        .onReceive(timer) {_ in
+                            let diff = deltaT * 1 / Double(getLevelManager()!.getLevel(num:manager!.getCurrentLevel()-1).getDuration()+3)
+                            if keeper.progressTime + diff < 1 {
+                                keeper.progressTime += diff
+                            }
+                        }
+                }
+                
+            }.padding(10)
             
-        }.padding(10)
-        
+            
+            case .CUSTOM:
+            VStack {
+                keeper.speech!.getInformatives()
+            }
+
+        }
     }
 }

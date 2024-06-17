@@ -41,7 +41,7 @@ struct TestView: View {
                 audioController = entity?.findEntity(named: "AmbientAudio")
                 content.add(entity!)
                 
-                setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
+                await setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
                 manager = getManager()
                 setLevelManager(a: LevelManager())
                 

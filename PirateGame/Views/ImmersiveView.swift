@@ -56,7 +56,7 @@ struct ImmersiveView: View {
                 audioController = entity?.findEntity(named: "AmbientAudio")
                 content.add(entity!)
                 
-                setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
+                await setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
                 manager = getManager()
                 setLevelManager(a: LevelManager())
                 
@@ -109,7 +109,7 @@ struct ImmersiveView: View {
                 
                 keeper.cards = Array()
                 for i in 0...2 {
-                    keeper.cards!.append(GameCard())
+                    await keeper.cards!.append(GameCard())
                 }
                 getManager()?.setCards(cards: &keeper.cards)
                 
@@ -117,8 +117,8 @@ struct ImmersiveView: View {
                 let card1 = await PhysicalCard()
                 let card2 = await PhysicalCard()
 
-                let scale:Float = 0.01
-                
+                let scale:Float = 0.25
+            
                 card0.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
                 card1.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
                 card2.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
@@ -134,21 +134,15 @@ struct ImmersiveView: View {
                 card0.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5))
                 card1.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0))
                 card2.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0.5))
+      
+                card0.getEntity()?.components.set(InputTargetComponent())
+                card0.getEntity()?.components.set(HoverEffectComponent())
+                card1.getEntity()?.components.set(InputTargetComponent())
+                card1.getEntity()?.components.set(HoverEffectComponent())
+                card2.getEntity()?.components.set(InputTargetComponent())
+                card2.getEntity()?.components.set(HoverEffectComponent())
                 
-                if let attachment = attachments.entity(for: "card0") {
-                    attachment.setParent(card0.getEntity())
-                    attachment.position = [0,0,0]
-                }
-                if let attachment = attachments.entity(for: "card1") {
-                    attachment.setParent(card1.getEntity())
-                    attachment.position = [0,0,0]
-                }
-                if let attachment = attachments.entity(for: "card2") {
-                    attachment.setParent(card2.getEntity())
-                    attachment.position = [0,0,0]
-                }
                 
-               
                 
             }
         attachments: {
@@ -164,16 +158,6 @@ struct ImmersiveView: View {
             }
             Attachment(id: "rHUD") {
                 rHUD
-            }
-            
-            Attachment(id: "card0") {
-                keeper.cards?[0].getView()
-            }
-            Attachment(id: "card1") {
-                keeper.cards?[1].getView()
-            }
-            Attachment(id: "card2") {
-                keeper.cards?[2].getView()
             }
             
             }
@@ -197,6 +181,17 @@ struct ImmersiveView: View {
                     let button = entity as! gameButton
                     button.pressedButton()
                 }
+                print(value.entity)
+                print("maybe card")
+                if entity?.getID() == ID.PHYSICAL_CARD {
+                    print("card")
+                    let cardObj = entity as! PhysicalCard
+                    let card = getManager()!.getCards()![cardObj.count]
+                    keeper.SideHUDState = .CUSTOM
+                    keeper.BottomHUDState = .CUSTOM
+                    let speech = card.getSpeech()
+                    keeper.speech = speech
+                }
                 
                 if isDraggingBlock && currentlyDraggingID != ID.NIL {
                     gameTask() {
@@ -211,6 +206,7 @@ struct ImmersiveView: View {
                     }
                     
                 }
+                
             }
     }
 

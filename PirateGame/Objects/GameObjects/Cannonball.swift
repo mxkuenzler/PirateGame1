@@ -53,7 +53,9 @@ class Cannonball: Object {
     }
     
     func hit(block: Block) {
-        HP -= block.HP + HP
+        if block.HP != 0 {
+            HP -= block.HP + HP
+        }
         if HP <= 0 {
             manager?.unregisterObject(object: self)
         }

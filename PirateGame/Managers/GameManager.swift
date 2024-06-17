@@ -27,7 +27,7 @@ class GameManager {
     private var physicalCards:[Object]?
     private var cardSize:SIMD3<Float>?
     public var keeper:Country
-    init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?, keeper:Country) {
+    init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?, keeper:Country) async {
         
         self.keeper = keeper
         
@@ -36,19 +36,19 @@ class GameManager {
         self.audioController = audioController
         self.objectList = Array<Object>()
         cardObjects = Array()
-        cardObjects!.append(GameCard())
-        cardObjects!.append(GameCard())
-        cardObjects!.append(GameCard())
+        await cardObjects!.append(GameCard())
+        await cardObjects!.append(GameCard())
+        await cardObjects!.append(GameCard())
 
         cardList = Array()
-        self.setupCardList()
+        await self.setupCardList()
         
         physicalCards = Array()
     }
     
-    func setupCardList() {
-        cardList.append(doubleCannonballCard())
-        cardList.append(largeCannonballCard())
+    func setupCardList() async {
+        await cardList.append(doubleCannonballCard())
+        await cardList.append(largeCannonballCard())
     }
     
 //    func registerObject(object: Shop) {
@@ -221,8 +221,8 @@ class GameManager {
         await intermission?.onStart(cards: &cards)
     }
     
-    func endIntermission(cards:inout [GameCard]?) async {
-        await intermission?.onEnd(cards: &cards)
+    func endIntermission() async {
+        await intermission?.onEnd()
         if let _ = physicalCards {
             for i in 0...physicalCards!.count-1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

@@ -39,6 +39,7 @@
 		3F77B8542BED050B00895BD0 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8512BED050B00895BD0 /* Block.swift */; };
 		3F77B8562BED05E400895BD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8552BED05E400895BD0 /* Helper.swift */; };
 		3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8612BF3A3C400895BD0 /* PirateShip.swift */; };
+		3FB573722C20873F00C42404 /* InteractiveSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB573712C20873F00C42404 /* InteractiveSpeech.swift */; };
 		3FC0AA692C0045230022D71E /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0AA682C0045230022D71E /* Items.swift */; };
 		3FEF9DA12C0FF6F400C9A084 /* GameLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		3F77B8512BED050B00895BD0 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		3F77B8552BED05E400895BD0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3F77B8612BF3A3C400895BD0 /* PirateShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateShip.swift; sourceTree = "<group>"; };
+		3FB573712C20873F00C42404 /* InteractiveSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSpeech.swift; sourceTree = "<group>"; };
 		3FC0AA682C0045230022D71E /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +181,7 @@
 				3F49D9E82C19DE4300DCAB8B /* GameEffects */,
 				3F49D9E72C19DE3500DCAB8B /* LevelObjects */,
 				3F49D9E52C19DE2100DCAB8B /* GameObjects */,
+				3FB573732C20875700C42404 /* SpeechObject */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -263,6 +266,14 @@
 				3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */,
 			);
 			path = GameLocations;
+			sourceTree = "<group>";
+		};
+		3FB573732C20875700C42404 /* SpeechObject */ = {
+			isa = PBXGroup;
+			children = (
+				3FB573712C20873F00C42404 /* InteractiveSpeech.swift */,
+			);
+			path = SpeechObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +395,7 @@
 				3F0778E82BEBBE6B0039E2A8 /* ObjectClass.swift in Sources */,
 				3F49D9EC2C1A026000DCAB8B /* TimedTask.swift in Sources */,
 				3F77B8532BED050B00895BD0 /* Floor.swift in Sources */,
+				3FB573722C20873F00C42404 /* InteractiveSpeech.swift in Sources */,
 				3F77B8562BED05E400895BD0 /* Helper.swift in Sources */,
 				0EB6A94C2BEBA9B70027443F /* PirateGameApp.swift in Sources */,
 				3F1B85AA2BF6318D006CE7A6 /* Level.swift in Sources */,

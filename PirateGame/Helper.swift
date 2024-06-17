@@ -35,6 +35,10 @@ let centerLocation = gameLocation(vector3D: centerVector)
 let dockLocation = gameLocation(vector3D: dockVector)
 let homeLocation = gameLocation(vector3D: homeVector)
 
+let UserDataKey = "user_data"
+let ShellIndex = 0
+let data = retrieveFromKeychain(account: UserDataKey)
+
 func isABlock(obj:Object) -> Bool {
     if obj.getID() == ID.SIMPLE_BLOCK {
         return true
@@ -231,4 +235,69 @@ func getObjectFromID(id: ID) async -> Object {
     default:
         return await Object(Entity: Entity(), ID: .NIL)
     }
+}
+
+import Security
+
+func saveToKeychain(data: Data, for account: String) -> Bool {
+    let query: [String: Any] = [
+        kSecClass as String: kSecClassGenericPassword,
+        kSecAttrAccount as String: account,
+        kSecValueData as String: data
+    ]
+    
+    SecItemDelete(query as CFDictionary) // Clean up before adding
+    let status = SecItemAdd(query as CFDictionary, nil)
+    
+    return status == errSecSuccess
+}
+
+func retrieveFromKeychain(account: String) -> Data? {
+    let query: [String: Any] = [
+        kSecClass as String: kSecClassGenericPassword,
+        kSecAttrAccount as String: account,
+        kSecReturnData as String: kCFBooleanTrue!,
+        kSecMatchLimit as String: kSecMatchLimitOne
+    ]
+    
+    var dataTypeRef: AnyObject? = nil
+    let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+    
+    return status == errSecSuccess ? dataTypeRef as? Data : nil
+}
+
+func getShellsFromKeychain() -> Int {
+    
+    if let _ = data {
+        print(data)
+        return Int(data?[ShellIndex] ?? 0)
+    } else {
+        print("none")
+        return 0
+    }
+}
+
+
+func getShells() -> Int {
+    return keeper.shells
+}
+
+func setShells(_ amount:Int) {
+    keeper.shells = amount
+    updateShells()
+}
+
+func updateShells() {
+    var k = getShells()
+    let data = Data(bytes: &k, count: MemoryLayout<Int>.size)
+    if saveToKeychain(data: data, for: UserDataKey) {
+        print("success")
+    }
+    else {
+        print("fail")
+    }
+}
+
+func addShells(amount: Int) {
+    setShells(getShells()+amount)
 }
