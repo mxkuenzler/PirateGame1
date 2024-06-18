@@ -33,7 +33,7 @@ struct Homescreen: View {
                 
                 Task{
                     await dismissImmersiveSpace()
-                    await openImmersiveSpace(id: "HotAirBalloon")
+                    await openImmersiveSpace(id: "BlimpView")
                 }
             }.scaleEffect(10)
         }.transform3DEffect(AffineTransform3D(translation: Vector3D(x: 0, y: -1500, z: -4000)))

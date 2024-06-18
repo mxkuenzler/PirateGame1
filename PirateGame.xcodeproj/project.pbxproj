@@ -40,6 +40,7 @@
 		3F77B8562BED05E400895BD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8552BED05E400895BD0 /* Helper.swift */; };
 		3F77B8622BF3A3C400895BD0 /* PirateShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77B8612BF3A3C400895BD0 /* PirateShip.swift */; };
 		3FB573722C20873F00C42404 /* InteractiveSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB573712C20873F00C42404 /* InteractiveSpeech.swift */; };
+		3FB573752C21C2BB00C42404 /* BlimpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB573742C21C2BB00C42404 /* BlimpView.swift */; };
 		3FC0AA692C0045230022D71E /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0AA682C0045230022D71E /* Items.swift */; };
 		3FEF9DA12C0FF6F400C9A084 /* GameLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +91,7 @@
 		3F77B8552BED05E400895BD0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3F77B8612BF3A3C400895BD0 /* PirateShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateShip.swift; sourceTree = "<group>"; };
 		3FB573712C20873F00C42404 /* InteractiveSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSpeech.swift; sourceTree = "<group>"; };
+		3FB573742C21C2BB00C42404 /* BlimpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlimpView.swift; sourceTree = "<group>"; };
 		3FC0AA682C0045230022D71E /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		3FEF9DA02C0FF6F400C9A084 /* GameLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +197,7 @@
 				0EE3C4DC2C1898BB00992F82 /* HUD.swift */,
 				0EB6A94F2BEBA9B70027443F /* ImmersiveView.swift */,
 				0E2C47EF2C1D28C600833C3E /* TestView.swift */,
+				3FB573742C21C2BB00C42404 /* BlimpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				3FC0AA692C0045230022D71E /* Items.swift in Sources */,
 				0E5ABAB72BF7BA5800D31B8D /* Effects.swift in Sources */,
 				3F77B8542BED050B00895BD0 /* Block.swift in Sources */,
+				3FB573752C21C2BB00C42404 /* BlimpView.swift in Sources */,
 				3F77B8522BED050B00895BD0 /* Cannonball.swift in Sources */,
 				0EF2A82A2BFFA6D1005C8733 /* Homescreen.swift in Sources */,
 				3F1B85A82BF62FE7006CE7A6 /* LevelManager.swift in Sources */,

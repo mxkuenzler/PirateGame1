@@ -55,6 +55,9 @@ struct PirateGameApp: App {
         ImmersiveSpace(id: "HotAirBalloon") {
             HotAirBalloon(keeper: statekeeper)
         }.immersionStyle(selection: .constant(.full), in: .full)
+        ImmersiveSpace(id: "BlimpView") {
+            BlimpView(keeper: statekeeper)
+        }.immersionStyle(selection: .constant(.full), in: .full)
         //for testing purposes
         ImmersiveSpace(id: "TestSpace"){
             TestView(keeper: statekeeper)
