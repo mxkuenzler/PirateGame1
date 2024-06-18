@@ -15,22 +15,40 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
 
 
 @Observable class Country{
+    
+    //MARK: IMPORTANT VARIABLES
     var onHomescreen = true
     var vec = Vector3D(x:0,y:0,z:0)
     var cards:[GameCard]? 
     var progressTime = 0.0
     var coins = 10000
+    var shells:Int = getShellsFromKeychain()
     var flagHealth = 0
-    //settings options
-    var musicVolume:Double = 1
-    var SFXVolume:Double = 1
     var isGameActive:Bool = false
     var gameCount:Int = 0
-    var shells:Int = getShellsFromKeychain()
     var BottomHUDState:menuStates = .STANDARD
     var SideHUDState:infoStates = .STANDARD
     var speech:InteractiveSpeech? = nil
+    
+    //MARK: settings options
+    var musicVolume:Double = 1
+    var SFXVolume:Double = 1
 
+    //MARK: MODIFIERS
+    var activeCards:[GameCard] = Array()
+    var availableCards:[GameCardID] = Array()
+    
+    //MARK: MULTIPLIERS
+    var rewardMultiplier:Float = 0
+    var cannonBallAmountFactor:Float = 0
+    var cannonBallSizeFactor:Float = 0
+    var cannonBallDamageFactor:Float = 0
+    var priceFactor:Float = 0
+    
+    //MARK: ADDITIVES
+    var difficulty:Float = 1
+    
+    
 }
 
 var keeper = Country()

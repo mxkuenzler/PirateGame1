@@ -11,6 +11,9 @@
 def Xform "Root"
 {
     reorder nameChildren = ["Object_1", "Card"]
+    float3 xformOp:scale = (0.25, 0.25, 0.25)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
     def Mesh "Object_1" (
         prepend apiSchemas = ["MaterialBindingAPI"]
         references = </Root/Object_1/Card/Meshes/Sketchfab_model/root/GLTF_SceneRootNode/root_1/node_id839_7/node_id697_9/node_id87_10/node_id58_11/node_id48_12/node_id49_13/node_id50_14/Object_13/Object_1>

@@ -114,4 +114,7 @@ class Object {
         //override
     }
     
+    func onUnregister() {
+        //override
+    }
 }

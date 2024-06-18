@@ -26,46 +26,44 @@ struct ImmersiveView: View {
     @State var isDraggingBlock:Bool = false
     @State var currentlyDraggingID:ID = ID.NIL
     @State var draggingObj:Object?
-    var cards:[GameCard]?
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     var body: some View {
             
-            RealityView { content, attachments in
-                keeper.isGameActive = true
-                keeper.gameCount += 1
-                rContent = content
+        RealityView { content, attachments in
+            keeper.isGameActive = true
+            keeper.gameCount += 1
+            rContent = content
+            
+            // Add the initial RealityKit content
+            if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                content.add(immersiveContentEntity)
                 
-                // Add the initial RealityKit content
-                if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                    content.add(immersiveContentEntity)
-                    
-                    // Add an ImageBasedLight for the immersive content
-                    guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
-                    lighting = ImageBasedLight
-                    let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
-                    immersiveContentEntity.components.set(iblComponent)
-                    immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
-                    
-                    // Put skybox here.  See example in World project available at
-                    // https://developer.apple.com/
-                }
+                // Add an ImageBasedLight for the immersive content
+                guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
+                lighting = ImageBasedLight
+                let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
+                immersiveContentEntity.components.set(iblComponent)
+                immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
                 
-                let entity = try? await Entity(named: "AudioController", in: realityKitContentBundle)
-                audioController = entity?.findEntity(named: "AmbientAudio")
-                content.add(entity!)
-                
-                await setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
-                manager = getManager()
-                setLevelManager(a: LevelManager())
-                
-                content.subscribe(to: CollisionEvents.Began.self) { event in
-                    manager?.handleCollision(event: event)
-                }
-
-                
-                await manager?.registerObject(object: OceanFloor())
+                // Put skybox here.  See example in World project available at
+                // https://developer.apple.com/
+            }
+            
+            let entity = try? await Entity(named: "AudioController", in: realityKitContentBundle)
+            audioController = entity?.findEntity(named: "AmbientAudio")
+            content.add(entity!)
+            
+            await setManager(a:GameManager(rContent: rContent, lighting: lighting, audioController: audioController, keeper: keeper))
+            manager = getManager()
+            setLevelManager(a: LevelManager())
+            
+            content.subscribe(to: CollisionEvents.Began.self) { event in
+                manager?.handleCollision(event: event)
+            }
+            keeper.availableCards = manager!.cardDeck
+            await manager?.registerObject(object: OceanFloor())
                 await manager?.registerObject(object: secondOceanFloor())
                 await manager?.registerObject(object: IslandFloor())
                 await manager?.registerObject(object: Flag())
@@ -107,40 +105,40 @@ struct ImmersiveView: View {
                 
                 anchorEnt.anchoring.trackingMode = .continuous
                 
-                keeper.cards = Array()
-                for i in 0...2 {
-                    await keeper.cards!.append(GameCard())
-                }
-                getManager()?.setCards(cards: &keeper.cards)
-                
-                let card0 = await PhysicalCard()
-                let card1 = await PhysicalCard()
-                let card2 = await PhysicalCard()
-
-                let scale:Float = 0.25
-            
-                card0.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
-                card1.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
-                card2.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
-
-                getManager()?.registerObject(object: card0)
-                getManager()?.registerObject(object: card1)
-                getManager()?.registerObject(object: card2)
-                                
-                card0.getEntity()?.scale = SIMD3<Float>(0,0,0)
-                card1.getEntity()?.scale = SIMD3<Float>(0,0,0)
-                card2.getEntity()?.scale = SIMD3<Float>(0,0,0)
-                
-                card0.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5))
-                card1.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0))
-                card2.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0.5))
-      
-                card0.getEntity()?.components.set(InputTargetComponent())
-                card0.getEntity()?.components.set(HoverEffectComponent())
-                card1.getEntity()?.components.set(InputTargetComponent())
-                card1.getEntity()?.components.set(HoverEffectComponent())
-                card2.getEntity()?.components.set(InputTargetComponent())
-                card2.getEntity()?.components.set(HoverEffectComponent())
+//                keeper.cards = Array()
+//                for i in 0...2 {
+//                    await keeper.cards!.append(GameCard(cardID: ID.NIL, action: {}))
+//                }
+//                getManager()?.setCards(cards: &keeper.cards)
+//                
+//                let card0 = await GameCard()
+//                let card1 = await GameCard()
+//                let card2 = await GameCard()
+//
+//                let scale:Float = 0.25
+//            
+//                card0.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+//                card1.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+//                card2.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
+//
+//                getManager()?.registerObject(object: card0)
+//                getManager()?.registerObject(object: card1)
+//                getManager()?.registerObject(object: card2)
+//                                
+//                card0.getEntity()?.scale = SIMD3<Float>(0,0,0)
+//                card1.getEntity()?.scale = SIMD3<Float>(0,0,0)
+//                card2.getEntity()?.scale = SIMD3<Float>(0,0,0)
+//                
+//                card0.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5))
+//                card1.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0))
+//                card2.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0.5))
+//      
+//                card0.getEntity()?.components.set(InputTargetComponent())
+//                card0.getEntity()?.components.set(HoverEffectComponent())
+//                card1.getEntity()?.components.set(InputTargetComponent())
+//                card1.getEntity()?.components.set(HoverEffectComponent())
+//                card2.getEntity()?.components.set(InputTargetComponent())
+//                card2.getEntity()?.components.set(HoverEffectComponent())
                 
                 
                 
@@ -185,12 +183,15 @@ struct ImmersiveView: View {
                 print("maybe card")
                 if entity?.getID() == ID.PHYSICAL_CARD {
                     print("card")
-                    let cardObj = entity as! PhysicalCard
-                    let card = getManager()!.getCards()![cardObj.count]
-                    keeper.SideHUDState = .CUSTOM
-                    keeper.BottomHUDState = .CUSTOM
-                    let speech = card.getSpeech()
-                    keeper.speech = speech
+                    let card = entity! as! GameCard
+                    Task {
+                        await card.act()
+                        await manager?.endIntermission()
+                        keeper.activeCards.append(card)
+                        if card.canObtainOnce {
+                            removeFromAvailableCards(card:card)
+                        }
+                    }
                 }
                 
                 if isDraggingBlock && currentlyDraggingID != ID.NIL {

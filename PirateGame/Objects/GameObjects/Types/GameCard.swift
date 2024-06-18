@@ -11,93 +11,49 @@ import RealityKitContent
 import _RealityKit_SwiftUI
 import SwiftUI
 
-class PhysicalCard:Object {
+enum GameCardID {
+    case NIL, DOUBLE_CANNONBALLS, LARGE_CANNONBALLS
+}
 
-    var count:Int
-    static var overall:Int = 0
+class GameCard:Object {
+
+    var cardID:GameCardID
+    var action:( ()async->Void )
+    public var canObtainOnce:Bool = false
     
-    init() async{
-        let CardModel = try? await Entity(named: "GameCard", in: realityKitContentBundle)
-        count = PhysicalCard.overall
-        PhysicalCard.overall += 1
+    init(cardID:GameCardID, EntityName:String, action: @escaping () async -> Void) async{
+        let CardModel = try? await Entity(named: EntityName, in: realityKitContentBundle)
+        self.cardID = cardID
+        self.action = action
         super.init(Entity: CardModel!, ID: ID.PHYSICAL_CARD)
     }
     
-    func getNum() -> Int {
-        return count
-    }
-}
-
-class GameCard {
-    
-    var speech:InteractiveSpeech
-    var action:(() async -> Void)?
-    
-    init(speech:InteractiveSpeech, action: @escaping () async -> Void) async {
-        
-        self.speech = speech
+    init(cardID:GameCardID, EntityName:String, action: @escaping () -> Void) async{
+        let CardModel = try? await Entity(named: EntityName, in: realityKitContentBundle)
+        self.cardID = cardID
         self.action = action
-        
-        self.speech.setInteractives(
-            VStack {
-                Button("Pick Card!") {
-                    Task.init {
-                        await action()
-                    }
-                }
-                Button("Cancel") {
-                    keeper.SideHUDState = .STANDARD
-                    keeper.BottomHUDState = .STANDARD
-                }
-            }
-        )
-        
+        super.init(Entity: CardModel!, ID: ID.PHYSICAL_CARD)
     }
     
+    func act() async {
+        await action()
+    }
+    
+}
+
+class DoubleCannonballCard:GameCard {
     init() async {
-        self.speech = InteractiveSpeech(Informatives: VStack{}, Interactives: VStack{})
-        self.action = {}
+        await super.init(cardID: .DOUBLE_CANNONBALLS, EntityName:"GameCard") {
+            print("double balls")
+        }
     }
-    
-    func getSpeech() -> InteractiveSpeech {
-        return speech
-    }
-    
 }
 
-class doubleCannonballCard:GameCard {
-    
-    
-    override init() async {
-        let speech = InteractiveSpeech(Informatives: (VStack {
-            Text("This card will double\nthe output of cannonballs\nfor the rest of the game,\nbut reward you with x1.75\nthe final reward for this game.")
-        }), Interactives: (VStack{
-        }
-        ))
-        await super.init(speech:speech){
-            print("DoubleCannonballs")
-            await getManager()?.endIntermission()
-            keeper.SideHUDState = .STANDARD
-            keeper.BottomHUDState = .STANDARD
+class LargeCannonballCard:GameCard {
+    init() async {
+        await super.init(cardID: .LARGE_CANNONBALLS, EntityName:"GameCard") {
+            print("large balls")
         }
     }
-    
 }
 
-class largeCannonballCard:GameCard {
-    
-    override init() async {
-        let speech = InteractiveSpeech(Informatives: (VStack {
-            Text("This card will double the size of cannonballs for the rest of the game, but reward you with x1.5 the final reward for this game.")
-        }), Interactives: (VStack{
-        }
-        ))
-        await super.init(speech:speech) {
-            print("DoubleSize")
-            await getManager()?.endIntermission()
-            keeper.SideHUDState = .STANDARD
-            keeper.BottomHUDState = .STANDARD
-        }
-    }
-    
-}

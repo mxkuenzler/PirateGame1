@@ -27,7 +27,7 @@ class levelIntermission {
         self.intID = ID
     }
     
-    func onStart(cards:inout [GameCard]?) async {
+    func onStart() async {
         //override in classes
     }
     
@@ -47,14 +47,13 @@ class Merchantintermission : levelIntermission {
         super.init(chance:0.2, name:"Travelling Merchant", ID: intermissionID.travelling_menu)
     }
     
-    override func onStart(cards:inout [GameCard]?) async {
+    override func onStart() async {
         
         marketShip = await MarketShip()
         gameTask(delay:0.01){
             getManager()?.registerObject(object: self.marketShip!)
             self.marketShip!.setPosition(pos: SIMD3<Float>(x:-10,y:0.2,z:0))
         }
-        getManager()?.pickCards(cards: &cards)
     }
     
     override func onEnd() async {

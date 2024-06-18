@@ -9,6 +9,7 @@ import Foundation
 import RealityKit
 import RealityKitContent
 import SwiftUI
+import Combine
 
 public var blockSize:Float = 1.0
 
@@ -300,4 +301,20 @@ func updateShells() {
 
 func addShells(amount: Int) {
     setShells(getShells()+amount)
+}
+
+var transformUnitConversion:Float = 1360
+
+func applyTransformFactor(vec: SIMD3<Float>) -> Vector3D {
+        
+    return Vector3D(x:vec.x*transformUnitConversion,y:vec.y*transformUnitConversion,z:vec.z*transformUnitConversion)
+}
+
+func removeFromAvailableCards(card:GameCard) {
+    for i in 0...keeper.availableCards.count-1 {
+        if keeper.availableCards[i] == card.cardID {
+            keeper.availableCards.remove(at:i)
+            return
+        }
+    }
 }

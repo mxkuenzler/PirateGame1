@@ -15,7 +15,7 @@ class InteractiveSpeech {
     
     init(Informatives:(any View), Interactives:(any View)) {
         self.Interactives = Interactives
-        self.Informatives = Informatives
+        self.Informatives = Informatives.frame(width: 150, height: 300, alignment: .center)   .multilineTextAlignment(.center).padding(5)
     }
     
     func getInteractives() -> some View {
