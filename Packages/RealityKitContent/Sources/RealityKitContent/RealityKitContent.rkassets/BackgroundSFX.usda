@@ -1,0 +1,37 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    def Xform "AmbientAudio"
+    {
+        reorder nameChildren = ["AmbientAudio", "Seagull_Call", "AtmospheresOcean"]
+        quatf xformOp:orient = (0.99999994, -2.9777851e-8, 9.179345e-10, 0.00034526698)
+        float3 xformOp:scale = (0.9999998, 0.9999997, 0.9999998)
+        float3 xformOp:translate = (0, 2.3841858e-7, 1.4618425e-7)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "AmbientAudio"
+        {
+            float gain = 0
+            uniform token info:id = "RealityKit.AmbientAudio"
+        }
+
+        def "AtmospheresOcean" (
+            active = true
+            references = @AtmospheresOcean.usdz@
+        )
+        {
+            uniform token normalization = "dynamic"
+            uniform bool shouldLoop = 1
+        }
+    }
+}
+

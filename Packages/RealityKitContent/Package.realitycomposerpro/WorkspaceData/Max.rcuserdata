@@ -1,17 +1,27 @@
 {
-  "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
+  "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
     "AudioController.usda",
     "GhostCannonball.usda",
     "basicBlockPlacer.usda",
     "woodBlockPlacer.usda",
-    "stoneBlockPlacer.usda"
+    "stoneBlockPlacer.usda",
+    "Immersive.usda",
+    "blockParticle.usda",
+    "island.usdc",
+    "BackgroundSFX.usda"
   ],
   "recentIdentifiers" : {
+    "1D572CEB-057A-41C3-B575-04C37501A3C0" : [
+
+    ],
     "A9B30A05-4859-46E5-8562-B49861E980B4" : [
 
     ],
     "B56F76CC-73F2-42DE-A22C-49D189011902" : [
+
+    ],
+    "B84BED42-732D-4262-887B-6A4B97DC8937" : [
 
     ],
     "D2728FDB-3005-4EB7-84D9-7CFF1F7F582C" : [
@@ -19,6 +29,98 @@
     ]
   },
   "sceneCameraHistory" : {
+    "1D572CEB-057A-41C3-B575-04C37501A3C0" : [
+      {
+        "date" : 740586758.240647,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.8660053,
+          -0.5000348,
+          0,
+          0,
+          0.5000348,
+          0.8660053,
+          0,
+          17.375618,
+          62.155678,
+          136.84335,
+          1
+        ]
+      },
+      {
+        "date" : 740586041.46948,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.8660053,
+          -0.5000348,
+          0,
+          0,
+          0.5000348,
+          0.8660053,
+          0,
+          0,
+          74.79352,
+          129.5462,
+          1
+        ]
+      },
+      {
+        "date" : 740586038.647936,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660053,
+          -0.5000348,
+          0,
+          0,
+          0.5000348,
+          0.8660053,
+          0,
+          0,
+          206.11647,
+          357.00427,
+          1
+        ]
+      }
+    ],
+    "3A819B04-BF7D-461A-B581-235F4759B650" : [
+      {
+        "date" : 740586164.075655,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660255,
+          -0.49999988,
+          0,
+          0,
+          0.49999988,
+          0.8660255,
+          0,
+          0,
+          0.20587806,
+          0.3565913,
+          1
+        ]
+      }
+    ],
     "7F24CE4F-02EA-4BA6-BBE2-70104CF09DF6" : [
       {
         "date" : 740583700.157296,
@@ -113,6 +215,98 @@
         ]
       }
     ],
+    "B84BED42-732D-4262-887B-6A4B97DC8937" : [
+      {
+        "date" : 740587580.840064,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660755,
+          -0.49991322,
+          0,
+          0,
+          0.49991322,
+          0.8660755,
+          0,
+          -4.883081,
+          33.310875,
+          38.721535,
+          1
+        ]
+      },
+      {
+        "date" : 740587067.359748,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.8660755,
+          -0.49991325,
+          0,
+          0,
+          0.49991325,
+          0.8660755,
+          0,
+          -1.2773575,
+          7.0648446,
+          10.959527,
+          1
+        ]
+      },
+      {
+        "date" : 740586991.287925,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660755,
+          -0.49991325,
+          0,
+          0,
+          0.49991325,
+          0.8660755,
+          0,
+          -4.8830814,
+          27.007492,
+          41.896076,
+          1
+        ]
+      }
+    ],
+    "D55B9FC9-5F41-486A-909A-E63E261E1E4A" : [
+      {
+        "date" : 740587908.643016,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660255,
+          -0.49999988,
+          0,
+          0,
+          0.49999988,
+          0.8660255,
+          0,
+          0,
+          0.20587806,
+          0.3565913,
+          1
+        ]
+      }
+    ],
     "D2728FDB-3005-4EB7-84D9-7CFF1F7F582C" : [
       {
         "date" : 740583825.681053,
@@ -184,5 +378,5 @@
       }
     ]
   },
-  "selectedSceneRelativePath" : "stoneBlockPlacer.usda"
+  "selectedSceneRelativePath" : "BackgroundSFX.usda"
 }

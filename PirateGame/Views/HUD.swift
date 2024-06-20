@@ -199,7 +199,7 @@ struct BottomHUD: View {
             .targetedToAnyEntity()
             .onEnded { value in
                 let block = manager?.findObject(model: value.entity) as! Block
-                let tapToAdd = false
+                let tapToAdd = true
                 
                 switch block.blockID {
                     case .CARDBOARD_BLOCK:

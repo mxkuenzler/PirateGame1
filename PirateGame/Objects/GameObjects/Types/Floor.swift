@@ -47,6 +47,19 @@ class IslandFloor: Floor {
         let FloorModel = try? await Entity(named: "island", in: realityKitContentBundle)
         
         super.init(Model: FloorModel!, id: ID.ISLAND_FLOOR)
+        
+        await playAudio()
+    }
+    func playAudio() async {
+        let fileName = "/Root/AmbientAudio/AtmospheresOcean"
+        let resource = try? await AudioFileResource(named: fileName, from: "BackgroundSFX.usda",in:realityKitContentBundle)
+        
+        let controller = try? await Entity(named: "BackgroundSFX", in: realityKitContentBundle)
+        let audioController = await controller?.findEntity(named: "AmbientAudio")
+        rContent?.add(controller!)
+        
+        let ac = await audioController?.prepareAudio(resource!)
+        await ac?.play()
     }
 }
 

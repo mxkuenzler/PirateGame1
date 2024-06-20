@@ -9,12 +9,13 @@ reorder rootPrims = ["Root", "GridMaterial"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cylinder_1", "Sky", "Island", "Ocean"]
+    reorder nameChildren = ["Sky", "AtmospheresOcean"]
     def Sphere "Sky" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
+        reorder nameChildren = ["AmbientAudio", "Seagull_Call", "DefaultMaterial"]
         rel material:binding = </Root/Sky/DefaultMaterial>
         double radius = -50
         float3 xformOp:scale = (1, 1, 1)
