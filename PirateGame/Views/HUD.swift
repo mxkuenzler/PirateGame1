@@ -18,6 +18,7 @@ enum infoStates {
 struct BottomHUD: View {
     
     var keeper: Country
+    @State var placementArr: [PlacerBlock] = []
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
@@ -38,7 +39,7 @@ struct BottomHUD: View {
                 }
             case .TELEPORT:
                 ZStack{
-                    Button("Forward") {
+                    Button("↓") {
                         forwardLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 200, y: 25))
                     
@@ -46,7 +47,7 @@ struct BottomHUD: View {
                         dockLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 70, y: 25))
                     
-                    Button("Left") {
+                    Button("→") {
                         leftLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 100, y: 75))
                     
@@ -54,7 +55,7 @@ struct BottomHUD: View {
                         centerLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 200, y: 75))
                     
-                    Button("Right") {
+                    Button("←") {
                         rightLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 300, y: 75))
                     
@@ -62,7 +63,7 @@ struct BottomHUD: View {
                         homeLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 325, y: 25))
                     
-                    Button("Backward") {
+                    Button("↑") {
                         backwardLocation.activateLocation(vec: &keeper.vec)
                     }.position(CGPoint(x: 200, y: 125))
                     
@@ -165,7 +166,31 @@ struct BottomHUD: View {
                 
                 
             }
+        }.task {
+            if let model = try? await Entity(named: "basicBlockPlacer", in: realityKitContentBundle){
+                model.generateCollisionShapes(recursive: true)
+                let cardboard = cardboardBlockPlacer(model: model)
+                cardboard.initiateLighting(IBL: lighting!)
+                manager?.partialRegisterObject(object: cardboard)
+                placementArr.append(cardboard)
+            }
+            if let model = try? await Entity(named: "woodBlockPlacer", in: realityKitContentBundle){
+                model.generateCollisionShapes(recursive: true)
+                let wood = woodBlockPlacer(model: model)
+                wood.initiateLighting(IBL: lighting!)
+                manager?.partialRegisterObject(object: wood)
+                placementArr.append(wood)
+            }
+            if let model = try? await Entity(named: "stoneBlockPlacer", in: realityKitContentBundle){
+                model.generateCollisionShapes(recursive: true)
+                let stone = stoneBlockPlacer(model: model)
+                stone.initiateLighting(IBL: lighting!)
+                manager!.partialRegisterObject(object: stone)
+                placementArr.append(stone)
+            }
         }
+
+
         
     }
     
@@ -174,44 +199,72 @@ struct BottomHUD: View {
             .targetedToAnyEntity()
             .onEnded { value in
                 let block = manager?.findObject(model: value.entity) as! Block
+                let tapToAdd = false
                 
                 switch block.blockID {
                     case .CARDBOARD_BLOCK:
                     Task{
-                        var block =  storage?.getCardboardBlock()
-                        if keeper.coins >= block!.getPrice() {
-                            block = await storage?.takeCardboardBlock()
-                            block!.setPosition(pos: cardboardSpawn)
-                            keeper.coins-=block!.getPrice()
-                            gameTask() {
-                                getManager()?.registerObject(object: block!)
+                        if tapToAdd{
+                            var block =  storage?.getCardboardBlock()
+                            if keeper.coins >= block!.getPrice() {
+                                block = await storage?.takeCardboardBlock()
+                                block!.setPosition(pos: cardboardSpawn)
+                                keeper.coins-=block!.getPrice()
+                                gameTask() {
+                                    getManager()?.registerObject(object: block!)
+                                }
                             }
+                        }
+                        else {
+                            for i in placementArr {
+                                await i.getEntity()!.setPosition([0, 1, 0], relativeTo: nil)
+                                rContent?.remove(i.getEntity()!)
+                            }
+                            rContent?.add(placementArr[0].getEntity()!)
                         }
                     }
                         break
                     case .WOOD_BLOCK:
                     Task{
-                        var block =  storage?.getWoodBlock()
-                        if keeper.coins >= block!.getPrice() {
-                            block = await storage?.takeWoodBlock()
-                            block!.setPosition(pos: woodSpawn)
-                            keeper.coins-=block!.getPrice()
-                            gameTask() {
-                                getManager()?.registerObject(object: block!)
+                        if tapToAdd {
+                            var block =  storage?.getWoodBlock()
+                            if keeper.coins >= block!.getPrice() {
+                                block = await storage?.takeWoodBlock()
+                                block!.setPosition(pos: woodSpawn)
+                                keeper.coins-=block!.getPrice()
+                                gameTask() {
+                                    getManager()?.registerObject(object: block!)
+                                }
                             }
+                        }
+                        else {
+                            for i in placementArr {
+                                await i.getEntity()!.setPosition([0, 1, 0], relativeTo: nil)
+                                rContent?.remove(i.getEntity()!)
+                            }
+                            rContent?.add(placementArr[1].getEntity()!)
                         }
                     }
                         break
                     case .STONE_BLOCK:
                     Task{
-                        var block =  storage?.getStoneBlock()
-                        if keeper.coins >= block!.getPrice() {
-                            block = await storage?.takeStoneBlock()
-                            block!.setPosition(pos: stoneSpawn)
-                            keeper.coins-=block!.getPrice()
-                            gameTask() {
-                                getManager()?.registerObject(object: block!)
+                        if tapToAdd {
+                            var block =  storage?.getStoneBlock()
+                            if keeper.coins >= block!.getPrice() {
+                                block = await storage?.takeStoneBlock()
+                                block!.setPosition(pos: stoneSpawn)
+                                keeper.coins-=block!.getPrice()
+                                gameTask() {
+                                    getManager()?.registerObject(object: block!)
+                                }
                             }
+                        }
+                        else {
+                            for i in placementArr {
+                                await i.getEntity()!.setPosition([0, 1, 0], relativeTo: nil)
+                                rContent?.remove(i.getEntity()!)
+                            }
+                            rContent?.add(placementArr[2].getEntity()!)
                         }
                     }
                         

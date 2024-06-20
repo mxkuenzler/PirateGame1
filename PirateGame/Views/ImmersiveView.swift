@@ -222,8 +222,11 @@ struct ImmersiveView: View {
                     if entity?.getID() == ID.SIMPLE_BLOCK {
                         entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
                         entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
+                    }
+                    if entity?.getID() == ID.PLACER_BLOCK {
+                        entity?.getEntity()?.position = value.convert(value.location3D, from:.local, to: value.entity.parent!)
                         isDraggingBlock = true
-                        currentlyDraggingID = (entity as! Block).blockID
+                        currentlyDraggingID = (entity as! PlacerBlock).blockID
                     }
                     if entity?.getID() == ID.SHIELD {
                         entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .kinematic
@@ -238,6 +241,10 @@ struct ImmersiveView: View {
                     if entity?.getID() == ID.SIMPLE_BLOCK {
                         entity?.getEntity()?.components[PhysicsBodyComponent.self]?.mode = .dynamic
                         (entity! as! Block).checkSnap(manager: manager!)
+                        isDraggingBlock = false
+                        currentlyDraggingID = ID.NIL
+                    }
+                    if entity?.getID() == ID.PLACER_BLOCK {
                         isDraggingBlock = false
                         currentlyDraggingID = ID.NIL
                     }

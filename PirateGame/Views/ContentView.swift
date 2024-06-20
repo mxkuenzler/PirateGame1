@@ -35,7 +35,7 @@ struct ContentView: View {
         }
         .task {
             storage = await blockStorage()
-            await openImmersiveSpace(id: "ImmersiveHomescreen")
+            await openImmersiveSpace(id: "ImmersiveSpace")
             
         }
         // in the VStack under the start level button

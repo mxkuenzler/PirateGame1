@@ -110,6 +110,15 @@ class Block: Object {
     }
 }
 
+class PlacerBlock: Object {
+    var blockID:ID
+    override init(Entity: Entity, ID: ID) {
+        blockID = ID
+        super.init(Entity: Entity, ID: .PLACER_BLOCK)
+        self.getEntity()?.components.set(InputTargetComponent())
+        self.getEntity()?.components.set(HoverEffectComponent())
+    }
+}
 
 class blockStorage {
     

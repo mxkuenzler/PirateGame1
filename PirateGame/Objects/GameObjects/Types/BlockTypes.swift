@@ -22,6 +22,12 @@ class cardboardBlock: Block {
     }
 }
 
+class cardboardBlockPlacer: PlacerBlock {
+    init(model: Entity){
+        super.init(Entity: model, ID: .CARDBOARD_BLOCK)
+    }
+}
+
 class woodBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "woodBlock", in: realityKitContentBundle)
@@ -33,6 +39,12 @@ class woodBlock: Block {
     }
 }
 
+class woodBlockPlacer: PlacerBlock {
+    init(model: Entity) {
+        super.init(Entity: model, ID: .WOOD_BLOCK)
+    }
+}
+
 class stoneBlock: Block {
     init() async {
         let blockModel = try? await Entity(named: "stoneBlock", in: realityKitContentBundle)
@@ -41,6 +53,12 @@ class stoneBlock: Block {
     }
     override func goToSpawn() {
         getEntity()?.position = stoneSpawn
+    }
+}
+
+class stoneBlockPlacer: PlacerBlock {
+    init(model: Entity) {
+        super.init(Entity: model, ID: .STONE_BLOCK)
     }
 }
 

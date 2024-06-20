@@ -1,0 +1,138 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    def Cube "Cube" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+        references = </Root/basicBlock/Cube>
+    )
+    {
+        rel material:binding = </Root/Cube/CorrugatedCardboard> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def "CorrugatedCardboard" (
+            active = true
+            references = @CorrugatedCardboard.usdz@
+        )
+        {
+            color3f inputs:Basecolor_Tint = (0.7815262, 0.693128, 0.519896) (
+                colorSpace = "srgb_displayp3"
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-45.51249, 49.172512)
+                        float2 sizeInSubgraph = (160.5, 53)
+                        int stackingOrderInSubgraph = 2294
+                    }
+                }
+            )
+            float2 inputs:UV_Scale (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-725.2588, 351.55255)
+                        float2 sizeInSubgraph = (138.5, 53)
+                        int stackingOrderInSubgraph = 2272
+                    }
+                }
+            )
+            token outputs:mtlx:surface.connect = </Root/Cube/CorrugatedCardboard/PreviewSurface.outputs:out>
+            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+            over "Mix"
+            {
+                color3f inputs:bg.connect = </Root/Cube/CorrugatedCardboard/Swizzle_1.outputs:out>
+                color3f inputs:fg.connect = </Root/Cube/CorrugatedCardboard/Multiply_1.outputs:out>
+                float inputs:mix.connect = </Root/Cube/CorrugatedCardboard/Swizzle.outputs:out>
+                float2 ui:nodegraph:node:size = (109, 145)
+            }
+
+            over "Swizzle_1"
+            {
+                color4f inputs:in.connect = </Root/Cube/CorrugatedCardboard/BaseColor.outputs:out>
+                float2 ui:nodegraph:node:size = (145.5, 53)
+            }
+
+            over "Swizzle"
+            {
+                color4f inputs:in.connect = </Root/Cube/CorrugatedCardboard/BaseColor.outputs:out>
+                float2 ui:nodegraph:node:size = (133.5, 40)
+            }
+
+            over "Multiply_1"
+            {
+                color3f inputs:in1.connect = </Root/Cube/CorrugatedCardboard.inputs:Basecolor_Tint>
+                color3f inputs:in2.connect = </Root/Cube/CorrugatedCardboard/Swizzle_1.outputs:out>
+                float2 ui:nodegraph:node:size = (60, 36)
+            }
+
+            over "Dot"
+            {
+                float2 inputs:in.connect = </Root/Cube/CorrugatedCardboard.inputs:UV_Scale>
+                float2 ui:nodegraph:node:size = (44, 18)
+            }
+
+            over "multiply"
+            {
+                float3 inputs:in1.connect = </Root/Cube/CorrugatedCardboard/Normal.outputs:out>
+                float2 ui:nodegraph:node:size = (60, 36)
+            }
+
+            over "add"
+            {
+                float3 inputs:in1.connect = </Root/Cube/CorrugatedCardboard/multiply.outputs:out>
+                float2 ui:nodegraph:node:size = (61.5, 36.5)
+            }
+
+            over "Metallic"
+            {
+                float2 inputs:uvtiling.connect = </Root/Cube/CorrugatedCardboard/Dot.outputs:out>
+                float2 ui:nodegraph:node:size = (158.5, 235)
+            }
+
+            over "Normal"
+            {
+                float2 inputs:uvtiling.connect = </Root/Cube/CorrugatedCardboard/Dot.outputs:out>
+                float2 ui:nodegraph:node:size = (158.5, 235)
+            }
+
+            over "PreviewSurface"
+            {
+                color3f inputs:diffuseColor.connect = </Root/Cube/CorrugatedCardboard/Mix.outputs:out>
+                float inputs:metallic.connect = </Root/Cube/CorrugatedCardboard/Metallic.outputs:out>
+                float3 inputs:normal.connect = </Root/Cube/CorrugatedCardboard/add.outputs:out>
+                float inputs:opacity = 0.7
+                float inputs:roughness.connect = </Root/Cube/CorrugatedCardboard/Roughness.outputs:out>
+                float2 ui:nodegraph:node:size = (148.5, 199)
+                int ui:nodegraph:node:stackingOrder = 2287
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:opacity"]
+            }
+
+            over "BaseColor"
+            {
+                float2 inputs:uvtiling.connect = </Root/Cube/CorrugatedCardboard/Dot.outputs:out>
+                float2 ui:nodegraph:node:size = (158.5, 235)
+            }
+
+            over "Roughness"
+            {
+                float2 inputs:uvtiling.connect = </Root/Cube/CorrugatedCardboard/Dot.outputs:out>
+                float2 ui:nodegraph:node:size = (158.5, 235)
+            }
+        }
+    }
+}
+

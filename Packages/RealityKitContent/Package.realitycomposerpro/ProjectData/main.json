@@ -5,6 +5,7 @@
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/AudioController.usda" : "7F24CE4F-02EA-4BA6-BBE2-70104CF09DF6",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/basicBlock.usda" : "12D6045B-B436-4EE4-A86B-51C62028ED36",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/basicBlockPlacer.usda" : "A9B30A05-4859-46E5-8562-B49861E980B4",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/basicBlockView.usda" : "84B71130-F0C0-4960-855D-3A9D49130652",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/BisonRoar.usdz" : "931E2740-5C35-4448-838A-B6C9A0DF326A",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/blockParticle.usda" : "3A819B04-BF7D-461A-B581-235F4759B650",
@@ -53,9 +54,11 @@
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/shopFrame.usdc" : "76B5A3E0-6C97-46C5-BA87-F2ABBDDE874E",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/SmoothConcrete 1.usdz" : "804D38AF-083D-43BD-B6FD-BC2B02866E33",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/stoneBlock.usda" : "DAA4E13F-A5D4-49B1-93E6-292FCCEC3B3A",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/stoneBlockPlacer.usda" : "D2728FDB-3005-4EB7-84D9-7CFF1F7F582C",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/tent.usdc" : "05D54195-3517-451B-9CB0-A5423279FEE1",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Untitled Scene.usda" : "FF04B207-8F35-4ADF-A241-F46CE15CD734",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Untitled%20Scene%201.usda" : "2A988C4E-0F84-467A-89E2-1C5A40D1DC03",
-    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/woodBlock.usda" : "D34D8DDD-7068-4331-B8DE-8A2EEDA37E95"
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/woodBlock.usda" : "D34D8DDD-7068-4331-B8DE-8A2EEDA37E95",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/woodBlockPlacer.usda" : "B56F76CC-73F2-42DE-A22C-49D189011902"
   }
 }
