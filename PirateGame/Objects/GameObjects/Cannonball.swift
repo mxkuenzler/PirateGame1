@@ -59,7 +59,7 @@ class Cannonball: Object {
         if HP <= 0 {
             manager?.unregisterObject(object: self)
         }
-        print("Ball Health: \(HP)")
+
     }
     
     func damageBlock(obj: Object) {

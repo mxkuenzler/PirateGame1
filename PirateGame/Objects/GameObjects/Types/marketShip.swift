@@ -20,17 +20,19 @@ class MarketShip: Object {
     }
     
     override func onRegister() {
-                
-        for i in 0...2 {
-            Task {
+        Task {
+            for i in 0...2 {
                 let card = await manager!.pickRandomCard()
                 cards.append(card)
-                
+            }
+            for i in 0...2 {
+                let card = cards[i]
                 card.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5 * Float((1-i))))
-                
                 manager?.registerObject(object: card)
-                await card.getEntity()?.components.set(InputTargetComponent())
-                await card.getEntity()?.components.set(HoverEffectComponent())
+            }
+            for i in 0...2 {
+                await cards[i].getEntity()?.components.set(InputTargetComponent())
+                await cards[i].getEntity()?.components.set(HoverEffectComponent())
             }
         }
         
@@ -38,9 +40,13 @@ class MarketShip: Object {
     
     override func onUnregister() {
         for i in 0...2 {
+            cards[i].getEntity()?.components.removeAll()
+        }
+        Thread.sleep(forTimeInterval: 0.5)
+        for i in 0...2 {
             manager?.unregisterObject(object: cards[i])
         }
-        cards.removeAll()
+        cards = Array()
     }
     
 }

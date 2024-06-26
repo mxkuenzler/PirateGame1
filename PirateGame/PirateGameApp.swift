@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 var Manager:GameManager?
 var levelManager:LevelManager?
 let cardboardSpawn = SIMD3<Float>(-1, 3, -1)
@@ -19,7 +20,7 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
     //MARK: IMPORTANT VARIABLES
     var onHomescreen = true
     var vec = Vector3D(x:0,y:0,z:0)
-    var cards:[GameCard]? 
+    var cards:[GameCard]?
     var progressTime = 0.0
     var coins = 10000
     var shells:Int = getShellsFromKeychain()
@@ -48,7 +49,12 @@ let stoneSpawn = SIMD3<Float>(1, 3, -1)
     //MARK: ADDITIVES
     var difficulty:Float = 1
     
+    //MARK: EFFECT
+    var cannonballEffect:CannonballEffect = CannonballEffect()
+    var blockEffect:BlockEffect = BlockEffect()
     
+    //MARK: HISTORIC OBJECTS
+    var historicObjects:[Object] = Array()
 }
 
 var keeper = Country()

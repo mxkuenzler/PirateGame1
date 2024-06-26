@@ -106,16 +106,7 @@ class PirateShip: Object {
 
 func playEffect(pos : SIMD3<Float>, angle: Float) async {
     
-    let effect = await CannonballEffect(pos: pos, angle:angle) //MAKE THIS SHIP EFFECT
-    getManager()?.registerObject(object: effect)
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        Task.init {
-            if getManager()?.keeper.isGameActive == true {
-                getManager()?.unregisterObject(object:effect)
-            }
-        }
-    }
+    keeper.cannonballEffect.playEffect(pos: pos, angle: angle, axes: [0,1,0])
     
 }
     

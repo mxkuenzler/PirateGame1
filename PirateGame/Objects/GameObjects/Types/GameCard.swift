@@ -44,7 +44,7 @@ class GameCard:Object {
 class DoubleCannonballCard:GameCard {
     init() async {
         await super.init(cardID: .DOUBLE_CANNONBALLS, EntityName:"GameCard") {
-            print("double balls")
+            print("double")
         }
     }
 }
@@ -52,7 +52,7 @@ class DoubleCannonballCard:GameCard {
 class LargeCannonballCard:GameCard {
     init() async {
         await super.init(cardID: .LARGE_CANNONBALLS, EntityName:"GameCard") {
-            print("large balls")
+            print("large")
         }
     }
 }

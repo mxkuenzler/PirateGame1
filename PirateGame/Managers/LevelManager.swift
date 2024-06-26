@@ -21,11 +21,11 @@ class LevelManager
             case 1:
                 return Level(levelNum: num, duration: 3, amount: 40, reward: 25)
             case 2:
-                return Level(levelNum: num, duration: 20, amount: 8, reward: 50)
+                return Level(levelNum: num, duration: 3, amount: 8, reward: 50)
             case 3:
-                return Level(levelNum: num, duration: 23, amount: 10, reward: 55)
+                return Level(levelNum: num, duration: 3, amount: 10, reward: 55)
             case 4:
-                return Level(levelNum: num, duration: 20, amount: 12, reward: 70)
+                return Level(levelNum: num, duration: 3, amount: 12, reward: 70)
             case 5:
                 return Level(levelNum: num, duration: 3, amount: 10, reward: 30)
             case 6:

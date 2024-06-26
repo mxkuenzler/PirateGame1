@@ -88,67 +88,28 @@ func connectBlocks(a: Object, b: Object) {
         let xPos = (a.getPosition()?.x)!
         let yPos = (a.getPosition()?.y)!
         let zPos = (a.getPosition()?.z)!
-
+        let be = keeper.blockEffect
         Task{
             if !isEmptySpace(pos: SIMD3<Float>(xPos - blockSize/2, yPos, zPos), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(blockSize/4, 0, 0))
-                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                    manager?.unregisterObject(object: be)
-                }
+                be.playEffect(pos: nop - SIMD3<Float>(blockSize/4, 0, 0), angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos + blockSize/2 , yPos, zPos), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(-blockSize/4, 0, 0))
-                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                        manager?.unregisterObject(object: be)
-                }
-                
+                be.playEffect(pos: nop - SIMD3<Float>(-blockSize/4, 0, 0), angle: 1.571, axes: SIMD3<Float>(0, 0, 1))
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos - blockSize/2, zPos), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, blockSize/4, 0))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                        manager?.unregisterObject(object: be)
-                }
-                
+                be.playEffect(pos: nop - SIMD3<Float>(0,blockSize/4, 0), angle: 0, axes: SIMD3<Float>(0, 1, 0))
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos + blockSize/2, zPos), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, -blockSize/4, 0))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                        manager?.unregisterObject(object: be)
-                }
-                
+                be.playEffect(pos: nop - SIMD3<Float>(0,-blockSize/4, 0), angle: 0, axes: SIMD3<Float>(0, 1, 0))
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos, zPos - blockSize/2), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, blockSize/4))
-                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                        manager?.unregisterObject(object: be)
-                    }
-                
+                be.playEffect(pos: nop - SIMD3<Float>(0,0,blockSize/4), angle: 0, axes: SIMD3<Float>(1, 0, 0))
                 
             }
             if !isEmptySpace(pos: SIMD3<Float>(xPos, yPos, zPos + blockSize/2), ignore: ent){
-                let be = await BlockEffect(pos: nop - SIMD3<Float>(0, 0, -blockSize/4))
-                be.setOrientation(angle: 1.571, axes: SIMD3<Float>(1, 0, 0))
-                manager?.registerObject(object: be)
-                await be.playAudio()
-                gameTask(delay:1) {
-                        manager?.unregisterObject(object: be)
-                    }
-                
-                
+                be.playEffect(pos: nop - SIMD3<Float>(0,0,-blockSize/4), angle: 0, axes: SIMD3<Float>(1, 0, 0))
             }
+            
         }
         
         
@@ -187,11 +148,11 @@ func distanceBetween(a: SIMD3<Float>, b: SIMD3<Float>) -> Float {
 }
 
 func getTimes(intervals : Int, time:Float) async -> Array<Float> {
-    var arr = Array<Float>(repeating: 0, count: intervals)
+    var arr = Array<Float>(repeating: 0.01, count: intervals)
     var currentTime = time
     while(currentTime > 0) {
         
-        let Rand = Float.random(in: 0...0.5)
+        let Rand = Float.random(in: 0...time/Float((intervals*10)))
         if currentTime > Rand {
             arr[Int.random(in: 0...intervals-1)] += Rand
             currentTime = currentTime - Rand

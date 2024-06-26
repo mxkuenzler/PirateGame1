@@ -25,6 +25,8 @@ class GameManager {
     public var cardDeck:[GameCardID]
     public var keeper:Country
     
+    let queue = DispatchQueue.global()
+    
     init(rContent: RealityViewContent?, lighting:EnvironmentResource?, audioController:Entity?, keeper:Country) async {
         
         self.keeper = keeper
@@ -38,23 +40,23 @@ class GameManager {
         
     }
     
-
     
-//    func registerObject(object: Shop) {
-//        object.initiateLighting(IBL: lighting!)
-//        if object.getID() != ID.EFFECT {
-//            object.initiatePhysicsBody()
-//        }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-//            Task.init {
-//                self.rContent?.add(object.getEntity()!)
-//                self.objectList.append(object)
-//            }
-//        }
-//        registerObject(object: object.gameButton!)
-//        object.gameButton!.setPosition(pos: SIMD3<Float>(0,object.buttonOffset,0))
-//    }
-//    
+    
+    //    func registerObject(object: Shop) {
+    //        object.initiateLighting(IBL: lighting!)
+    //        if object.getID() != ID.EFFECT {
+    //            object.initiatePhysicsBody()
+    //        }
+    //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+    //            Task.init {
+    //                self.rContent?.add(object.getEntity()!)
+    //                self.objectList.append(object)
+    //            }
+    //        }
+    //        registerObject(object: object.gameButton!)
+    //        object.gameButton!.setPosition(pos: SIMD3<Float>(0,object.buttonOffset,0))
+    //    }
+    //
     
     func setupCardDeck() {
         //ADD ALL CARDS HERE
@@ -73,53 +75,79 @@ class GameManager {
         }
     }
     
-
+    
     func registerObject(object: Object) {
+        keeper.historicObjects.append(object)
         object.initiateLighting(IBL: lighting!)
         if object.getID() != ID.EFFECT {
             object.initiatePhysicsBody()
         }
         gameTask() {
             
-        self.rContent?.add(object.getEntity()!)
-        self.objectList.append(object)
-        object.onRegister()
+            self.rContent?.add(object.getEntity()!)
+            self.objectList.append(object)
+            object.onRegister()
         }
     }
     
     func partialRegisterObject(object: Object) {
+        keeper.historicObjects.append(object)
         self.objectList.append(object)
     }
     
     func unregisterObject(object: Object) {
-        
-        let count = 0...objectList.count-1
-        
-        for i in count {
-            if(objectList[i] == object) {
-                let obj = objectList[i]
-                obj.getEntity()?.removeFromParent()
-                objectList.remove(at: i)
-                obj.onUnregister()
-                return
-                
+        queue.sync {
+            let count = 0..<self.objectList.count
+            for i in count {
+                if let entity = self.objectList[i].getEntity(), entity == object.getEntity() {
+                    
+                    self.objectList.remove(at: i)
+                    object.onUnregister()
+                    
+                    if let rContentEntity = object.getEntity() {
+                        self.rContent?.remove(rContentEntity)
+                    }
+                    break
+                }
             }
         }
-        
-        
     }
+
+    
+// func unregisterObject(object: Object) {
+//        queue.sync {
+//            let count = 0...objectList.count-1
+//            for i in count {
+//                if(objectList[i].getEntity() == object.getEntity()) {
+////                    print(object.getEntity()?.parent?.name)
+//                    objectList.remove(at: i)
+//                    object.onUnregister()
+////                    print("compared: \(obj.getEntity()?.name) to \(object.getEntity()?.name)")
+////                    print("compared: \(obj.getEntity()?.hashValue) to \(object.getEntity()?.hashValue)")
+////                    print(object.getEntity()?.parent?.hashValue)
+////                    print(object.getEntity()?.parent?.name)
+//
+////                    object.getEntity()?.removeFromParent()
+//                    self.rContent?.remove(object.getEntity()!)
+//                    break
+//                }
+//            }
+//        }
+//
+//    }
     
     func findObject(model: Entity) -> Object? {
-        let count = 0...objectList.count-1
         var obj:Object?
-        for i in count {
-            if(objectList[i].getEntity() == model) {
-                
-                obj = objectList[i]
-                
+        queue.sync {
+            let count = 0...objectList.count-1
+            for i in count {
+                if(objectList[i].getEntity() == model) {
+                    
+                    obj = objectList[i]
+                    
+                }
             }
         }
-        
         return obj
     }
     
@@ -166,7 +194,7 @@ class GameManager {
             await pirateShip?.shootCannonBalls(amount: level.getBallAmount(), time: level.getDuration())
         }
         
-        gameTask(delay:Double(levelDuration) + Double(5)) {
+        gameTask(delay:Double(levelDuration) + Double(3)) {
             self.IsLevelActive = false
         }
         
@@ -218,13 +246,16 @@ class GameManager {
     func setGameLocation(a:gameLocation, vec: inout Vector3D) {
         gameLocation = a
         vec = a.vector3D
-        print(vec)
     }
     
     func pickRandomCard() async -> GameCard {
         let index = Int.random(in: 0...keeper.availableCards.count-1)
         let card = await getCardFromID(ID:keeper.availableCards[index])
         return card
+    }
+    
+    func getContent() -> RealityViewContent? {
+        return rContent
     }
     
 }

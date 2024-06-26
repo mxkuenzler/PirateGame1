@@ -48,7 +48,7 @@ class IslandFloor: Floor {
         
         super.init(Model: FloorModel!, id: ID.ISLAND_FLOOR)
         
-        await playAudio()
+        //await playAudio()
     }
     func playAudio() async {
         let fileName = "/Root/AmbientAudio/AtmospheresOcean"

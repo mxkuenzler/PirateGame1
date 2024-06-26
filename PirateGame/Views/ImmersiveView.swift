@@ -32,6 +32,7 @@ struct ImmersiveView: View {
     var body: some View {
             
         RealityView { content, attachments in
+            keeper.historicObjects = Array()
             keeper.isGameActive = true
             keeper.gameCount += 1
             rContent = content
@@ -40,7 +41,7 @@ struct ImmersiveView: View {
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                 content.add(immersiveContentEntity)
                 
-                // Add an ImageBasedLight for the immersive content
+//                 Add an ImageBasedLight for the immersive content
                 guard let ImageBasedLight = try? await EnvironmentResource(named: "ImageBasedLight") else { return }
                 lighting = ImageBasedLight
                 let iblComponent = ImageBasedLightComponent(source: .single(lighting!), intensityExponent: 0.25)
@@ -110,13 +111,13 @@ struct ImmersiveView: View {
 //                    await keeper.cards!.append(GameCard(cardID: ID.NIL, action: {}))
 //                }
 //                getManager()?.setCards(cards: &keeper.cards)
-//                
+//
 //                let card0 = await GameCard()
 //                let card1 = await GameCard()
 //                let card2 = await GameCard()
 //
 //                let scale:Float = 0.25
-//            
+//
 //                card0.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
 //                card1.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
 //                card2.getEntity()?.scale = SIMD3<Float>(scale,scale,scale)
@@ -124,15 +125,15 @@ struct ImmersiveView: View {
 //                getManager()?.registerObject(object: card0)
 //                getManager()?.registerObject(object: card1)
 //                getManager()?.registerObject(object: card2)
-//                                
+//
 //                card0.getEntity()?.scale = SIMD3<Float>(0,0,0)
 //                card1.getEntity()?.scale = SIMD3<Float>(0,0,0)
 //                card2.getEntity()?.scale = SIMD3<Float>(0,0,0)
-//                
+//
 //                card0.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:-0.5))
 //                card1.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0))
 //                card2.setPosition(pos: SIMD3<Float>(x:-8.2,y:0.5,z:0.5))
-//      
+//
 //                card0.getEntity()?.components.set(InputTargetComponent())
 //                card0.getEntity()?.components.set(HoverEffectComponent())
 //                card1.getEntity()?.components.set(InputTargetComponent())
@@ -184,13 +185,20 @@ struct ImmersiveView: View {
                 if entity?.getID() == ID.PHYSICAL_CARD {
                     print("card")
                     let card = entity! as! GameCard
+                    print("card1")
                     Task {
+                        print("card1")
                         await card.act()
+                        print("card2")
                         await manager?.endIntermission()
+                        print("card3")
                         keeper.activeCards.append(card)
+                        print("card4")
                         if card.canObtainOnce {
+                            print("card4.5")
                             removeFromAvailableCards(card:card)
                         }
+                        print("card5")
                     }
                 }
                 

@@ -14,7 +14,7 @@ class Flag: Object {
     
     
     
-    var HP = 50
+    var HP = 5001
     
     init() async{
         let FlagModel = try? await Entity(named: "Flag", in: realityKitContentBundle)
@@ -31,7 +31,6 @@ class Flag: Object {
         HP -= ball.HP
         if HP <= 0 {
             manager?.unregisterObject(object: self)
-            print("You Lost")
             manager?.keeper.isGameActive = false
             manager?.keeper.gameCount += 1
 

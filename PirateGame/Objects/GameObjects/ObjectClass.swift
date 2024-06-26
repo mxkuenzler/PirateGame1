@@ -16,13 +16,21 @@ class Object {
     private var ID:ID?
     
     init(Entity: Entity, ID: ID) {
-        self.Entity =  Entity.children.first?.children.first
+        self.Entity =  Entity.children.first?.children.first?.clone(recursive: true)
         self.ID = ID
     }
     
     init(ModelEntity: ModelEntity, ID: ID) {
         self.Entity = ModelEntity as Entity
         self.ID = ID
+    }
+    
+    init(EntityName:String, ID:ID) {
+        Task {
+            let entity = try? await RealityFoundation.Entity(named: EntityName, in: realityKitContentBundle)
+            self.Entity = entity
+            self.ID = ID
+        }
     }
     
     func spawnObject(rContent: RealityViewContent?, lighting:EnvironmentResource? ,position:SIMD3<Float>) {

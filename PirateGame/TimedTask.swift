@@ -21,11 +21,9 @@ class gameTask {
     
     init(delay: Float, action: @escaping () -> Void) {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true  && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
                     action()
                 }
             }
@@ -34,11 +32,9 @@ class gameTask {
     
     init(delay: Double, action: @escaping () -> Void) {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
                     action()
                 }
             }
@@ -47,12 +43,9 @@ class gameTask {
     
     init(delay: Int, action: @escaping () -> Void) {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
-
                     action()
                 }
             }
@@ -74,11 +67,9 @@ class gameTask {
     
     init(delay: Float, action: @escaping () async -> Void)  {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
 
                     await action()
                 }
@@ -88,12 +79,9 @@ class gameTask {
     
     init(delay: Double, action: @escaping () async -> Void) {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
-
                     await action()
                 }
             }
@@ -102,12 +90,9 @@ class gameTask {
     
     init(delay: Int, action: @escaping () async -> Void) {
         let current = getManager()?.keeper.gameCount
-        print(current)
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(delay)) {
             Task.init{
                 if getManager()?.keeper.isGameActive == true && current == getManager()?.keeper.gameCount {
-                    print(getManager()?.keeper.gameCount)
-
                     await action()
                 }
             }
